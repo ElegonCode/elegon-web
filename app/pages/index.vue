@@ -117,11 +117,10 @@ const items = ref<AccordionItem[]>([
         <p class="text-neutral-600 dark:text-neutral-400">Elegon is currently in open development, meaning you’re welcome to join the 24/7 Steam playtest and help shape the game with your feedback. Once the game reaches version 1.0, development will continue as the world expands and evolves.</p>
       </div>
 
-      <div class="bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg flex overflow-hidden">
-        <div class="flex w-[140] h-78.75">
+      <div class="bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg flex flex-col lg:flex-row overflow-hidden">
+        <div class="flex flex-1">
             <iframe 
-            width="560" 
-            height="315" 
+            width="100%"
             src="https://www.youtube.com/embed/videoseries?list=PLcd5IWpvYJ8Q6G1l0s4IiyWWPK5RvlLln"
             title="YouTube playlist"
             frameborder="0"
