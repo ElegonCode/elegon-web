@@ -102,7 +102,7 @@ const items = computed<NavigationMenuItem[]>(() => [
               <NuxtPage />
           </NuxtLayout>
         </UMain>
-        <UFooter class="p-4 border-t border-neutral-400 text-sm">
+        <UFooter class="p-4 bg-neutral-100 dark:bg-neutral-950 text-sm">
           © 2026 Elegon. Solo-developed with passion. All rights reserved.
         </UFooter>
   </UApp>
