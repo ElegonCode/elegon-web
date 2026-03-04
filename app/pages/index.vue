@@ -118,8 +118,7 @@ const items = ref<AccordionItem[]>([
       </div>
 
       <div class="bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg flex overflow-hidden">
-        <div class="flex">
-          <div class="w-[140] h-78.75">
+        <div class="flex w-[140] h-78.75">
             <iframe 
             width="560" 
             height="315" 
@@ -129,7 +128,6 @@ const items = ref<AccordionItem[]>([
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
-          </div>
         </div>
         <div class="flex flex-1 p-4 flex-col">
           <h2 class="text-4xl font-bold mb-4">Weekly Devlogs</h2>
