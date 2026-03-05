@@ -34,13 +34,13 @@ const items = computed<NavigationMenuItem[]>(() => [
 
 <template>
   <UApp>
-    <UHeader title="Elegon">
+    <UHeader title="Elegon" :toggle="false">
             <UNavigationMenu :items="items" />
 
             <template #right>
             <UColorModeButton />
 
-            <UTooltip text="Open on YouTube">
+            <UTooltip text="Watch on YouTube">
                 <UButton
                 color="neutral"
                 variant="ghost"
@@ -50,7 +50,7 @@ const items = computed<NavigationMenuItem[]>(() => [
                 aria-label="YouTube"
                 />
             </UTooltip>
-            <UTooltip text="Open in Steam">
+            <UTooltip text="View our Steam page">
                 <UButton
                 color="neutral"
                 variant="ghost"
@@ -60,7 +60,7 @@ const items = computed<NavigationMenuItem[]>(() => [
                 aria-label="Steam"
                 />
             </UTooltip>
-            <UTooltip text="Open on Discord">
+            <UTooltip text="Join our Discord Server">
                 <UButton
                 color="neutral"
                 variant="ghost"
@@ -70,7 +70,7 @@ const items = computed<NavigationMenuItem[]>(() => [
                 aria-label="Discord"
                 />
             </UTooltip>
-            <UTooltip text="Open on Patreon">
+            <UTooltip text="Support me on Patreon">
                 <UButton
                 color="neutral"
                 variant="ghost"
@@ -80,7 +80,7 @@ const items = computed<NavigationMenuItem[]>(() => [
                 aria-label="Patreon"
                 />
             </UTooltip>
-            <UTooltip text="Open on KO-FI">
+            <UTooltip text="Support me on Ko-fi">
                 <UButton
                 color="neutral"
                 variant="ghost"
