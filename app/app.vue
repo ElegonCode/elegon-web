@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+import { Analytics } from '@vercel/analytics/nuxt';
 
 const route = useRoute()
 
@@ -94,6 +95,7 @@ const items = computed<NavigationMenuItem[]>(() => [
         </UHeader>
         <UMain>
           <NuxtLayout>
+              <Analytics />
               <NuxtPage />
           </NuxtLayout>
         </UMain>
