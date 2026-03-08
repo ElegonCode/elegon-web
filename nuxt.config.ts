@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
-    },
+      }
   },
   appConfig: {
       ui: {
