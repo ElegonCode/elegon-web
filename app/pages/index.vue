@@ -176,6 +176,7 @@ const items = ref<AccordionItem[]>([
           <p>Budget Jim</p>
           <p>Vuhdu</p>
           <p>Mudbrain</p>
+          <p>Otang</p>
         </UMarquee>
         <UMarquee class="w-full rounded-lg p-2 text-blue-500 mb-1">
           <p>Cody</p>
