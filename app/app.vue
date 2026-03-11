@@ -16,7 +16,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     active: route.hash == ('#about')
   },
   {
-    label: 'The Vision',
+    label: 'Vision',
     to: '#vision',
     active: route.hash == ('#vision')
   },
@@ -26,7 +26,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     active: route.hash == ('#faq')
   },
   {
-    label: 'Feedback Tracker',
+    label: 'Feedback',
     to: 'https://elegon.userjot.com/board',
     target: '_blank'
   },
