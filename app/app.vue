@@ -27,7 +27,12 @@ const items = computed<NavigationMenuItem[]>(() => [
   },
   {
     label: 'Feedback Tracker',
-    to: 'https://elegon.userjot.com/board/all?cursor=1&order=top&limit=10',
+    to: 'https://elegon.userjot.com/board',
+    target: '_blank'
+  },
+  {
+    label: 'Roadmap',
+    to: 'https://elegon.userjot.com/roadmap',
     target: '_blank'
   }
 ])
