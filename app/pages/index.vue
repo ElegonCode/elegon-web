@@ -74,10 +74,10 @@ const items = ref<AccordionItem[]>([
       <div id="home" class="grid md:grid-cols-2 gap-8 items-center">
         <div class="space-y-6">
           <div class="space-y-3">
-            <h1 class="text-4xl md:text-5xl font-bold text-neutral">
+            <h1 class="text-4xl md:text-5xl font-bold text-neutral alice-regular">
               Welcome to <span class="text-primary">Elegon</span>!
             </h1>
-            <p class="text-xl text-neutral-500">
+            <p class="text-xl text-neutral-500 alice-regular">
               An MMO-RPG inspired by the classics
             </p>
           </div>
@@ -106,8 +106,8 @@ const items = ref<AccordionItem[]>([
         </div>
       </div>
 
-      <div id="about" class="min-h-96 p-4 bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg">
-        <h2 class="text-4xl font-bold mb-4">About</h2>
+      <div id="about" class="min-h-96 p-4 rounded-lg text-lg">
+        <h2 class="text-4xl font-bold mb-4 alice-regular">About</h2>
         <p class="text-neutral-600 dark:text-neutral-400">Hey, I'm Keone, a solo developer building Elegon. I started this project because I’ve always been passionate about this genre, but in recent years I’ve felt that the number of truly compelling online worlds, ones that respect the time and effort of their players, has been fading.</p>
         <br/>
         <p class="text-neutral-600 dark:text-neutral-400">Elegon is an always-online, open-world MMORPG where you are not the chosen hero, but rather a small part of a much larger story.</p>
@@ -117,7 +117,7 @@ const items = ref<AccordionItem[]>([
         <p class="text-neutral-600 dark:text-neutral-400">Elegon is currently in open development, meaning you’re welcome to join the 24/7 Steam playtest and help shape the game with your feedback. Once the game reaches version 1.0, development will continue as the world expands and evolves.</p>
       </div>
 
-      <div class="bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg flex flex-col lg:flex-row overflow-hidden">
+      <div class="rounded-lg text-lg flex flex-col lg:flex-row overflow-hidden">
         <div class="flex flex-1">
             <iframe 
             width="100%"
@@ -129,14 +129,14 @@ const items = ref<AccordionItem[]>([
           </iframe>
         </div>
         <div class="flex flex-1 p-4 flex-col">
-          <h2 class="text-4xl font-bold mb-4">Weekly Devlogs</h2>
+          <h2 class="text-4xl font-bold mb-4 alice-regular">Weekly Devlogs</h2>
           <p class="text-neutral-600 dark:text-neutral-400">Follow the development of Elegon by subscribing to the YouTube channel, where I share weekly updates and behind-the-scenes devlogs about the progress of the game.</p>
           <p class="text-neutral-600 dark:text-neutral-400 mt-4">Developing Elegon openly with the community is really important to me. It gives me the opportunity to hear your real-time feedback and ideas, while also keeping you up to date with the latest progress as the world continues to grow.</p>
         </div>
       </div>
 
-      <div id="vision" class="min-h-96 p-4 bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg">
-        <h2 class="text-4xl font-bold mb-4">The Vision</h2>
+      <div id="vision" class="min-h-96 p-4 rounded-lg text-lg">
+        <h2 class="text-4xl font-bold mb-4 alice-regular">The Vision</h2>
 
         <p class="text-neutral-600 dark:text-neutral-400">The vision for Elegon is to create an online world inspired by the spirit of classic MMORPGs such as early World of Warcraft and other foundational RPGs that defined the genre. These games created worlds that felt meaningful, social, and rewarding to explore. Elegon aims to bring that feeling back while thoughtfully embracing modern ideas where they genuinely improve the experience.</p>
         <br/>
@@ -145,9 +145,9 @@ const items = ref<AccordionItem[]>([
         <p class="text-neutral-600 dark:text-neutral-400">Elegon is not intended to be a short-term project. It is a living world that will continue to grow and evolve for years to come. As a solo developer, this project is a huge personal passion of mine, and my goal is to build a world that players can invest in, return to, and feel a genuine part of.</p>
       </div>
 
-      <div class="p-4 bg-neutral-100 dark:bg-neutral-950 rounded-lg text-lg">
-        <h2 class="text-4xl font-bold mb-4">Patreon & Ko-fi Supporters 🖤</h2>
-        <UMarquee class="w-full rounded-lg p-2 text-orange-500 mb-1">
+      <div class="p-4 rounded-lg text-lg">
+        <h2 class="text-4xl font-bold mb-4 alice-regular">Patreon & Ko-fi Supporters 🖤</h2>
+        <UMarquee class="w-full rounded-lg p-2 text-orange-500 mb-1 alice-regular">
           <p>Jonathan</p>
           <p>Philip</p>
           <p>Snowflakex</p>
@@ -160,7 +160,7 @@ const items = ref<AccordionItem[]>([
           <p>Dustin</p>
           <p>Scotty</p>
         </UMarquee>
-        <UMarquee class="w-full rounded-lg p-2 text-purple-500 mb-1">
+        <UMarquee class="w-full rounded-lg p-2 text-purple-500 mb-1 alice-regular">
           <p>kaizen</p>
           <p>cflow</p>
           <p>Ein</p>
@@ -178,7 +178,7 @@ const items = ref<AccordionItem[]>([
           <p>Mudbrain</p>
           <p>Otang</p>
         </UMarquee>
-        <UMarquee class="w-full rounded-lg p-2 text-blue-500 mb-1">
+        <UMarquee class="w-full rounded-lg p-2 text-blue-500 mb-1 alice-regular">
           <p>Cody</p>
           <p>David</p>
           <p>River</p>
@@ -204,12 +204,12 @@ const items = ref<AccordionItem[]>([
         </UMarquee>
       </div>
 
-      <!-- <div id="features" class="min-h-96 p-4 bg-neutral-100 dark:bg-neutral-950 rounded-lg">
+      <!-- <div id="features" class="min-h-96 p-4 rounded-lg">
         <h2 class="text-4xl font-bold">Gameplay</h2>
       </div> -->
 
-      <div id="faq" class="min-h-96 p-4 bg-neutral-100 dark:bg-neutral-950 rounded-lg">
-        <h2 class="text-4xl font-bold mb-4">FaQ</h2>
+      <div id="faq" class="min-h-96 p-4 rounded-lg">
+        <h2 class="text-4xl font-bold mb-4 alice-regular">FaQ</h2>
 
         <UAccordion :items="items" />
       </div>
