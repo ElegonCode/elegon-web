@@ -41,6 +41,10 @@ const items = computed<NavigationMenuItem[]>(() => [
 <template>
   <UApp>
     <UHeader title="Elegon" :toggle="false">
+      <template #title>
+        <UAvatar class="h-9 rounded w-auto" src="images/logo.jpg" alt="Elegon" />
+      </template>
+
             <UNavigationMenu :items="items" />
 
             <template #right>

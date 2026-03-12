@@ -8,3 +8,11 @@
 html {
   scroll-behavior: smooth;
 }
+
+:root {
+  --ui-bg: var(--ui-color-neutral-50);
+}
+
+.dark {
+  --ui-bg: var(--ui-color-neutral-950);
+}

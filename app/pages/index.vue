@@ -68,14 +68,14 @@ const items = ref<AccordionItem[]>([
 </script>
 
 <template>
-  <div class="">
+  <div>
     <!-- Hero Section -->
     <UContainer class="py-12 md:py-20 flex flex-col space-y-10">
       <div id="home" class="grid md:grid-cols-2 gap-8 items-center">
         <div class="space-y-6">
           <div class="space-y-3">
             <h1 class="text-4xl md:text-5xl font-bold text-neutral">
-              Welcome to <span class="text-primary">Elegon</span>
+              Welcome to <span class="text-primary">Elegon</span>!
             </h1>
             <p class="text-xl text-neutral-500">
               An MMO-RPG inspired by the classics
@@ -101,7 +101,7 @@ const items = ref<AccordionItem[]>([
           <img 
             src="/images/banner.png" 
             alt="Elegon - MMO-RPG world" 
-            class="w-full rounded-lg shadow-2xl"
+            class="w-full rounded-lg shadow-2xl rotate-3 hover:rotate-1 transition-transform"
           />
         </div>
       </div>
