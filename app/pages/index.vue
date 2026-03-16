@@ -106,8 +106,8 @@ const items = ref<AccordionItem[]>([
         </div>
       </div>
 
-      <div id="about" class="min-h-96 p-4 rounded-lg text-lg">
-        <h2 class="text-4xl font-bold mb-4 alice-regular">About</h2>
+      <div id="about" class="min-h-96 py-4 rounded-lg text-lg">
+        <!-- <h2 class="text-4xl font-bold mb-4 alice-regular">About</h2> -->
         <p class="text-neutral-600 dark:text-neutral-400">Hey, I'm Keone, a solo developer building Elegon. I started this project because I’ve always been passionate about this genre, but in recent years I’ve felt that the number of truly compelling online worlds, ones that respect the time and effort of their players, has been fading.</p>
         <br/>
         <p class="text-neutral-600 dark:text-neutral-400">Elegon is an always-online, open-world MMORPG where you are not the chosen hero, but rather a small part of a much larger story.</p>
@@ -135,7 +135,7 @@ const items = ref<AccordionItem[]>([
         </div>
       </div>
 
-      <div id="vision" class="min-h-96 p-4 rounded-lg text-lg">
+      <div id="vision" class="min-h-96 py-4 rounded-lg text-lg">
         <h2 class="text-4xl font-bold mb-4 alice-regular">The Vision</h2>
 
         <p class="text-neutral-600 dark:text-neutral-400">The vision for Elegon is to create an online world inspired by the spirit of classic MMORPGs such as early World of Warcraft and other foundational RPGs that defined the genre. These games created worlds that felt meaningful, social, and rewarding to explore. Elegon aims to bring that feeling back while thoughtfully embracing modern ideas where they genuinely improve the experience.</p>
@@ -145,7 +145,7 @@ const items = ref<AccordionItem[]>([
         <p class="text-neutral-600 dark:text-neutral-400">Elegon is not intended to be a short-term project. It is a living world that will continue to grow and evolve for years to come. As a solo developer, this project is a huge personal passion of mine, and my goal is to build a world that players can invest in, return to, and feel a genuine part of.</p>
       </div>
 
-      <div class="p-4 rounded-lg text-lg">
+      <div class="py-4 rounded-lg text-lg">
         <h2 class="text-4xl font-bold mb-4 alice-regular">Patreon & Ko-fi Supporters 🖤</h2>
         <UMarquee class="w-full rounded-lg p-2 text-orange-500 mb-1 alice-regular">
           <p>Jonathan</p>
@@ -208,7 +208,7 @@ const items = ref<AccordionItem[]>([
         <h2 class="text-4xl font-bold">Gameplay</h2>
       </div> -->
 
-      <div id="faq" class="min-h-96 p-4 rounded-lg">
+      <div id="faq" class="min-h-96 py-4 rounded-lg">
         <h2 class="text-4xl font-bold mb-4 alice-regular">FaQ</h2>
 
         <UAccordion :items="items" />
