@@ -43,11 +43,10 @@ const items = computed<NavigationMenuItem[]>(() => [
     <UHeader title="Elegon" :toggle="false">
       <template #left>
         <NuxtLink to="/">
-          <!-- <AppLogo class="w-auto h-6 shrink-0" /> -->
-          <UAvatar class="h-9 shrink-0 rounded w-auto" src="images/logo.jpg" alt="Elegon" />
+          <AppLogo class="w-auto h-9 shrink-0 rounded" />
         </NuxtLink>
 
-        <TemplateMenu />
+        <!-- <TemplateMenu /> -->
       </template>
 
             <UNavigationMenu :items="items" />
