@@ -87,10 +87,10 @@ const items = ref<AccordionItem[]>([
               Step into a world where your progression matters and adventure awaits.
             </p>
             <div class="flex flex-wrap gap-3">
-              <UButton size="lg" color="primary" to="https://store.steampowered.com/app/4235360/Elegon/" target="_blank">
+              <UButton size="lg" icon="i-simple-icons-steam" color="primary" to="https://store.steampowered.com/app/4235360/Elegon/" target="_blank">
                 Wishlist on Steam
               </UButton>
-              <UButton size="lg" variant="outline" color="primary" to="https://discord.gg/4G32msBn7V" target="_blank">
+              <UButton size="lg" icon="i-simple-icons-discord" variant="outline" color="primary" to="https://discord.gg/4G32msBn7V" target="_blank">
                 Join the Community
               </UButton>
             </div>
@@ -101,7 +101,7 @@ const items = ref<AccordionItem[]>([
           <img 
             src="/images/banner.png" 
             alt="Elegon - MMO-RPG world" 
-            class="w-full rounded-lg shadow-2xl rotate-3 hover:rotate-1 transition-transform"
+            class="w-full rounded-lg shadow-2xl rotate-3"
           />
         </div>
       </div>
