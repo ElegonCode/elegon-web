@@ -201,6 +201,7 @@ const items = ref<AccordionItem[]>([
           <p>Shurkuris</p>
           <p>Kelrin</p>
           <p>Papa Leech</p>
+          <p>Philip</p>
         </UMarquee>
       </div>
 
