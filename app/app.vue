@@ -21,7 +21,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     active: route.hash == ('#vision')
   },
   {
-    label: 'FaQ',
+    label: 'FAQ',
     to: '#faq',
     active: route.hash == ('#faq')
   },

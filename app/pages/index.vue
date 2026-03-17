@@ -65,6 +65,65 @@ const items = ref<AccordionItem[]>([
     content: "Your support is greatly appreciated, but never required. If you'd like to support the project financially, you can become a member on Patreon or Ko-fi. If that’s not possible, that’s completely fine too, simply watching the devlogs on YouTube, participating in the playtest, and sharing feedback helps more than you might think."
   },
 ])
+
+const legendarySupporters = [
+  "Jonathan",
+  "Philip",
+  "Snowflakex",
+  "Travis",
+  "5ydney",
+  "Phoenix Prime",
+  "Kyle",
+  "Icebender",
+  "Systemsblue",
+  "Dustin",
+  "Scotty"
+]
+
+const epicSupporters = [
+  "kaizen",
+  "cflow",
+  "Ein",
+  "Shakey",
+  "David",
+  "Zexproof",
+  "Ryan",
+  "Dithemoira",
+  "Godson",
+  "H0verlord",
+  "Hansnois",
+  "Thomas",
+  "Budget Jim",
+  "Vuhdu",
+  "Mudbrain",
+  "Otang"
+]
+
+const rareSupporters = [
+  "Cody",
+  "David",
+  "River",
+  "Kabir",
+  "Radioactive Bullfrog",
+  "Toomees",
+  "kiiruGG",
+  "Edgardo",
+  "DeeZie TV",
+  "Mike",
+  "Stoutea",
+  "Daxxoz",
+  "James",
+  "kieran",
+  "Walt",
+  "Unrefined",
+  "Christof",
+  "Jerry",
+  "Headless",
+  "Shurkuris",
+  "Kelrin",
+  "Papa Leech",
+  "Philip H"
+]
 </script>
 
 <template>
@@ -148,69 +207,18 @@ const items = ref<AccordionItem[]>([
       <div class="py-4 rounded-lg text-lg">
         <h2 class="text-4xl font-bold mb-4 alice-regular">Patreon & Ko-fi Supporters 🖤</h2>
         <UMarquee class="w-full rounded-lg p-2 text-orange-500 mb-1 alice-regular">
-          <p>Jonathan</p>
-          <p>Philip</p>
-          <p>Snowflakex</p>
-          <p>Travis</p>
-          <p>5ydney</p>
-          <p>Phoenix Prime</p>
-          <p>Kyle</p>
-          <p>Icebender</p>
-          <p>Systemsblue</p>
-          <p>Dustin</p>
-          <p>Scotty</p>
+          <p v-for="supporter in legendarySupporters">{{ supporter }}</p>
         </UMarquee>
         <UMarquee class="w-full rounded-lg p-2 text-purple-500 mb-1 alice-regular">
-          <p>kaizen</p>
-          <p>cflow</p>
-          <p>Ein</p>
-          <p>Shakey</p>
-          <p>David</p>
-          <p>Zexproof</p>
-          <p>Ryan</p>
-          <p>Dithemoira</p>
-          <p>Godson</p>
-          <p>H0verlord</p>
-          <p>Hansnoise</p>
-          <p>Thomas</p>
-          <p>Budget Jim</p>
-          <p>Vuhdu</p>
-          <p>Mudbrain</p>
-          <p>Otang</p>
+          <p v-for="supporter in epicSupporters">{{ supporter }}</p>
         </UMarquee>
         <UMarquee class="w-full rounded-lg p-2 text-blue-500 mb-1 alice-regular">
-          <p>Cody</p>
-          <p>David</p>
-          <p>River</p>
-          <p>Kabir</p>
-          <p>Radioactive Bullfrog</p>
-          <p>Toomees</p>
-          <p>kiiruGG</p>
-          <p>Edgardo</p>
-          <p>DeeZie TV</p>
-          <p>Mike</p>
-          <p>Stoutea</p>
-          <p>Daxxoz</p>
-          <p>James</p>
-          <p>kieran</p>
-          <p>Walt</p>
-          <p>Unrefined</p>
-          <p>Christof</p>
-          <p>Jerry</p>
-          <p>Headless</p>
-          <p>Shurkuris</p>
-          <p>Kelrin</p>
-          <p>Papa Leech</p>
-          <p>Philip</p>
+          <p v-for="supporter in rareSupporters">{{ supporter }}</p>
         </UMarquee>
       </div>
 
-      <!-- <div id="features" class="min-h-96 p-4 rounded-lg">
-        <h2 class="text-4xl font-bold">Gameplay</h2>
-      </div> -->
-
       <div id="faq" class="min-h-96 py-4 rounded-lg">
-        <h2 class="text-4xl font-bold mb-4 alice-regular">FaQ</h2>
+        <h2 class="text-4xl font-bold mb-4 alice-regular">FAQ</h2>
 
         <UAccordion :items="items" />
       </div>
