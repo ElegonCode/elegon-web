@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { AccordionItem } from "@nuxt/ui";
 
+type PatreonTier = {
+    id: string;
+    label: string;
+    members: string[];
+    memberCount: number;
+};
+
 useHead({
     title: "Elegon",
     meta: [
@@ -72,74 +79,27 @@ const items = ref<AccordionItem[]>([
     {
         label: "How can I support the development of Elegon?",
         content:
-            "Your support is greatly appreciated, but never required. If you'd like to support the project financially, you can become a member on Patreon or Ko-fi. If that’s not possible, that’s completely fine too, simply watching the devlogs on YouTube, participating in the playtest, and sharing feedback helps more than you might think.",
+            "Your support is greatly appreciated, but never required. If you'd like to support the project financially, you can become a member on Patreon or Ko-fi. If that is not possible, that is completely fine too; simply watching the devlogs on YouTube, participating in the playtest, and sharing feedback helps more than you might think.",
     },
 ]);
 
-const legendarySupporters = [
-    "Jonathan",
-    "Philip",
-    "Snowflakex",
-    "Travis",
-    "5ydney",
-    "Phoenix Prime",
-    "Kyle",
-    "Icebender",
-    "Systemsblue",
-    "Dustin",
-    "Scotty",
+const supporterTierClasses = [
+    "text-orange-500",
+    "text-purple-500",
+    "text-blue-500",
 ];
 
-const epicSupporters = [
-    "kaizen",
-    "cflow",
-    "Ein",
-    "Shakey",
-    "David",
-    "Zexproof",
-    "Ryan",
-    "Dithemoira",
-    "Godson",
-    "H0verlord",
-    "Hansnois",
-    "Thomas",
-    "Budget Jim",
-    "Vuhdu",
-    "Mudbrain",
-    "Otang",
-];
-
-const rareSupporters = [
-    "Cody",
-    "David",
-    "River",
-    "Kabir",
-    "Radioactive Bullfrog",
-    "Toomees",
-    "kiiruGG",
-    "Edgardo",
-    "DeeZie TV",
-    "Mike",
-    "Stoutea",
-    "Daxxoz",
-    "James",
-    "kieran",
-    "Walt",
-    "Unrefined",
-    "Christof",
-    "Jerry",
-    "Headless",
-    "Shurkuris",
-    "Kelrin",
-    "Papa Leech",
-    "Philip H",
-    "A Patreon of the Ahts",
-];
+const {
+    data: patreonMembers,
+    pending: patreonPending,
+    error: patreonError,
+} = await useFetch<{ tiers: PatreonTier[] }>("/api/patreon-members", {
+    default: () => ({ tiers: [] }),
+});
 </script>
 
 <template>
     <div>
-        <!-- Hero Section -->
         <UContainer class="py-12 md:py-20 flex flex-col space-y-10">
             <div id="home" class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="space-y-6">
@@ -183,21 +143,22 @@ const rareSupporters = [
                     </div>
                 </div>
 
-                <div class="hidden md:block">
+                <div class="hidden md:block ambient-panel">
+                    <div class="ambient-shape ambient-shape-hero-a"></div>
+                    <div class="ambient-shape ambient-shape-hero-b"></div>
                     <img
                         src="/images/banner.png"
                         alt="Elegon - MMO-RPG world"
-                        class="w-full rounded-lg shadow-2xl rotate-3"
+                        class="relative z-10 w-full rounded-lg shadow-2xl rotate-3"
                     />
                 </div>
             </div>
 
             <div id="about" class="min-h-96 py-4 rounded-lg text-lg">
-                <!-- <h2 class="text-4xl font-bold mb-4 alice-regular">About</h2> -->
                 <p class="text-neutral-600 dark:text-neutral-400">
                     Hey, I'm Keone, a solo developer building Elegon. I started
-                    this project because I’ve always been passionate about this
-                    genre, but in recent years I’ve felt that the number of
+                    this project because I have always been passionate about this
+                    genre, but in recent years I have felt that the number of
                     truly compelling online worlds, ones that respect the time
                     and effort of their players, has been fading.
                 </p>
@@ -216,7 +177,7 @@ const rareSupporters = [
                 </p>
                 <br />
                 <p class="text-neutral-600 dark:text-neutral-400">
-                    Elegon is currently in open development, meaning you’re
+                    Elegon is currently in open development, meaning you are
                     welcome to join the 24/7 Steam playtest and help shape the
                     game with your feedback. Once the game reaches version 1.0,
                     development will continue as the world expands and evolves.
@@ -226,12 +187,15 @@ const rareSupporters = [
             <div
                 class="rounded-lg text-lg flex flex-col lg:flex-row overflow-hidden"
             >
-                <div class="flex flex-1">
+                <div class="flex flex-1 ambient-panel overflow-visible">
+                    <div class="ambient-shape ambient-shape-video-a"></div>
+                    <div class="ambient-shape ambient-shape-video-b"></div>
                     <iframe
                         width="100%"
                         src="https://www.youtube.com/embed/videoseries?list=PLcd5IWpvYJ8Q6G1l0s4IiyWWPK5RvlLln"
                         title="YouTube playlist"
                         frameborder="0"
+                        class="relative z-10 min-h-[260px] rounded-lg"
                         allow="
                             accelerometer;
                             autoplay;
@@ -301,25 +265,32 @@ const rareSupporters = [
 
             <div class="py-4 rounded-lg text-lg">
                 <h2 class="text-4xl font-bold mb-4 alice-regular">
-                    Patreon & Ko-fi Supporters 🖤
+                    Patreon Supporters
                 </h2>
-                <UMarquee
-                    class="w-full rounded-lg p-2 text-orange-500 mb-1 alice-regular"
+                <div v-if="patreonPending" class="text-neutral-500">
+                    Loading Patreon supporters...
+                </div>
+                <div
+                    v-else-if="patreonError"
+                    class="text-red-500 dark:text-red-400"
                 >
-                    <p v-for="supporter in legendarySupporters">
-                        {{ supporter }}
-                    </p>
-                </UMarquee>
-                <UMarquee
-                    class="w-full rounded-lg p-2 text-purple-500 mb-1 alice-regular"
-                >
-                    <p v-for="supporter in epicSupporters">{{ supporter }}</p>
-                </UMarquee>
-                <UMarquee
-                    class="w-full rounded-lg p-2 text-blue-500 mb-1 alice-regular"
-                >
-                    <p v-for="supporter in rareSupporters">{{ supporter }}</p>
-                </UMarquee>
+                    Patreon supporters are temporarily unavailable.
+                </div>
+                <div v-else class="space-y-1">
+                    <UMarquee
+                        v-for="(tier, index) in patreonMembers?.tiers ?? []"
+                        :key="tier.id"
+                        class="w-full rounded-lg p-2 mb-1 alice-regular"
+                        :class="supporterTierClasses[index] || 'text-neutral-500'"
+                    >
+                        <p
+                            v-for="supporter in tier.members"
+                            :key="`${tier.id}-${supporter}`"
+                        >
+                            {{ supporter }}
+                        </p>
+                    </UMarquee>
+                </div>
             </div>
 
             <div id="faq" class="min-h-96 py-4 rounded-lg">
