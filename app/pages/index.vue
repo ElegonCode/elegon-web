@@ -157,10 +157,10 @@ const {
             <div id="about" class="min-h-96 py-4 rounded-lg text-lg">
                 <p class="text-neutral-600 dark:text-neutral-400">
                     Hey, I'm Keone, a solo developer building Elegon. I started
-                    this project because I have always been passionate about this
-                    genre, but in recent years I have felt that the number of
-                    truly compelling online worlds, ones that respect the time
-                    and effort of their players, has been fading.
+                    this project because I have always been passionate about
+                    this genre, but in recent years I have felt that the number
+                    of truly compelling online worlds, ones that respect the
+                    time and effort of their players, has been fading.
                 </p>
                 <br />
                 <p class="text-neutral-600 dark:text-neutral-400">
@@ -281,7 +281,9 @@ const {
                         v-for="(tier, index) in patreonMembers?.tiers ?? []"
                         :key="tier.id"
                         class="w-full rounded-lg p-2 mb-1 alice-regular"
-                        :class="supporterTierClasses[index] || 'text-neutral-500'"
+                        :class="
+                            supporterTierClasses[index] || 'text-neutral-500'
+                        "
                     >
                         <p
                             v-for="supporter in tier.members"
