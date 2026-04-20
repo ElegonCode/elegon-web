@@ -100,22 +100,25 @@ const {
 
 <template>
     <div>
-        <UContainer class="py-12 md:py-20 flex flex-col space-y-10">
-            <div id="home" class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-6">
+        <section id="home" class="hero-banner-section">
+            <div class="hero-banner-media" aria-hidden="true"></div>
+            <div class="hero-banner-overlay" aria-hidden="true"></div>
+            <div class="hero-banner-fade" aria-hidden="true"></div>
+            <UContainer class="hero-banner-shell">
+                <div class="hero-banner-copy hero-banner-text space-y-6">
                     <div class="space-y-3">
                         <h1
-                            class="text-4xl md:text-5xl font-bold text-neutral alice-regular"
+                            class="text-4xl md:text-6xl font-bold text-white alice-regular"
                         >
                             Welcome to <span class="text-primary">Elegon</span>!
                         </h1>
-                        <p class="text-xl text-neutral-500 alice-regular">
+                        <p class="text-xl md:text-2xl text-white/75 alice-regular">
                             An MMO-RPG inspired by the classics
                         </p>
                     </div>
 
                     <div class="space-y-4">
-                        <p class="text-lg text-neutral-500">
+                        <p class="text-lg md:text-xl text-white/80 max-w-2xl">
                             Step into a world where your progression matters and
                             adventure awaits.
                         </p>
@@ -133,27 +136,20 @@ const {
                                 size="lg"
                                 icon="i-simple-icons-discord"
                                 variant="outline"
-                                color="primary"
+                                color="neutral"
                                 to="https://discord.gg/4G32msBn7V"
                                 target="_blank"
+                                class="hero-banner-outline-button"
                             >
                                 Join the Community
                             </UButton>
                         </div>
                     </div>
                 </div>
+            </UContainer>
+        </section>
 
-                <div class="hidden md:block ambient-panel">
-                    <div class="ambient-shape ambient-shape-hero-a"></div>
-                    <div class="ambient-shape ambient-shape-hero-b"></div>
-                    <img
-                        src="/images/banner.png"
-                        alt="Elegon - MMO-RPG world"
-                        class="relative z-10 w-full rounded-lg shadow-2xl rotate-3"
-                    />
-                </div>
-            </div>
-
+        <UContainer class="pb-12 md:pb-20 flex flex-col space-y-10">
             <div id="about" class="min-h-96 py-4 rounded-lg text-lg">
                 <p class="text-neutral-600 dark:text-neutral-400">
                     Hey, I'm Keone, a solo developer building Elegon. I started
