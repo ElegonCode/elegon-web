@@ -12,10 +12,14 @@ html {
 
 :root {
   --ui-bg: var(--ui-color-neutral-50);
+  --hero-banner-fade-start: rgba(255, 255, 255, 0);
+  --hero-banner-fade-mid: rgba(255, 255, 255, 0.52);
 }
 
 .dark {
   --ui-bg: var(--ui-color-neutral-950);
+  --hero-banner-fade-start: rgba(11, 15, 23, 0);
+  --hero-banner-fade-mid: rgba(11, 15, 23, 0.52);
 }
 
 .alice-regular {
@@ -98,8 +102,8 @@ html {
   height: 16rem;
   background: linear-gradient(
     180deg,
-    rgba(11, 15, 23, 0) 0%,
-    rgba(11, 15, 23, 0.52) 42%,
+    var(--hero-banner-fade-start) 0%,
+    var(--hero-banner-fade-mid) 42%,
     var(--ui-bg) 100%
   );
 }
