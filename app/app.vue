@@ -26,6 +26,10 @@ const items = computed<NavigationMenuItem[]>(() => [
     active: route.hash == "#faq",
   },
   {
+    label: "Changelog",
+    to: "/changelog",
+  },
+  {
     label: "Feedback",
     to: "https://elegon.userjot.com/board",
     target: "_blank",
@@ -33,11 +37,6 @@ const items = computed<NavigationMenuItem[]>(() => [
   {
     label: "Roadmap",
     to: "https://elegon.userjot.com/roadmap",
-    target: "_blank",
-  },
-  {
-    label: "Changelog",
-    to: "https://elegon.userjot.com/updates",
     target: "_blank",
   },
 ]);
