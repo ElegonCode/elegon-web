@@ -19,8 +19,10 @@ import v11Markdown from "../assets/changelog/11.md?raw";
 import v12Markdown from "../assets/changelog/12.md?raw";
 import v13Markdown from "../assets/changelog/13.md?raw";
 import v14Markdown from "../assets/changelog/14.md?raw";
+import v15Markdown from "../assets/changelog/15.md?raw";
 
 const changelogFiles = [
+  v15Markdown,
   v14Markdown,
   v13Markdown,
   v12Markdown,
@@ -75,10 +77,6 @@ const versions = await Promise.all(
         <div
           class="absolute -right-1/2 z-[-1] rounded-full bg-primary blur-[300px] size-60 sm:size-100 transform -translate-y-1/2 top-1/2"
         />
-      </template>
-
-      <template #headline>
-        <AppLogo class="w-auto h-6 shrink-0 text-highlighted rounded" />
       </template>
 
       <template #default />
