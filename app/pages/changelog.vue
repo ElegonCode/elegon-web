@@ -5,39 +5,20 @@ definePageMeta({
 
 import { parseMarkdown } from "@nuxtjs/mdc/runtime";
 
-import v1Markdown from "../assets/changelog/1.md?raw";
-import v2Markdown from "../assets/changelog/2.md?raw";
-import v3Markdown from "../assets/changelog/3.md?raw";
-import v4Markdown from "../assets/changelog/4.md?raw";
-import v5Markdown from "../assets/changelog/5.md?raw";
-import v6Markdown from "../assets/changelog/6.md?raw";
-import v7Markdown from "../assets/changelog/7.md?raw";
-import v8Markdown from "../assets/changelog/8.md?raw";
-import v9Markdown from "../assets/changelog/9.md?raw";
-import v10Markdown from "../assets/changelog/10.md?raw";
-import v11Markdown from "../assets/changelog/11.md?raw";
-import v12Markdown from "../assets/changelog/12.md?raw";
-import v13Markdown from "../assets/changelog/13.md?raw";
-import v14Markdown from "../assets/changelog/14.md?raw";
-import v15Markdown from "../assets/changelog/15.md?raw";
+const changelogFiles = Object.entries(
+  import.meta.glob<string>("../assets/changelog/*.md", {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  }),
+)
+  .sort(([a], [b]) => {
+    const versionA = Number(a.match(/\/(\d+)\.md$/)?.[1] ?? 0);
+    const versionB = Number(b.match(/\/(\d+)\.md$/)?.[1] ?? 0);
 
-const changelogFiles = [
-  v15Markdown,
-  v14Markdown,
-  v13Markdown,
-  v12Markdown,
-  v11Markdown,
-  v10Markdown,
-  v9Markdown,
-  v8Markdown,
-  v7Markdown,
-  v6Markdown,
-  v5Markdown,
-  v4Markdown,
-  v3Markdown,
-  v2Markdown,
-  v1Markdown,
-];
+    return versionB - versionA;
+  })
+  .map(([, markdown]) => markdown);
 
 const versions = await Promise.all(
   changelogFiles.map(async (markdown) => {
