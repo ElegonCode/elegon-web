@@ -81,7 +81,7 @@ const versions = await Promise.all(
           :authors="version.authors"
           :ui="{
             root: 'flex items-start',
-            container: 'max-w-xl min-w-0',
+            container: 'max-w-xl min-w-0 flex-1',
             header: 'border-b border-default pb-4',
             title: 'text-3xl',
             date: 'text-xs/9 text-highlighted font-mono',
