@@ -40,7 +40,7 @@ const versions = await Promise.all(
 <template>
   <div class="min-h-screen xl:grid xl:grid-cols-2 -mt-16">
     <UPageSection
-      title="Changelog"
+      title="Updates"
       description="View the latest updates for the elegon project! Updated everyday."
       orientation="vertical"
       :ui="{
