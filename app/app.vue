@@ -12,17 +12,17 @@ const items = computed<NavigationMenuItem[]>(() => [
   },
   {
     label: "About",
-    to: "#about",
+    to: "/#about",
     active: route.hash == "#about",
   },
   {
     label: "Vision",
-    to: "#vision",
+    to: "/#vision",
     active: route.hash == "#vision",
   },
   {
     label: "FAQ",
-    to: "#faq",
+    to: "/#faq",
     active: route.hash == "#faq",
   },
   {
