@@ -11,21 +11,15 @@ const changelogFiles = Object.entries(
     import: "default",
     query: "?raw",
   }),
-)
-  .sort(([a], [b]) => {
-    const versionA = Number(a.match(/\/(\d+)\.md$/)?.[1] ?? 0);
-    const versionB = Number(b.match(/\/(\d+)\.md$/)?.[1] ?? 0);
-
-    return versionB - versionA;
-  })
-  .map(([, markdown]) => markdown);
+);
 
 const versions = await Promise.all(
-  changelogFiles.map(async (markdown) => {
+  changelogFiles.map(async ([path, markdown]) => {
     const ast = await parseMarkdown(markdown);
+    const fileVersion = Number(path.match(/\/(\d+)\.md$/)?.[1] ?? 0);
 
     return {
-      id: ast.data.id,
+      id: ast.data.id ?? fileVersion,
       badge: ast.data.badge,
       title: ast.data.title,
       date: ast.data.date,
@@ -33,6 +27,17 @@ const versions = await Promise.all(
       body: ast.body,
       data: ast.data,
     };
+  }),
+).then((entries) =>
+  entries.sort((a, b) => {
+    const dateA = new Date(a.date ?? 0).getTime();
+    const dateB = new Date(b.date ?? 0).getTime();
+
+    if (dateA !== dateB) {
+      return dateB - dateA;
+    }
+
+    return Number(b.id ?? 0) - Number(a.id ?? 0);
   }),
 );
 </script>
