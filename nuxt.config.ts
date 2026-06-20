@@ -35,6 +35,13 @@ export default defineNuxtConfig({
       process.env.PATREON_TIER_3_LABEL ||
       process.env.NUXT_PATREON_TIER_3_LABEL ||
       "Rare Supporters",
+    public: {
+      spacetimeHost:
+        process.env.NUXT_PUBLIC_SPACETIME_HOST ||
+        "https://maincloud.spacetimedb.com",
+      spacetimeDatabase:
+        process.env.NUXT_PUBLIC_SPACETIME_DATABASE || "elegon",
+    },
   },
   app: {
     head: {
