@@ -24,4 +24,5 @@ export default __t.row({
   nextTickAtUnix: __t.i64().name("next_tick_at_unix"),
   tickIntervalMs: __t.i32().name("tick_interval_ms"),
   amount: __t.f32(),
+  sourceItemId: __t.i32().name("source_item_id"),
 });

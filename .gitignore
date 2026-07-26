@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+server/generated/changelog.json
 
 # Node dependencies
 node_modules

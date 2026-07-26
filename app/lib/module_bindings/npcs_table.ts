@@ -17,4 +17,8 @@ export default __t.row({
   modelPath: __t.string().name("model_path"),
   scale: __t.f32(),
   greetingText: __t.string().name("greeting_text"),
+  sexSelection: __t.i32().name("sex_selection"),
+  hairStyleSelection: __t.i32().name("hair_style_selection"),
+  hairColorSelection: __t.i32().name("hair_color_selection"),
+  role: __t.string(),
 });

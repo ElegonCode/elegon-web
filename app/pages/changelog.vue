@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { DbConnection, type SubscriptionHandle } from "~/lib/module_bindings";
-import type { ChangelogEntry } from "~/lib/module_bindings/types";
-
 definePageMeta({ layout: false });
 
-const config = useRuntimeConfig();
-const entries = ref<ChangelogEntry[]>([]);
-const isLoading = ref(true);
-const errorMessage = ref("");
-let connection: DbConnection | null = null;
-let subscription: SubscriptionHandle | null = null;
+type ChangelogEntry = {
+  id: number;
+  date: string;
+  description: string;
+};
+
+type ChangelogResponse = {
+  revision: string;
+  entries: ChangelogEntry[];
+};
+
+const {
+  data: changelog,
+  pending: isLoading,
+  error: changelogError,
+} = await useFetch<ChangelogResponse>("/api/changelog", {
+  key: "public-changelog",
+});
+const entries = computed(() => changelog.value?.entries ?? []);
 
 const groups = computed(() => {
   const byDate = new Map<string, ChangelogEntry[]>();
@@ -48,56 +58,6 @@ function friendlyDate(value: string) {
     timeZone: "UTC",
   }).format(dateAtUtcMidnight(value));
 }
-
-function refreshRows(db = connection) {
-  if (db) entries.value = Array.from(db.db.ChangelogEntries.iter());
-}
-
-function removeListeners() {
-  if (!connection) return;
-  connection.db.ChangelogEntries.removeOnInsert(refreshRows);
-  connection.db.ChangelogEntries.removeOnDelete(refreshRows);
-  connection.db.ChangelogEntries.removeOnUpdate(refreshRows);
-}
-
-onMounted(() => {
-  connection = DbConnection.builder()
-    .withUri(config.public.spacetimeHost)
-    .withDatabaseName(config.public.spacetimeDatabase)
-    .onConnect((db) => {
-      connection = db;
-      db.db.ChangelogEntries.onInsert(refreshRows);
-      db.db.ChangelogEntries.onDelete(refreshRows);
-      db.db.ChangelogEntries.onUpdate(refreshRows);
-      subscription = db
-        .subscriptionBuilder()
-        .onApplied(() => {
-          refreshRows(db);
-          isLoading.value = false;
-        })
-        .onError((ctx) => {
-          errorMessage.value = String(ctx.event);
-          isLoading.value = false;
-        })
-        .subscribe(["SELECT * FROM changelog_entries"]);
-    })
-    .onConnectError((_ctx, error) => {
-      errorMessage.value = error.message;
-      isLoading.value = false;
-    })
-    .onDisconnect((_ctx, error) => {
-      if (error) errorMessage.value = error.message;
-    })
-    .build();
-});
-
-onBeforeUnmount(() => {
-  removeListeners();
-  subscription?.unsubscribe();
-  subscription = null;
-  connection?.disconnect();
-  connection = null;
-});
 </script>
 
 <template>
@@ -125,11 +85,11 @@ onBeforeUnmount(() => {
     <section class="px-4 sm:px-6 xl:px-0 xl:-ms-30 xl:flex-1">
       <div v-if="isLoading" class="py-32 text-muted">Loading updates...</div>
       <UAlert
-        v-else-if="errorMessage"
+        v-else-if="changelogError"
         class="my-32 max-w-xl"
         color="error"
         title="Could not load updates"
-        :description="errorMessage"
+        :description="changelogError.message"
       />
       <UChangelogVersions
         v-else

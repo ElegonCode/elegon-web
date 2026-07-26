@@ -25,6 +25,7 @@ export default {
   maxHealth: __t.u64(),
   scale: __t.f32(),
   isAggressive: __t.bool(),
+  isBipedal: __t.bool(),
   respawnTime: __t.i32(),
   modelPath: __t.string(),
   attackSoundPath: __t.string(),

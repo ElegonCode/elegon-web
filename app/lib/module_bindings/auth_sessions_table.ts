@@ -21,4 +21,5 @@ export default __t.row({
   connectedAt: __t.timestamp().name("connected_at"),
   isQueued: __t.bool().name("is_queued"),
   queuePosition: __t.i32().name("queue_position"),
+  clientVersion: __t.i32().name("client_version"),
 });

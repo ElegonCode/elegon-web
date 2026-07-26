@@ -21,4 +21,7 @@ export default __t.row({
   deletedAt: __t.timestamp().name("deleted_at"),
   lastPlayed: __t.timestamp().name("last_played"),
   tag: __t.i32(),
+  skinToneSelection: __t.i32().name("skin_tone_selection"),
+  hairStyleSelection: __t.i32().name("hair_style_selection"),
+  hairColorSelection: __t.i32().name("hair_color_selection"),
 });

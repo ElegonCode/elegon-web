@@ -24,6 +24,10 @@ export default {
   sellPrice: __t.i32(),
   damage: __t.f32(),
   armor: __t.f32(),
+  consumableEffectType: __t.i32(),
+  consumableEffectAmount: __t.f32(),
+  consumableEffectDurationSeconds: __t.f32(),
+  consumableEffectTickIntervalSeconds: __t.f32(),
   slot: __t.string(),
   targetId: __t.string(),
 };

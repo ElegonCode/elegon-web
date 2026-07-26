@@ -12,4 +12,5 @@ import {
 
 export default {
   questId: __t.i32(),
+  selectedRewardItemId: __t.i32(),
 };

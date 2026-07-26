@@ -24,4 +24,5 @@ export default __t.row({
   grace: __t.i32(),
   alacrity: __t.i32(),
   tempo: __t.i32(),
+  accuracy: __t.i32(),
 });

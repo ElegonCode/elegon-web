@@ -12,4 +12,5 @@ import {
 
 export default {
   spellId: __t.u64(),
+  targetEntityId: __t.i32(),
 };

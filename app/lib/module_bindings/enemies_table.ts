@@ -27,4 +27,5 @@ export default __t.row({
   wanderRadius: __t.f32().name("wander_radius"),
   scale: __t.f32(),
   attackSoundPath: __t.string().name("attack_sound_path"),
+  isBipedal: __t.bool().name("is_bipedal"),
 });

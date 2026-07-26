@@ -14,5 +14,8 @@ export default {
   name: __t.string(),
   raceSelection: __t.i32(),
   sexSelection: __t.i32(),
+  skinToneSelection: __t.i32(),
   classSelection: __t.i32(),
+  hairStyleSelection: __t.i32(),
+  hairColorSelection: __t.i32(),
 };

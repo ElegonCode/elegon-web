@@ -3,11 +3,15 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "changelog:build": "node scripts/build-changelog.mjs",
+    "prebuild": "npm run changelog:build",
     "build": "nuxt build",
+    "predev": "npm run changelog:build",
     "dev": "nuxt dev",
+    "pregenerate": "npm run changelog:build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "npm run changelog:build && nuxt prepare"
   },
   "dependencies": {
     "@dargmuesli/nuxt-cookie-control": "^9.1.16",

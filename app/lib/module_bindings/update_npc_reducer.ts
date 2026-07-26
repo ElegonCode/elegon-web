@@ -21,5 +21,7 @@ export default {
   scale: __t.f32(),
   modelPath: __t.string(),
   greetingText: __t.string(),
+  role: __t.string(),
+  sexSelection: __t.i32(),
   targetId: __t.string(),
 };

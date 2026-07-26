@@ -15,4 +15,5 @@ export default __t.row({
   name: __t.string(),
   characterId: __t.u64().name("character_id"),
   size: __t.i32(),
+  isBank: __t.bool().name("is_bank"),
 });
