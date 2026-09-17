@@ -12,6 +12,11 @@ function options(binding: DirectiveBinding<RevealValue>) {
  * `v-reveal` animates an element in the first time it scrolls into view.
  * The attribute is rendered on the server so content is hidden before hydration
  * (only when JS is enabled, see `html.js` in main.css) and never flashes.
+ *
+ * The delay is deliberately client-only. It is only read by the `.is-revealed`
+ * animation, which cannot start before `mounted`, and rendering it as an inline
+ * style on the server made every element with its own `style` binding fail the
+ * hydration style check, since the client vnode never includes directive SSR props.
  */
 export default defineNuxtPlugin((nuxtApp) => {
   let observer: IntersectionObserver | undefined;
@@ -32,11 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const reveal: Directive<HTMLElement, RevealValue> = {
     getSSRProps(binding) {
-      const { delay, variant } = options(binding);
-      return {
-        "data-reveal": variant,
-        style: delay ? `--reveal-delay:${delay}ms` : undefined,
-      };
+      return { "data-reveal": options(binding).variant };
     },
     mounted(el, binding) {
       const { delay, variant } = options(binding);

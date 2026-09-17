@@ -60,7 +60,9 @@ const populatedTiers = computed(() =>
           <div
             class="tier__label flex shrink-0 items-center gap-4 px-6 py-5 md:w-72 md:border-r md:border-[color-mix(in_srgb,var(--rarity)_25%,transparent)]"
           >
-            <span class="tier__gem flex size-10 items-center justify-center">
+            <!-- shrink-0: in the fixed desktop column the long "Legendary" title otherwise squeezes the
+                 gem, and the rotated square behind the icon turns into a lopsided rhombus. -->
+            <span class="tier__gem flex size-10 shrink-0 items-center justify-center">
               <svg
                 v-if="tier.rarity.glyph"
                 :viewBox="tier.rarity.glyph.viewBox"
