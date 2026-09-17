@@ -69,6 +69,15 @@ export default defineNuxtConfig({
         { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
         { rel: "manifest", href: "/site.webmanifest" },
       ],
+      style: [
+        // Pin cascade layer order before any other CSS. In production, component styles are
+        // inlined ahead of Tailwind's stylesheet; without this, a component using
+        // `@layer components` would rank below Tailwind's `base` reset (e.g. losing padding).
+        {
+          innerHTML: "@layer theme, base, components, utilities;",
+          tagPriority: "critical",
+        },
+      ],
       script: [
         // Flags JS support before first paint so scroll-reveal content never flashes.
         {
