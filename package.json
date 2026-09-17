@@ -31,5 +31,13 @@
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.133",
     "@iconify-json/simple-icons": "^1.2.96"
+  },
+  "overrides": {
+    "@vercel/analytics": {
+      "vue-router": "$vue-router"
+    },
+    "@vercel/speed-insights": {
+      "vue-router": "$vue-router"
+    }
   }
 }
