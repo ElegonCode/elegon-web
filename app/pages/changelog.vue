@@ -21,6 +21,26 @@ const {
 });
 const entries = computed(() => changelog.value?.entries ?? []);
 
+const siteUrl = useSiteUrl();
+const description =
+  "Every Elegon patch note in one place: the latest fixes, improvements and new features added to the MMORPG's 24/7 Steam playtest.";
+
+useHead({ link: [{ rel: "canonical", href: `${siteUrl}/changelog` }] });
+useSeoMeta({
+  title: "Changelog & Patch Notes",
+  description,
+  ogType: "website",
+  ogSiteName: "Elegon",
+  ogUrl: `${siteUrl}/changelog`,
+  ogTitle: "Elegon Changelog & Patch Notes",
+  ogDescription: description,
+  ogImage: { url: `${siteUrl}/images/og-image.jpg`, width: 1200, height: 630, alt: SCREENSHOT.alt },
+  twitterCard: "summary_large_image",
+  twitterTitle: "Elegon Changelog & Patch Notes",
+  twitterDescription: description,
+  twitterImage: `${siteUrl}/images/og-image.jpg`,
+});
+
 const groups = computed(() => {
   const byDate = new Map<string, ChangelogEntry[]>();
   for (const entry of entries.value) {
@@ -61,26 +81,39 @@ function friendlyDate(value: string) {
 </script>
 
 <template>
-  <div class="min-h-screen xl:grid xl:grid-cols-2 -mt-16">
-    <UPageSection
-      title="Updates"
-      description="The latest Elegon fixes, improvements, and new features."
-      orientation="vertical"
-      :ui="{
-        root: 'border-b border-default xl:border-b-0 xl:sticky xl:inset-y-0 xl:h-screen overflow-hidden',
-        container: 'h-full items-center justify-center',
-        wrapper: 'flex flex-col',
-        headline: 'mb-6',
-        title: 'text-left text-4xl',
-        description: 'text-left max-w-lg',
-      }"
+  <div class="min-h-screen xl:grid xl:grid-cols-2">
+    <section
+      aria-labelledby="changelog-title"
+      class="relative isolate overflow-hidden border-b border-gold-500/15 xl:sticky xl:inset-y-0 xl:h-screen xl:border-b-0"
     >
-      <template #top>
-        <SkyBg />
-        <div class="absolute -right-1/2 z-[-1] rounded-full bg-primary blur-[300px] size-60 sm:size-100 transform -translate-y-1/2 top-1/2" />
-      </template>
-      <template #default />
-    </UPageSection>
+      <SkyBg />
+      <div
+        class="absolute top-1/2 -right-1/2 z-[-1] size-60 -translate-y-1/2 rounded-full bg-gold-500 blur-[300px] sm:size-100"
+        aria-hidden="true"
+      />
+      <EmberField :density="3" />
+      <div class="relative flex h-full items-center px-4 pt-36 pb-20 sm:px-6 lg:px-8 xl:justify-center xl:pt-0 xl:pb-0">
+        <div class="flex max-w-lg flex-col gap-5">
+          <p class="eyebrow">Chronicles of development</p>
+          <h1
+            id="changelog-title"
+            class="font-display text-5xl leading-none font-bold tracking-wide text-shine sm:text-6xl"
+          >
+            Updates
+          </h1>
+          <OrnamentDivider width="12rem" class="justify-start!" />
+          <p class="font-serif text-lg leading-relaxed text-parchment-muted sm:text-xl">
+            The latest Elegon fixes, improvements, and new features.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam">Play the Playtest</GameButton>
+            <GameButton :to="SITE_LINKS.roadmap" variant="ghost" trailing-icon="i-lucide-arrow-up-right">
+              Roadmap
+            </GameButton>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="px-4 sm:px-6 xl:px-0 xl:-ms-30 xl:flex-1">
       <div v-if="isLoading" class="py-32 text-muted">Loading updates...</div>
@@ -93,7 +126,7 @@ function friendlyDate(value: string) {
       />
       <UChangelogVersions
         v-else
-        as="main"
+        as="div"
         :indicator-motion="false"
         :ui="{ root: 'py-16 sm:py-24 lg:py-32', indicator: 'inset-y-0' }"
       >
@@ -113,7 +146,7 @@ function friendlyDate(value: string) {
           }"
         >
           <template #body>
-            <ul class="list-disc space-y-3 pl-5 text-muted">
+            <ul class="list-disc space-y-3 pl-5 text-muted wrap-anywhere">
               <li v-for="change in group.changes" :key="change.id">
                 {{ change.description }}
               </li>

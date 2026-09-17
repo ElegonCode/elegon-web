@@ -53,7 +53,8 @@ function getTierConfigs(): TierConfig[] {
   return tiers.filter((tier): tier is TierConfig => Boolean(tier.id));
 }
 
-export default defineEventHandler(async () => {
+// Cached so page renders don't hit the Patreon API on every request.
+export default defineCachedEventHandler(async () => {
   const config = useRuntimeConfig();
   const tierConfigs = getTierConfigs();
 
@@ -155,4 +156,8 @@ export default defineEventHandler(async () => {
   });
 
   return { tiers };
+}, {
+  name: "patreon-members",
+  maxAge: 60 * 10,
+  swr: true,
 });

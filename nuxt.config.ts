@@ -4,7 +4,20 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  // The site is designed as a dark, in-world experience, so light mode is disabled.
+  ui: {
+    colorMode: false,
+  },
+  routeRules: {
+    // Serve the landing page from the edge cache and refresh it in the background.
+    "/": { isr: 600 },
+  },
   runtimeConfig: {
+    public: {
+      // Canonical origin used for SEO tags, the sitemap and robots.txt.
+      // Falls back to the request origin when unset.
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "",
+    },
     patreonAccessToken:
       process.env.PATREON_ACCESS_TOKEN ||
       process.env.NUXT_PATREON_ACCESS_TOKEN ||
@@ -41,14 +54,35 @@ export default defineNuxtConfig({
       title: "Elegon",
       htmlAttrs: {
         lang: "en",
+        class: "dark",
       },
+      meta: [
+        { name: "theme-color", content: "#0d0a08" },
+        { name: "color-scheme", content: "dark" },
+        { name: "application-name", content: "Elegon" },
+        { name: "apple-mobile-web-app-title", content: "Elegon" },
+        { name: "format-detection", content: "telephone=no" },
+      ],
+      link: [
+        { rel: "icon", href: "/favicon.ico", sizes: "any" },
+        { rel: "icon", type: "image/png", href: "/icon-512.png" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+        { rel: "manifest", href: "/site.webmanifest" },
+      ],
+      script: [
+        // Flags JS support before first paint so scroll-reveal content never flashes.
+        {
+          innerHTML: "document.documentElement.classList.add('js')",
+          tagPosition: "head",
+        },
+      ],
     },
   },
   appConfig: {
     ui: {
       colors: {
-        primary: "yellow",
-        neutral: "neutral",
+        primary: "amber",
+        neutral: "stone",
       },
     },
   },

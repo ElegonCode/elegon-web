@@ -14,21 +14,22 @@
     "postinstall": "npm run changelog:build && nuxt prepare"
   },
   "dependencies": {
-    "@dargmuesli/nuxt-cookie-control": "^9.1.16",
-    "@nuxt/content": "^3.11.2",
-    "@nuxt/image": "^2.0.0",
-    "@nuxt/ui": "^4.5.0",
-    "@nuxtjs/mdc": "^0.21.1",
+    "@dargmuesli/nuxt-cookie-control": "^9.3.7",
+    "@nuxt/content": "^3.16.0",
+    "@nuxt/image": "^2.1.0",
+    "@nuxt/ui": "^4.11.1",
+    "@nuxtjs/mdc": "^0.23.1",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^2.0.0",
-    "nuxt": "^4.4.4",
+    "nuxt": "^4.5.2",
     "remark-github": "^12.0.0",
     "scule": "^1.3.0",
-    "spacetimedb": "^2.6.0",
-    "vue": "^3.5.28",
-    "vue-router": "^4.6.4"
+    "spacetimedb": "^2.10.1",
+    "vue": "^3.5.43",
+    "vue-router": "^5.3.1"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.105"
+    "@iconify-json/lucide": "^1.2.133",
+    "@iconify-json/simple-icons": "^1.2.96"
   }
 }

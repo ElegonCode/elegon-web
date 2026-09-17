@@ -103,7 +103,7 @@ const twinkleDuration = computed(() => {
 }
 
 .sky-bg-media {
-  background-image: url("/images/banner.png");
+  background-image: image-set(url("/images/hero-1024.webp") 1x, url("/images/hero-1600.webp") 2x);
   background-position: center 18%;
   background-size: cover;
   filter: blur(5px) saturate(0.82) contrast(0.9) brightness(1.36);
