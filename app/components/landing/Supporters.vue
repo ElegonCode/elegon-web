@@ -1,37 +1,10 @@
 <script setup lang="ts">
-export type PatreonTier = {
-  id: string;
-  label: string;
-  members: string[];
-  memberCount: number;
-};
-
 const props = defineProps<{
   tiers: PatreonTier[];
   pending?: boolean;
 }>();
 
-// Lucide's crown is a body plus a detached base bar. Inside the diamond the bar
-// floats under a top-heavy body, so the legendary gem uses the body alone,
-// shifted down 2 units by the viewBox so its ink is centred like the gem and
-// shield glyphs are.
-const crownGlyph = {
-  viewBox: "0 -2 24 24",
-  path: "M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z",
-};
-
-// Tiers arrive ordered from highest to lowest, mirroring classic loot rarities.
-const rarities = [
-  { name: "Legendary", color: "var(--color-rarity-legendary)", icon: "i-lucide-crown", glyph: crownGlyph },
-  { name: "Epic", color: "var(--color-rarity-epic)", icon: "i-lucide-gem" },
-  { name: "Rare", color: "var(--color-rarity-rare)", icon: "i-lucide-shield" },
-];
-
-const populatedTiers = computed(() =>
-  props.tiers
-    .map((tier, index) => ({ ...tier, rarity: rarities[index] ?? rarities[2]! }))
-    .filter((tier) => tier.members.length > 0),
-);
+const populatedTiers = computed(() => withSupporterRarity(props.tiers));
 </script>
 
 <template>
@@ -60,24 +33,7 @@ const populatedTiers = computed(() =>
           <div
             class="tier__label flex shrink-0 items-center gap-4 px-6 py-5 md:w-72 md:border-r md:border-[color-mix(in_srgb,var(--rarity)_25%,transparent)]"
           >
-            <!-- shrink-0: in the fixed desktop column the long "Legendary" title otherwise squeezes the
-                 gem, and the rotated square behind the icon turns into a lopsided rhombus. -->
-            <span class="tier__gem flex size-10 shrink-0 items-center justify-center">
-              <svg
-                v-if="tier.rarity.glyph"
-                :viewBox="tier.rarity.glyph.viewBox"
-                class="relative size-5 text-[var(--rarity)]"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path :d="tier.rarity.glyph.path" />
-              </svg>
-              <UIcon v-else :name="tier.rarity.icon" class="relative size-5 text-[var(--rarity)]" />
-            </span>
+            <RarityGem :rarity="tier.rarity" />
             <span class="flex flex-col">
               <span class="font-display text-sm font-bold tracking-[0.12em] text-[var(--rarity)] uppercase">
                 {{ tier.label }}
@@ -122,19 +78,5 @@ const populatedTiers = computed(() =>
 
 .tier__label {
   background: linear-gradient(90deg, color-mix(in srgb, var(--rarity) 14%, transparent), transparent);
-}
-
-.tier__gem {
-  position: relative;
-}
-
-.tier__gem::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  rotate: 45deg;
-  border: 1px solid color-mix(in srgb, var(--rarity) 70%, transparent);
-  background: color-mix(in srgb, var(--rarity) 14%, #0d0a08);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--rarity) 45%, transparent);
 }
 </style>

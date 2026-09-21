@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ layout: false });
-
 type ChangelogEntry = {
   id: number;
   date: string;

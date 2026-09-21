@@ -67,6 +67,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Transparent page for OBS browser-source overlays (see pages/overlay). */
+html.overlay,
+html.overlay body {
+  background: transparent;
+  overflow: hidden;
+}
+
 ::selection {
   background: rgba(231, 186, 90, 0.35);
   color: #fff8ea;
