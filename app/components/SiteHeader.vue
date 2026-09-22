@@ -1,17 +1,20 @@
 <script setup lang="ts">
+import { LOCALE_NAMES, SUPPORTED_LOCALES, type SupportedLocale } from "~/composables/useLocale";
+
 const route = useRoute();
+const { locale, t, localePath } = useLocale();
 
 const sectionLinks = [
-  { label: "World", hash: "world" },
-  { label: "Features", hash: "features" },
-  { label: "Devlogs", hash: "devlogs" },
-  { label: "Vision", hash: "vision" },
-  { label: "FAQ", hash: "faq" },
+  { label: t("nav.world"), hash: "world" },
+  { label: t("nav.features"), hash: "features" },
+  { label: t("nav.devlogs"), hash: "devlogs" },
+  { label: t("nav.vision"), hash: "vision" },
+  { label: t("nav.faq"), hash: "faq" },
 ];
 
 const externalLinks = [
-  { label: "Feedback", to: SITE_LINKS.feedback },
-  { label: "Roadmap", to: SITE_LINKS.roadmap },
+  { label: t("nav.feedback"), to: SITE_LINKS.feedback },
+  { label: t("nav.roadmap"), to: SITE_LINKS.roadmap },
 ];
 
 const socials = [
@@ -23,8 +26,13 @@ const socials = [
 const scrolled = ref(false);
 const activeSection = ref("");
 const mobileOpen = ref(false);
+const localizedPath = computed(() => route.path.replace(/^\/(de|es|fr|pt-BR|ru|zh-CN)(?=\/|$)/, "") || "/");
+const changeLanguage = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  navigateTo(localePath(localizedPath.value, target.value as SupportedLocale));
+};
 
-const isHome = computed(() => route.path === "/");
+const isHome = computed(() => route.path === localePath());
 
 watch(() => route.fullPath, () => (mobileOpen.value = false));
 
@@ -72,7 +80,7 @@ onMounted(() => {
     ]"
   >
     <div class="mx-auto flex h-[var(--ui-header-height)] max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
-      <NuxtLink to="/" class="group flex items-center gap-3" aria-label="Elegon home">
+      <NuxtLink :to="localePath()" class="group flex items-center gap-3" aria-label="Elegon home">
         <AppLogo
           class="h-9 w-9 shrink-0 rounded-sm ring-1 ring-gold-500/40 transition duration-300 group-hover:ring-gold-300 group-hover:shadow-[0_0_18px_rgba(231,186,90,0.45)]"
         />
@@ -83,15 +91,15 @@ onMounted(() => {
         <ul class="flex items-center gap-1">
           <li v-for="link in sectionLinks" :key="link.hash">
             <NuxtLink
-              :to="{ path: '/', hash: `#${link.hash}` }"
+              :to="{ path: localePath(), hash: `#${link.hash}` }"
               :class="['nav-link', { 'is-active': activeSection === link.hash }]"
             >
               {{ link.label }}
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/changelog" :class="['nav-link', { 'is-active': route.path === '/changelog' }]">
-              Changelog
+            <NuxtLink :to="localePath('/changelog')" :class="['nav-link', { 'is-active': route.path === localePath('/changelog') }]">
+              {{ t("nav.changelog") }}
             </NuxtLink>
           </li>
           <li v-for="link in externalLinks" :key="link.label">
@@ -104,6 +112,15 @@ onMounted(() => {
       </nav>
 
       <div class="ml-auto flex items-center gap-1 xl:ml-0">
+        <label class="sr-only" for="language-picker">Language</label>
+        <select
+          id="language-picker"
+          :value="locale"
+          class="hidden rounded border border-gold-500/30 bg-ink-950 px-2 py-1 font-display text-xs tracking-wide text-parchment sm:block"
+          @change="changeLanguage"
+        >
+          <option v-for="code in SUPPORTED_LOCALES" :key="code" :value="code">{{ LOCALE_NAMES[code] }}</option>
+        </select>
         <UTooltip v-for="social in socials" :key="social.label" :text="social.label">
           <NuxtLink
             :to="social.to"
@@ -117,7 +134,7 @@ onMounted(() => {
         </UTooltip>
 
         <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam" class="ml-2 hidden md:inline-flex">
-          Wishlist
+          {{ t("nav.wishlist") }}
         </GameButton>
 
         <button
@@ -125,7 +142,7 @@ onMounted(() => {
           class="ml-1 flex size-10 items-center justify-center text-gold-200 xl:hidden"
           :aria-expanded="mobileOpen"
           aria-controls="mobile-menu"
-          aria-label="Open menu"
+          :aria-label="t('nav.openMenu')"
           @click="mobileOpen = true"
         >
           <UIcon name="i-lucide-menu" class="size-6" />
@@ -136,7 +153,7 @@ onMounted(() => {
     <USlideover
       v-model:open="mobileOpen"
       side="right"
-      title="Menu"
+      :title="t('nav.menu')"
       :ui="{
         content: 'bg-ink-950 border-l border-gold-500/20 max-w-xs',
         header: 'border-b border-gold-500/15',
@@ -148,12 +165,12 @@ onMounted(() => {
         <nav id="mobile-menu" aria-label="Mobile" class="flex h-full flex-col">
           <ul class="flex flex-col py-2">
             <li v-for="link in sectionLinks" :key="link.hash">
-              <NuxtLink :to="{ path: '/', hash: `#${link.hash}` }" class="mobile-link" @click="mobileOpen = false">
+              <NuxtLink :to="{ path: localePath(), hash: `#${link.hash}` }" class="mobile-link" @click="mobileOpen = false">
                 {{ link.label }}
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/changelog" class="mobile-link" @click="mobileOpen = false">Changelog</NuxtLink>
+              <NuxtLink :to="localePath('/changelog')" class="mobile-link" @click="mobileOpen = false">{{ t("nav.changelog") }}</NuxtLink>
             </li>
             <li v-for="link in externalLinks" :key="link.label">
               <NuxtLink :to="link.to" target="_blank" rel="noopener" class="mobile-link">
@@ -165,7 +182,7 @@ onMounted(() => {
 
           <div class="mt-auto space-y-5 border-t border-gold-500/15 p-5">
             <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam" class="w-full">
-              Wishlist on Steam
+              {{ t("nav.wishlistSteam") }}
             </GameButton>
             <div class="flex justify-center gap-5">
               <NuxtLink

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { AccordionItem } from "@nuxt/ui";
+import { SUPPORTED_LOCALES } from "~/composables/useLocale";
+
+definePageMeta({ alias: ["/:locale(en|de|es|fr|pt-BR|ru|zh-CN)"] });
+const { locale, t, localePath } = useLocale();
 
 type PatreonTier = {
   id: string;
@@ -70,15 +74,18 @@ const [{ data: patreonMembers, pending: patreonPending }, { data: latestUpdates 
 // ---------------------------------------------------------------------------
 
 const siteUrl = useSiteUrl();
-const pageUrl = `${siteUrl}/`;
+const pageUrl = computed(() => `${siteUrl}${localePath()}`);
 const ogImage = `${siteUrl}/images/og-image.jpg`;
-const title = "Elegon: A Classic-Inspired Indie MMORPG";
+const title = computed(() => t("seo.title"));
 
 useHead({
-  title,
+  title: title.value,
   titleTemplate: "%s",
+  htmlAttrs: { lang: locale.value },
   link: [
-    { rel: "canonical", href: pageUrl },
+    { rel: "canonical", href: pageUrl.value },
+    ...SUPPORTED_LOCALES.map((code) => ({ rel: "alternate", hreflang: code, href: `${siteUrl}${localePath("/", code)}` })),
+    { rel: "alternate", hreflang: "x-default", href: `${siteUrl}/` },
     {
       rel: "preload",
       as: "image",
@@ -92,14 +99,13 @@ useHead({
 });
 
 useSeoMeta({
-  description: SITE_DESCRIPTION,
+  description: t("seo.description"),
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   ogType: "website",
   ogSiteName: "Elegon",
-  ogUrl: pageUrl,
-  ogTitle: title,
-  ogDescription:
-    "A solo-developed MMORPG inspired by the classics. Earned progression, a living open world, and no pay-to-win. Join the free 24/7 playtest on Steam.",
+  ogUrl: pageUrl.value,
+  ogTitle: title.value,
+  ogDescription: t("seo.description"),
   ogImage: {
     url: ogImage,
     secureUrl: ogImage,
@@ -108,11 +114,10 @@ useSeoMeta({
     type: "image/jpeg",
     alt: SCREENSHOT.alt,
   },
-  ogLocale: "en_GB",
+  ogLocale: locale.value.replace("-", "_"),
   twitterCard: "summary_large_image",
-  twitterTitle: title,
-  twitterDescription:
-    "A solo-developed MMORPG inspired by the classics. No pay-to-win, no cash shop. Play the 24/7 Steam playtest.",
+  twitterTitle: title.value,
+  twitterDescription: t("seo.description"),
   twitterImage: ogImage,
   twitterImageAlt: SCREENSHOT.alt,
 });
@@ -129,28 +134,29 @@ useHead({
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": `${siteUrl}/#website`,
-            url: pageUrl,
+            "@id": `${pageUrl.value}#website`,
+            url: pageUrl.value,
             name: "Elegon",
-            description: SITE_DESCRIPTION,
-            inLanguage: "en",
+            description: t("seo.description"),
+            inLanguage: locale.value,
             publisher: { "@id": `${siteUrl}/#organization` },
           },
           {
             "@type": "Organization",
             "@id": `${siteUrl}/#organization`,
             name: "Elegon",
-            url: pageUrl,
+            url: pageUrl.value,
             logo: `${siteUrl}/icon-512.png`,
             founder: { "@type": "Person", name: "Keone" },
             sameAs,
           },
           {
             "@type": "VideoGame",
-            "@id": `${siteUrl}/#game`,
+            "@id": `${pageUrl.value}#game`,
             name: "Elegon",
-            url: pageUrl,
-            description: SITE_DESCRIPTION,
+            url: pageUrl.value,
+            description: t("seo.description"),
+            inLanguage: locale.value,
             image: ogImage,
             genre: ["MMORPG", "Role-playing game", "Open world"],
             playMode: ["MultiPlayer", "CoOp"],

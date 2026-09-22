@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { SUPPORTED_LOCALES } from "~/composables/useLocale";
+
 type ChangelogEntry = {
   id: number;
   date: string;
@@ -9,6 +11,8 @@ type ChangelogResponse = {
   revision: string;
   entries: ChangelogEntry[];
 };
+definePageMeta({ alias: ["/:locale(en|de|es|fr|pt-BR|ru|zh-CN)/changelog"] });
+const { locale, t, localePath } = useLocale();
 
 const {
   data: changelog,
@@ -20,21 +24,27 @@ const {
 const entries = computed(() => changelog.value?.entries ?? []);
 
 const siteUrl = useSiteUrl();
-const description =
-  "Every Elegon patch note in one place: the latest fixes, improvements and new features added to the MMORPG's 24/7 Steam playtest.";
+const description = t("changelog.description");
 
-useHead({ link: [{ rel: "canonical", href: `${siteUrl}/changelog` }] });
+useHead({
+  htmlAttrs: { lang: locale.value },
+  link: [
+    { rel: "canonical", href: `${siteUrl}${localePath("/changelog")}` },
+    ...SUPPORTED_LOCALES.map((code) => ({ rel: "alternate", hreflang: code, href: `${siteUrl}${localePath("/changelog", code)}` })),
+    { rel: "alternate", hreflang: "x-default", href: `${siteUrl}/changelog` },
+  ],
+});
 useSeoMeta({
-  title: "Changelog & Patch Notes",
+  title: t("changelog.title"),
   description,
   ogType: "website",
   ogSiteName: "Elegon",
-  ogUrl: `${siteUrl}/changelog`,
-  ogTitle: "Elegon Changelog & Patch Notes",
+  ogUrl: `${siteUrl}${localePath("/changelog")}`,
+  ogTitle: `Elegon ${t("changelog.title")}`,
   ogDescription: description,
   ogImage: { url: `${siteUrl}/images/og-image.jpg`, width: 1200, height: 630, alt: SCREENSHOT.alt },
   twitterCard: "summary_large_image",
-  twitterTitle: "Elegon Changelog & Patch Notes",
+  twitterTitle: `Elegon ${t("changelog.title")}`,
   twitterDescription: description,
   twitterImage: `${siteUrl}/images/og-image.jpg`,
 });
@@ -64,11 +74,11 @@ function friendlyDate(value: string) {
   const targetUtc = dateAtUtcMidnight(value).getTime();
   const daysAgo = Math.round((todayUtc - targetUtc) / 86_400_000);
 
-  if (daysAgo === 0) return "Today";
-  if (daysAgo === 1) return "Yesterday";
-  if (daysAgo > 1 && daysAgo < 7) return `${daysAgo} days ago`;
+  if (daysAgo === 0) return t("changelog.today");
+  if (daysAgo === 1) return t("changelog.yesterday");
+  if (daysAgo > 1 && daysAgo < 7) return `${daysAgo} ${t("changelog.daysAgo")}`;
 
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat(locale.value, {
     weekday: "long",
     day: "numeric",
     month: "long",

@@ -1,17 +1,18 @@
 <script setup lang="ts">
+const { t, localePath } = useLocale();
 const columns = [
   {
-    title: "The Game",
+    title: t("footer.game"),
     links: [
-      { label: "The World", to: "/#world" },
-      { label: "Features", to: "/#features" },
-      { label: "The Vision", to: "/#vision" },
-      { label: "FAQ", to: "/#faq" },
-      { label: "Changelog", to: "/changelog" },
+      { label: t("footer.world"), to: `${localePath()}#world` },
+      { label: t("nav.features"), to: `${localePath()}#features` },
+      { label: t("footer.vision"), to: `${localePath()}#vision` },
+      { label: t("nav.faq"), to: `${localePath()}#faq` },
+      { label: t("nav.changelog"), to: localePath("/changelog") },
     ],
   },
   {
-    title: "Community",
+    title: t("footer.community"),
     links: [
       { label: "Steam", to: SITE_LINKS.steam },
       { label: "Discord", to: SITE_LINKS.discord },
@@ -20,10 +21,10 @@ const columns = [
     ],
   },
   {
-    title: "Shape Elegon",
+    title: t("footer.shape"),
     links: [
-      { label: "Feedback Board", to: SITE_LINKS.feedback },
-      { label: "Roadmap", to: SITE_LINKS.roadmap },
+      { label: t("footer.feedback"), to: SITE_LINKS.feedback },
+      { label: t("nav.roadmap"), to: SITE_LINKS.roadmap },
     ],
   },
 ];
@@ -39,13 +40,12 @@ const isExternal = (to: string) => to.startsWith("http");
     />
     <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.4fr_2fr] lg:px-8">
       <div class="max-w-sm space-y-5">
-        <NuxtLink to="/" class="flex items-center gap-3" aria-label="Elegon home">
+        <NuxtLink :to="localePath()" class="flex items-center gap-3" aria-label="Elegon home">
           <AppLogo class="h-11 w-11 rounded-sm ring-1 ring-gold-500/40" />
           <span class="font-display text-2xl font-bold tracking-[0.28em] text-gold-gradient">ELEGON</span>
         </NuxtLink>
         <p class="font-serif leading-relaxed text-parchment-muted">
-          A classic-inspired MMORPG, built in the open by a solo developer. Earned progression, a living world,
-          and never a cash shop.
+          {{ t("footer.description") }}
         </p>
         <p class="flex items-center gap-2 text-sm text-parchment-dim">
           <UIcon name="i-simple-icons-godotengine" class="size-4" />
@@ -76,8 +76,8 @@ const isExternal = (to: string) => to.startsWith("http");
       <div
         class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-parchment-dim sm:flex-row sm:px-6 lg:px-8"
       >
-        <p>© {{ new Date().getFullYear() }} Elegon. Solo-developed with passion. All rights reserved.</p>
-        <p class="font-display text-xs tracking-[0.25em] uppercase">Forged in London</p>
+        <p>© {{ new Date().getFullYear() }} Elegon. {{ t("footer.rights") }}</p>
+        <p class="font-display text-xs tracking-[0.25em] uppercase">{{ t("footer.london") }}</p>
       </div>
     </div>
   </footer>

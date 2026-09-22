@@ -50,6 +50,7 @@ const platforms = [
   { label: "Linux", icon: "i-simple-icons-linux" },
   { label: "macOS", icon: "i-simple-icons-apple" },
 ];
+const { t } = useLocale();
 </script>
 
 <template>
@@ -89,7 +90,7 @@ const platforms = [
       <div class="mx-auto flex max-w-6xl flex-col items-center text-center">
         <p class="hero-pill">
           <span class="size-2 rounded-full bg-green-400 animate-ember-pulse" aria-hidden="true" />
-          Open playtest live 24/7 on Steam
+          {{ t("hero.live") }}
         </p>
 
         <h1 id="hero-title" class="mt-8 flex w-full flex-col items-center">
@@ -113,23 +114,23 @@ const platforms = [
               </g>
             </svg>
           </span>
-          <span class="hero-tagline">An MMORPG inspired by the classics</span>
+          <span class="hero-tagline">{{ t("hero.tagline") }}</span>
         </h1>
 
         <p class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/85 text-pretty sm:text-xl">
-          Step into a world where your progression matters and adventure awaits.
+          {{ t("hero.description") }}
         </p>
 
         <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">
-            Wishlist on Steam
+            {{ t("nav.wishlistSteam") }}
           </GameButton>
           <GameButton :to="SITE_LINKS.discord" size="lg" variant="secondary" icon="i-simple-icons-discord">
-            Join the Community
+            {{ t("hero.community") }}
           </GameButton>
         </div>
 
-        <ul class="mt-10 flex items-center gap-5 text-xs text-parchment/60" aria-label="Available platforms">
+        <ul class="mt-10 flex items-center gap-5 text-xs text-parchment/60" :aria-label="t('hero.platforms')">
           <li v-for="platform in platforms" :key="platform.label" class="flex items-center gap-2">
             <UIcon :name="platform.icon" class="size-4" />
             <span class="font-display tracking-[0.18em] uppercase">{{ platform.label }}</span>
@@ -138,8 +139,8 @@ const platforms = [
       </div>
     </div>
 
-    <a href="#world" class="hero-scroll" aria-label="Scroll to learn about the world">
-      <span class="font-display text-[0.62rem] tracking-[0.4em] uppercase">Begin your journey</span>
+    <a href="#world" class="hero-scroll" :aria-label="t('hero.begin')">
+      <span class="font-display text-[0.62rem] tracking-[0.4em] uppercase">{{ t("hero.begin") }}</span>
       <span class="hero-scroll__line" aria-hidden="true" />
     </a>
   </section>
