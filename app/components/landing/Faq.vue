@@ -2,21 +2,22 @@
 import type { AccordionItem } from "@nuxt/ui";
 
 defineProps<{ items: AccordionItem[] }>();
+const { t } = useLocale();
 </script>
 
 <template>
   <section id="faq" aria-labelledby="faq-title" class="relative py-24 sm:py-32">
     <div class="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.4fr] lg:gap-20 lg:px-8">
       <div class="space-y-8">
-        <SectionHeading id="faq-title" eyebrow="Tavern talk" title="Frequently Asked Questions" align="left" />
+        <SectionHeading id="faq-title" :eyebrow="t('faq.eyebrow')" :title="t('faq.title')" align="left" />
 
         <div v-reveal="120" class="panel corners max-w-md space-y-4 p-7">
-          <h3 class="font-display text-lg font-bold tracking-wide text-gold-200">Still have questions?</h3>
+          <h3 class="font-display text-lg font-bold tracking-wide text-gold-200">{{ t("faq.more") }}</h3>
           <p class="font-serif leading-relaxed text-parchment-muted">
-            Pull up a chair in the Discord. Ask anything, share ideas, and meet fellow adventurers.
+            {{ t("faq.discordText") }}
           </p>
           <GameButton :to="SITE_LINKS.discord" variant="secondary" icon="i-simple-icons-discord">
-            Join the Discord
+            {{ t("faq.join") }}
           </GameButton>
         </div>
       </div>

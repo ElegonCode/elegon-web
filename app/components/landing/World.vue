@@ -1,9 +1,10 @@
 <script setup lang="ts">
+const { t } = useLocale();
 const stats = [
-  { value: "24/7", label: "Open playtest on Steam" },
-  { value: "Weekly", label: "Devlogs on YouTube" },
-  { value: "0", label: "Items in a cash shop" },
-  { value: "3", label: "Platforms: Windows, Linux & macOS" },
+  { value: "24/7", label: () => t("world.statPlaytest") },
+  { value: () => t("world.weekly"), label: () => t("world.statDevlogs") },
+  { value: "0", label: () => t("world.statShop") },
+  { value: "3", label: () => t("world.statPlatforms") },
 ];
 </script>
 
@@ -13,26 +14,20 @@ const stats = [
 
     <div class="relative mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
       <div class="space-y-8">
-        <SectionHeading id="world-title" eyebrow="Welcome, traveller" title="Not the Chosen One" align="left" />
+        <SectionHeading id="world-title" :eyebrow="t('world.eyebrow')" :title="t('world.title')" align="left" />
 
         <div class="space-y-5 font-serif text-lg leading-relaxed text-parchment-muted">
           <p v-reveal="80">
-            Hey, I'm Keone, a solo developer building Elegon. I started this project because I have always been
-            passionate about this genre, but in recent years I have felt that the number of truly compelling online
-            worlds, ones that respect the time and effort of their players, has been fading.
+            {{ t("world.intro") }}
           </p>
           <p v-reveal="140">
-            Elegon is an <strong class="font-normal text-parchment">always-online, open-world MMORPG</strong> where you
-            are not the chosen hero, but rather a small part of a much larger story.
+            {{ t("world.identity") }}
           </p>
           <p v-reveal="200">
-            Watch your character grow stronger over time, defeat powerful enemies, make friends along the way, and
-            stand against the evils of the world in pursuit of its greatest rewards.
+            {{ t("world.adventure") }}
           </p>
           <p v-reveal="260">
-            Elegon is currently in open development, meaning you are welcome to join the
-            <strong class="font-normal text-gold-300">24/7 Steam playtest</strong> and help shape the game with your
-            feedback. Once the game reaches version 1.0, development will continue as the world expands and evolves.
+            {{ t("world.playtest") }}
           </p>
         </div>
       </div>
@@ -46,7 +41,7 @@ const stats = [
               sizes="(min-width: 1024px) 40vw, 90vw"
               :width="SCREENSHOT.width"
               :height="SCREENSHOT.height"
-              :alt="SCREENSHOT.alt"
+              :alt="t('world.title')"
               loading="lazy"
               decoding="async"
               class="size-full object-cover object-[48%_50%] transition duration-[1.6s] ease-out group-hover:scale-105"
@@ -63,8 +58,8 @@ const stats = [
             <UIcon name="i-lucide-swords" class="size-5 -rotate-45 text-gold-300" />
           </span>
           <span class="flex flex-col">
-            <span class="font-display text-[0.62rem] tracking-[0.25em] text-gold-400 uppercase">Now open</span>
-            <span class="font-display text-sm font-semibold text-parchment">24/7 Steam Playtest</span>
+            <span class="font-display text-[0.62rem] tracking-[0.25em] text-gold-400 uppercase">{{ t("world.nowOpen") }}</span>
+            <span class="font-display text-sm font-semibold text-parchment">{{ t("world.playtestLabel") }}</span>
           </span>
         </div>
 
@@ -73,7 +68,7 @@ const stats = [
         >
           <UIcon name="i-lucide-shield-check" class="size-5 text-green-400" />
           <span class="font-display text-xs font-semibold tracking-[0.12em] text-parchment uppercase">
-            No pay-to-win. Ever.
+            {{ t("world.noP2w") }}
           </span>
         </div>
       </div>
@@ -88,8 +83,8 @@ const stats = [
         v-reveal="index * 90"
         class="flex flex-col items-center justify-center gap-2 bg-ink-950 px-4 py-8 text-center"
       >
-        <dt class="order-2 text-sm text-parchment-dim">{{ stat.label }}</dt>
-        <dd class="order-1 font-display text-3xl font-bold text-gold-gradient sm:text-4xl">{{ stat.value }}</dd>
+        <dt class="order-2 text-sm text-parchment-dim">{{ stat.label() }}</dt>
+        <dd class="order-1 font-display text-3xl font-bold text-gold-gradient sm:text-4xl">{{ typeof stat.value === 'function' ? stat.value() : stat.value }}</dd>
       </div>
     </dl>
   </section>

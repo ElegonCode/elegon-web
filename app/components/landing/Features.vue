@@ -1,42 +1,31 @@
 <script setup lang="ts">
-const features = [
+const { t } = useLocale();
+const features = computed(() => [
   {
     icon: "i-lucide-trending-up",
-    tag: "Progression",
-    title: "Progression That's Earned",
-    text: "Grow stronger through time, effort and adventure. Unlock new class spells as you level and shape your character with talents.",
+    tag: t("features.p1.tag"), title: t("features.p1.title"), text: t("features.p1.text"),
   },
   {
     icon: "i-lucide-mountain",
-    tag: "Exploration",
-    title: "An Always-Online World",
-    text: "Explore a persistent open world shared with other players, with new zones and world bosses added as it continues to grow.",
+    tag: t("features.p2.tag"), title: t("features.p2.title"), text: t("features.p2.text"),
   },
   {
     icon: "i-lucide-skull",
-    tag: "Challenge",
-    title: "Breaches & Rare Loot",
-    text: "Take on instanced breaches and face their final bosses for a chance at the world's rarest rewards, including mounts.",
+    tag: t("features.p3.tag"), title: t("features.p3.title"), text: t("features.p3.text"),
   },
   {
     icon: "i-lucide-users",
-    tag: "Social",
-    title: "Adventure Together",
-    text: "Make friends, form a party and stand against the evils of the world side by side. Some foes aren't meant to be faced alone.",
+    tag: t("features.p4.tag"), title: t("features.p4.title"), text: t("features.p4.text"),
   },
   {
     icon: "i-lucide-book-open",
-    tag: "Discovery",
-    title: "The Compendium",
-    text: "Chronicle everything you uncover on your journey and chase that final percentage of total discoveries.",
+    tag: t("features.p5.tag"), title: t("features.p5.title"), text: t("features.p5.text"),
   },
   {
     icon: "i-lucide-scale",
-    tag: "Fair play",
-    title: "Fair by Design",
-    text: "One simple subscription. No in-game cash shop, no cosmetics for sale and never any pay-to-win.",
+    tag: t("features.p6.tag"), title: t("features.p6.title"), text: t("features.p6.text"),
   },
-];
+]);
 
 function spotlight(event: PointerEvent) {
   const card = event.currentTarget as HTMLElement;
@@ -51,9 +40,8 @@ function spotlight(event: PointerEvent) {
     <div class="glow-orb top-1/3 -right-40 size-[36rem] bg-gold-500/10" aria-hidden="true" />
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <SectionHeading id="features-title" eyebrow="Forge your legend" title="What Awaits in Elegon">
-        A world inspired by the MMORPGs that defined the genre, built for players who want their time to mean
-        something.
+      <SectionHeading id="features-title" :eyebrow="t('features.eyebrow')" :title="t('features.title')">
+        {{ t("features.intro") }}
       </SectionHeading>
 
       <ul class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

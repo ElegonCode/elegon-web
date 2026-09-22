@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { t, localePath } = useLocale();
-const columns = [
+const columns = computed(() => [
   {
     title: t("footer.game"),
     links: [
@@ -27,7 +27,7 @@ const columns = [
       { label: t("nav.roadmap"), to: SITE_LINKS.roadmap },
     ],
   },
-];
+]);
 
 const isExternal = (to: string) => to.startsWith("http");
 </script>
@@ -40,7 +40,7 @@ const isExternal = (to: string) => to.startsWith("http");
     />
     <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.4fr_2fr] lg:px-8">
       <div class="max-w-sm space-y-5">
-        <NuxtLink :to="localePath()" class="flex items-center gap-3" aria-label="Elegon home">
+        <NuxtLink :to="localePath()" class="flex items-center gap-3" :aria-label="t('nav.home')">
           <AppLogo class="h-11 w-11 rounded-sm ring-1 ring-gold-500/40" />
           <span class="font-display text-2xl font-bold tracking-[0.28em] text-gold-gradient">ELEGON</span>
         </NuxtLink>
@@ -49,11 +49,11 @@ const isExternal = (to: string) => to.startsWith("http");
         </p>
         <p class="flex items-center gap-2 text-sm text-parchment-dim">
           <UIcon name="i-simple-icons-godotengine" class="size-4" />
-          Built with Godot &amp; SpacetimeDB
+          {{ t("footer.engine") }}
         </p>
       </div>
 
-      <nav aria-label="Footer" class="grid grid-cols-2 gap-10 sm:grid-cols-3">
+      <nav :aria-label="t('nav.footer')" class="grid grid-cols-2 gap-10 sm:grid-cols-3">
         <div v-for="column in columns" :key="column.title">
           <h2 class="eyebrow mb-5 !text-[0.7rem]">{{ column.title }}</h2>
           <ul class="space-y-3">

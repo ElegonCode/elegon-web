@@ -3,8 +3,17 @@ const props = defineProps<{
   tiers: PatreonTier[];
   pending?: boolean;
 }>();
+const { t } = useLocale();
 
 const populatedTiers = computed(() => withSupporterRarity(props.tiers));
+const tierLabel = (rarity: string, fallback: string) => {
+  const key = ({
+    Legendary: "supporters.legendary",
+    Epic: "supporters.epic",
+    Rare: "supporters.rare",
+  } as const)[rarity as "Legendary" | "Epic" | "Rare"];
+  return key ? t(key) : fallback;
+};
 </script>
 
 <template>
@@ -15,12 +24,11 @@ const populatedTiers = computed(() => withSupporterRarity(props.tiers));
     />
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <SectionHeading id="supporters-title" eyebrow="Hall of heroes" title="Patreon Supporters">
-        Elegon is made possible by the generosity of these adventurers. Their names are etched into the history of the
-        world.
+      <SectionHeading id="supporters-title" :eyebrow="t('supporters.eyebrow')" :title="t('supporters.title')">
+        {{ t("supporters.intro") }}
       </SectionHeading>
 
-      <div v-if="pending" class="mt-14 text-center text-parchment-dim">Summoning supporters…</div>
+      <div v-if="pending" class="mt-14 text-center text-parchment-dim">{{ t("supporters.loading") }}</div>
 
       <div v-else-if="populatedTiers.length" class="mt-14 space-y-4">
         <div
@@ -36,10 +44,10 @@ const populatedTiers = computed(() => withSupporterRarity(props.tiers));
             <RarityGem :rarity="tier.rarity" />
             <span class="flex flex-col">
               <span class="font-display text-sm font-bold tracking-[0.12em] text-[var(--rarity)] uppercase">
-                {{ tier.label }}
+                {{ tierLabel(tier.rarity.name, tier.label) }}
               </span>
               <span class="text-xs text-parchment-dim">
-                {{ tier.memberCount }} {{ tier.memberCount === 1 ? "hero" : "heroes" }}
+                {{ tier.memberCount }} {{ tier.memberCount === 1 ? t("supporters.hero") : t("supporters.heroes") }}
               </span>
             </span>
           </div>
@@ -62,7 +70,7 @@ const populatedTiers = computed(() => withSupporterRarity(props.tiers));
       </div>
 
       <div v-reveal="120" class="mt-12 flex justify-center">
-        <GameButton :to="SITE_LINKS.patreon" icon="i-simple-icons-patreon">Become a Supporter</GameButton>
+        <GameButton :to="SITE_LINKS.patreon" icon="i-simple-icons-patreon">{{ t("supporters.become") }}</GameButton>
       </div>
     </div>
   </section>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SUPPORTED_LOCALES } from "~/composables/useLocale";
+import { SUPPORTED_LOCALES } from "~/utils/locales";
 
 type ChangelogEntry = {
   id: number;

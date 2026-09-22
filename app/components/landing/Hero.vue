@@ -50,7 +50,7 @@ const platforms = [
   { label: "Linux", icon: "i-simple-icons-linux" },
   { label: "macOS", icon: "i-simple-icons-apple" },
 ];
-const { t } = useLocale();
+const { t, locale } = useLocale();
 </script>
 
 <template>
@@ -114,7 +114,7 @@ const { t } = useLocale();
               </g>
             </svg>
           </span>
-          <span class="hero-tagline">{{ t("hero.tagline") }}</span>
+          <span :class="['hero-tagline', { 'hero-tagline--cjk': locale === 'zh-CN' }]">{{ t("hero.tagline") }}</span>
         </h1>
 
         <p class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/85 text-pretty sm:text-xl">
@@ -337,14 +337,25 @@ const { t } = useLocale();
 /* ---- Tagline ----------------------------------------------------------- */
 
 .hero-tagline {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   margin-top: clamp(1rem, 2.4vw, 1.75rem);
   font-family: var(--font-display);
   font-size: clamp(0.78rem, 1.9vw, 1.05rem);
   font-weight: 600;
-  letter-spacing: 0.42em;
+  letter-spacing: clamp(0.06em, 0.55vw, 0.2em);
   text-transform: uppercase;
+  line-height: 1.4;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
   color: var(--color-parchment);
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.hero-tagline--cjk {
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .hero-scroll {
@@ -438,7 +449,7 @@ const { t } = useLocale();
   }
 
   .hero-tagline {
-    letter-spacing: 0.24em;
+    letter-spacing: 0.08em;
   }
 
   .hero-blade {

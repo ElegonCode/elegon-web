@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { t } = useLocale();
+</script>
+
 <template>
   <section aria-labelledby="cta-title" class="relative isolate overflow-hidden py-32 sm:py-44">
     <div class="absolute inset-0 -z-10" aria-hidden="true">
@@ -16,23 +20,23 @@
     <EmberField :density="4" />
 
     <div class="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6">
-      <p v-reveal class="eyebrow">The journey begins</p>
+      <p v-reveal class="eyebrow">{{ t("cta.eyebrow") }}</p>
       <div v-reveal="80" class="mt-5">
         <h2
           id="cta-title"
           class="font-display text-5xl leading-[1.02] font-bold tracking-wide text-balance text-shine sm:text-6xl lg:text-7xl"
         >
-          Your Adventure Awaits
+          {{ t("cta.title") }}
         </h2>
       </div>
       <OrnamentDivider v-reveal="140" class="mt-6" />
       <p v-reveal="180" class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/85 sm:text-xl">
-        Wishlist Elegon on Steam, jump into the 24/7 playtest, and help shape a world built to last.
+        {{ t("cta.text") }}
       </p>
       <div v-reveal="240" class="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-        <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">Wishlist on Steam</GameButton>
+        <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">{{ t("cta.wishlist") }}</GameButton>
         <GameButton :to="SITE_LINKS.discord" size="lg" variant="secondary" icon="i-simple-icons-discord">
-          Join the Discord
+          {{ t("cta.discord") }}
         </GameButton>
       </div>
     </div>

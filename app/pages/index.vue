@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { AccordionItem } from "@nuxt/ui";
-import { SUPPORTED_LOCALES } from "~/composables/useLocale";
+import { SUPPORTED_LOCALES } from "~/utils/locales";
 
 definePageMeta({ alias: ["/:locale(en|de|es|fr|pt-BR|ru|zh-CN)"] });
-const { locale, t, localePath } = useLocale();
+const { locale, t, localePath, translatePatchNote } = useLocale();
 
 type PatreonTier = {
   id: string;
@@ -17,57 +17,37 @@ type ChangelogResponse = {
   entries: { id: number; date: string; description: string }[];
 };
 
-const faqItems: AccordionItem[] = [
-  {
-    label: "How will Elegon be monetized?",
-    content:
-      "Elegon will be supported by a single monthly subscription. There will never be an in-game store selling cosmetics or pay-to-win items. The only purchases that may exist outside the subscription are things like merchandise, but nothing that could exist within the world of Elegon itself.",
-  },
-  {
-    label: "What platforms is Elegon available on?",
-    content:
-      "Elegon can be played through Steam on Windows, Linux, and macOS. Currently, the macOS version requires a small workaround because the application is not code-signed yet, but this will be addressed in the future.",
-  },
-  {
-    label: "Who are you? Have you built anything like this before?",
-    content:
-      "My name is Keone. I'm a 28-year-old software developer working full-time at a non-gaming company in London, UK. In my free time, I dedicate as much time as possible to developing Elegon. I have around 10 years of experience in software development, and Elegon is my first large-scale game project.",
-  },
-  {
-    label: "What technology does Elegon use?",
-    content:
-      "Elegon is built using the Godot game engine. I chose Godot because it is open source, highly flexible, and capable of supporting everything this project needs. It also allows me to modify the engine itself if necessary. For networking and backend systems, Elegon uses SpacetimeDB, which provides high performance and a modern architecture well suited to persistent online worlds.",
-  },
-  {
-    label: "How can I support the development of Elegon?",
-    content:
-      "Your support is greatly appreciated, but never required. If you'd like to support the project financially, you can become a member on Patreon or Ko-fi. If that is not possible, that is completely fine too; simply watching the devlogs on YouTube, participating in the playtest, and sharing feedback helps more than you might think.",
-  },
-];
+const faqItems = computed<AccordionItem[]>(() => [
+  { label: t("faq.q1"), content: t("faq.a1") },
+  { label: t("faq.q2"), content: t("faq.a2") },
+  { label: t("faq.q3"), content: t("faq.a3") },
+  { label: t("faq.q4"), content: t("faq.a4") },
+  { label: t("faq.q5"), content: t("faq.a5") },
+]);
 
-const [{ data: patreonMembers, pending: patreonPending }, { data: latestUpdates }] = await Promise.all([
+const [{ data: patreonMembers, pending: patreonPending }, { data: changelog }] = await Promise.all([
   useFetch<{ tiers: PatreonTier[] }>("/api/patreon-members", {
     key: "patreon-members",
     default: () => ({ tiers: [] }),
   }),
   useFetch<ChangelogResponse>("/api/changelog", {
     key: "latest-updates",
-    // Only ship the handful of entries the landing page shows.
-    transform: ({ entries }) => {
-      const sorted = [...entries].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
-      const first = sorted.at(-1)?.date;
-      return {
-        total: entries.length,
-        since: first
-          ? new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }).format(
-              new Date(`${first}T00:00:00Z`),
-            )
-          : null,
-        entries: sorted.slice(0, 5),
-      };
-    },
   }),
 ]);
+const latestUpdates = computed(() => {
+  const entries = changelog.value?.entries ?? [];
+  const sorted = [...entries].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+  const first = sorted.at(-1)?.date;
+  return {
+    total: entries.length,
+    since: first
+      ? new Intl.DateTimeFormat(locale.value, { month: "long", year: "numeric", timeZone: "UTC" }).format(
+          new Date(`${first}T00:00:00Z`),
+        )
+      : null,
+    entries: sorted.slice(0, 5).map((entry) => ({ ...entry, description: translatePatchNote(entry.id, entry.description) })),
+  };
+});
 
 // ---------------------------------------------------------------------------
 // SEO
@@ -171,7 +151,7 @@ useHead({
           {
             "@type": "FAQPage",
             "@id": `${siteUrl}/#faq`,
-            mainEntity: faqItems.map((item) => ({
+            mainEntity: faqItems.value.map((item) => ({
               "@type": "Question",
               name: item.label,
               acceptedAnswer: { "@type": "Answer", text: item.content },

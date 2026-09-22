@@ -1,5 +1,5 @@
 import changelog from "../generated/changelog.json";
-import { SUPPORTED_LOCALES } from "../../shared/locales";
+import { SUPPORTED_LOCALES } from "../../app/utils/locales";
 
 export default defineEventHandler((event) => {
   const siteUrl = getSiteUrl(event);

@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { t, localePath } = useLocale();
+</script>
+
 <template>
   <section id="devlogs" aria-labelledby="devlogs-title" class="relative overflow-hidden py-24 sm:py-32">
     <div class="glow-orb -left-32 top-10 size-[40rem] bg-sky-500/[0.07]" aria-hidden="true" />
@@ -7,28 +11,25 @@
       class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.35fr_1fr] lg:gap-16 lg:px-8"
     >
       <div v-reveal="{ variant: 'scale' }" class="panel corners p-2">
-        <YouTubeFacade playlist-id="PLcd5IWpvYJ8Q6G1l0s4IiyWWPK5RvlLln" title="Elegon devlog playlist" />
+        <YouTubeFacade playlist-id="PLcd5IWpvYJ8Q6G1l0s4IiyWWPK5RvlLln" :title="t('devlogs.title')" />
       </div>
 
       <div class="space-y-7">
-        <SectionHeading id="devlogs-title" eyebrow="From the forge" title="Weekly Devlogs" align="left" />
+        <SectionHeading id="devlogs-title" :eyebrow="t('devlogs.eyebrow')" :title="t('devlogs.title')" align="left" />
         <div class="space-y-5 font-serif text-lg leading-relaxed text-parchment-muted">
           <p v-reveal="80">
-            Follow the development of Elegon by subscribing to the YouTube channel, where I share weekly updates and
-            behind-the-scenes devlogs about the progress of the game.
+            {{ t("devlogs.p1") }}
           </p>
           <p v-reveal="140">
-            Developing Elegon openly with the community is really important to me. It gives me the opportunity to
-            hear your real-time feedback and ideas, while also keeping you up to date with the latest progress as the
-            world continues to grow.
+            {{ t("devlogs.p2") }}
           </p>
         </div>
         <div v-reveal="200" class="flex flex-wrap items-center gap-3 pt-2">
           <GameButton :to="SITE_LINKS.youtube" variant="secondary" icon="i-simple-icons-youtube">
-            Subscribe on YouTube
+            {{ t("devlogs.subscribe") }}
           </GameButton>
-          <GameButton to="/changelog" variant="ghost" trailing-icon="i-lucide-arrow-right">
-            Read the changelog
+          <GameButton :to="localePath('/changelog')" variant="ghost" trailing-icon="i-lucide-arrow-right">
+            {{ t("devlogs.changelog") }}
           </GameButton>
         </div>
       </div>

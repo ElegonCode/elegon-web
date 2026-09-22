@@ -6,15 +6,11 @@ export type LatestUpdates = {
 };
 
 defineProps<{ updates: LatestUpdates | null | undefined }>();
+const { locale, t, localePath } = useLocale();
 
-const dateFormat = new Intl.DateTimeFormat("en-GB", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-  timeZone: "UTC",
-});
-
-const formatDate = (value: string) => dateFormat.format(new Date(`${value}T00:00:00Z`));
+const formatDate = (value: string) => new Intl.DateTimeFormat(locale.value, {
+  day: "numeric", month: "short", year: "numeric", timeZone: "UTC",
+}).format(new Date(`${value}T00:00:00Z`));
 </script>
 
 <template>
@@ -26,21 +22,21 @@ const formatDate = (value: string) => dateFormat.format(new Date(`${value}T00:00
   >
     <div class="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.3fr] lg:gap-20 lg:px-8">
       <div class="space-y-8 lg:sticky lg:top-28 lg:self-start">
-        <SectionHeading id="updates-title" eyebrow="Chronicles of development" title="Latest Updates" align="left">
-          Elegon is built in the open and updated constantly. Here's what has landed in the world most recently.
+        <SectionHeading id="updates-title" :eyebrow="t('updates.eyebrow')" :title="t('updates.title')" align="left">
+          {{ t("updates.intro") }}
         </SectionHeading>
 
         <div v-reveal="120" class="panel corners inline-flex items-center gap-5 px-6 py-5">
           <span class="font-display text-5xl font-bold text-gold-gradient">{{ updates.total }}</span>
           <span class="font-display text-xs leading-relaxed tracking-[0.2em] text-parchment-muted uppercase">
-            Changes shipped<br />
-            <span v-if="updates.since" class="text-parchment-dim">since {{ updates.since }}</span>
+            {{ t("updates.shipped") }}<br />
+            <span v-if="updates.since" class="text-parchment-dim">{{ t("updates.since") }} {{ updates.since }}</span>
           </span>
         </div>
 
         <div v-reveal="180">
-          <GameButton to="/changelog" variant="secondary" trailing-icon="i-lucide-arrow-right">
-            View full changelog
+          <GameButton :to="localePath('/changelog')" variant="secondary" trailing-icon="i-lucide-arrow-right">
+            {{ t("updates.viewAll") }}
           </GameButton>
         </div>
       </div>
@@ -61,7 +57,7 @@ const formatDate = (value: string) => dateFormat.format(new Date(`${value}T00:00
                 v-if="index === 0"
                 class="border border-green-400/40 bg-green-400/10 px-2 py-0.5 font-display text-[0.6rem] tracking-[0.2em] text-green-300 uppercase"
               >
-                Latest
+                {{ t("updates.latest") }}
               </span>
             </div>
             <p class="leading-relaxed text-parchment wrap-anywhere">{{ entry.description }}</p>
