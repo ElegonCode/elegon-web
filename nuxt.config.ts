@@ -83,7 +83,7 @@ export default defineNuxtConfig({
           src: "https://umami-production-b655.up.railway.app/script.js",
           defer: true,
           "data-website-id": "8c227760-afe1-4453-8018-daba25e9cc91",
-          data-performance: "true",
+          "data-performance": true,
         },
         // Flags JS support before first paint so scroll-reveal content never flashes.
         {
