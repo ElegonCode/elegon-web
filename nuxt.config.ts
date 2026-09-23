@@ -80,9 +80,9 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: "https://cloud.umami.is/script.js",
+          src: "https://umami-production-b655.up.railway.app/script.js",
           defer: true,
-          "data-website-id": "4110ff41-7bfd-4dbc-9b0d-6daabe94737c",
+          "data-website-id": "8c227760-afe1-4453-8018-daba25e9cc91",
         },
         // Flags JS support before first paint so scroll-reveal content never flashes.
         {
