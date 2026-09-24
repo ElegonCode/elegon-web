@@ -3,8 +3,7 @@ export const SITE_LINKS = {
   discord: "https://discord.gg/4G32msBn7V",
   youtube: "https://www.youtube.com/@ElegonMMO",
   patreon: "https://www.patreon.com/cw/Elegon",
-  feedback: "https://elegon.userjot.com/board",
-  roadmap: "https://elegon.userjot.com/roadmap",
+  feedback: "https://feedback.elegon.app",
 } as const;
 
 /** Responsive in-game screenshot, pre-optimised from public/images/banner.png. */

@@ -24,7 +24,6 @@ const columns = computed(() => [
     title: t("footer.shape"),
     links: [
       { label: t("footer.feedback"), to: SITE_LINKS.feedback },
-      { label: t("nav.roadmap"), to: SITE_LINKS.roadmap },
     ],
   },
 ]);

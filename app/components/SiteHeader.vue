@@ -19,7 +19,6 @@ const sectionLinks = computed(() => [
 
 const externalLinks = computed(() => [
   { label: t("nav.feedback"), to: SITE_LINKS.feedback },
-  { label: t("nav.roadmap"), to: SITE_LINKS.roadmap },
 ]);
 
 const socials = computed(() => [

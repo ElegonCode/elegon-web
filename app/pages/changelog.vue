@@ -115,8 +115,8 @@ function friendlyDate(value: string) {
           </p>
           <div class="flex flex-wrap items-center gap-3 pt-2">
             <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam">Play the Playtest</GameButton>
-            <GameButton :to="SITE_LINKS.roadmap" variant="ghost" trailing-icon="i-lucide-arrow-up-right">
-              Roadmap
+            <GameButton :to="SITE_LINKS.feedback" variant="ghost" trailing-icon="i-lucide-arrow-up-right">
+              Feedback
             </GameButton>
           </div>
         </div>
