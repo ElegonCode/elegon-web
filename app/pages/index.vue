@@ -23,6 +23,7 @@ const faqItems = computed<AccordionItem[]>(() => [
   { label: t("faq.q3"), content: t("faq.a3") },
   { label: t("faq.q4"), content: t("faq.a4") },
   { label: t("faq.q5"), content: t("faq.a5") },
+  { label: t("faq.q6"), content: t("faq.a6") },
 ]);
 
 const [{ data: patreonMembers, pending: patreonPending }, { data: changelog }] = await Promise.all([
