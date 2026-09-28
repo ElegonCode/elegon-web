@@ -16,6 +16,14 @@ export const SCREENSHOT = {
   alt: "An adventurer with a crescent-moon staff looks out over an autumn forest glowing in the sunset in Elegon",
 } as const;
 
+/** Painterly, art-directed background used only by the landing-page hero. */
+export const HERO_ART = {
+  src: "/images/hero-landscape-1600.webp",
+  srcset: "/images/hero-landscape-640.webp 640w, /images/hero-landscape-1024.webp 1024w, /images/hero-landscape-1600.webp 1600w",
+  width: 1600,
+  height: 886,
+} as const;
+
 export const SITE_DESCRIPTION =
   "Elegon is a solo-developed, classic-inspired MMORPG. Explore an always-online open world, earn your progression, and play the free 24/7 Steam playtest. No pay-to-win, no cash shop.";
 

@@ -63,11 +63,11 @@ const { t, locale } = useLocale();
     <!-- Parallax scenery -->
     <div ref="media" class="hero-media" aria-hidden="true">
       <img
-        :src="SCREENSHOT.src"
-        :srcset="SCREENSHOT.srcset"
+        :src="HERO_ART.src"
+        :srcset="HERO_ART.srcset"
         sizes="100vw"
-        :width="SCREENSHOT.width"
-        :height="SCREENSHOT.height"
+        :width="HERO_ART.width"
+        :height="HERO_ART.height"
         alt=""
         fetchpriority="high"
         decoding="async"
@@ -86,42 +86,29 @@ const { t, locale } = useLocale();
     <div class="hero-fog hero-fog--b" aria-hidden="true" />
     <EmberField class="z-[2]" :density="6" />
 
-    <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-32 pb-24 sm:px-6 sm:pb-44 lg:px-8">
-      <div class="mx-auto flex max-w-6xl flex-col items-center text-center">
+    <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-32 pb-28 sm:px-6 sm:pt-36 sm:pb-40 lg:px-8">
+      <div class="hero-copy flex max-w-xl flex-col items-center text-center md:items-start md:text-left">
         <p class="hero-pill">
           <span class="size-2 rounded-full bg-green-400 animate-ember-pulse" aria-hidden="true" />
           {{ t("hero.live") }}
         </p>
 
-        <h1 id="hero-title" class="mt-8 flex w-full flex-col items-center">
+        <h1 id="hero-title" class="mt-8 flex w-full flex-col items-center md:items-start">
           <span class="hero-logo-row">
-            <svg class="hero-blade" viewBox="0 0 320 40" fill="none" aria-hidden="true">
-              <path d="M0 20 258 15.5 274 20 258 24.5Z" fill="currentColor" />
-              <path d="M283 20l9-9 9 9-9 9Z" stroke="currentColor" stroke-width="2" />
-              <path d="M292 15.5 296.5 20 292 24.5 287.5 20Z" fill="currentColor" />
-              <circle cx="313" cy="20" r="2.5" fill="currentColor" />
-            </svg>
             <span class="sr-only">Elegon: </span>
             <span class="hero-logo">
               <ElegonLogo aria-hidden="true" />
             </span>
-            <svg class="hero-blade" viewBox="0 0 320 40" fill="none" aria-hidden="true">
-              <g transform="matrix(-1 0 0 1 320 0)">
-                <path d="M0 20 258 15.5 274 20 258 24.5Z" fill="currentColor" />
-                <path d="M283 20l9-9 9 9-9 9Z" stroke="currentColor" stroke-width="2" />
-                <path d="M292 15.5 296.5 20 292 24.5 287.5 20Z" fill="currentColor" />
-                <circle cx="313" cy="20" r="2.5" fill="currentColor" />
-              </g>
-            </svg>
           </span>
+          <span class="hero-title-ornament" aria-hidden="true" />
           <span :class="['hero-tagline', { 'hero-tagline--cjk': locale === 'zh-CN' }]">{{ t("hero.tagline") }}</span>
         </h1>
 
-        <p class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/85 text-pretty sm:text-xl">
+        <p class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/90 text-pretty sm:text-xl">
           {{ t("hero.description") }}
         </p>
 
-        <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+        <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row">
           <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">
             {{ t("nav.wishlistSteam") }}
           </GameButton>
@@ -130,7 +117,7 @@ const { t, locale } = useLocale();
           </GameButton>
         </div>
 
-        <ul class="mt-10 flex items-center gap-5 text-xs text-parchment/60" :aria-label="t('hero.platforms')">
+        <ul class="mt-8 flex items-center gap-5 text-xs text-parchment/75 md:self-start" :aria-label="t('hero.platforms')">
           <li v-for="platform in platforms" :key="platform.label" class="flex items-center gap-2">
             <UIcon :name="platform.icon" class="size-4" />
             <span class="font-display tracking-[0.18em] uppercase">{{ platform.label }}</span>
@@ -172,7 +159,7 @@ const { t, locale } = useLocale();
   height: 100%;
   object-fit: cover;
   object-position: 50% 30%;
-  filter: saturate(1.12) contrast(1.05);
+  filter: saturate(1.05) contrast(1.08);
   animation: ken-burns 26s ease-in-out infinite alternate;
   transform-origin: 50% 35%;
 }
@@ -182,13 +169,13 @@ const { t, locale } = useLocale();
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 58%, rgba(13, 10, 8, 0.55), transparent 70%),
-    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 45%, rgba(8, 6, 4, 0.8) 100%),
+    linear-gradient(90deg, rgba(8, 6, 4, 0.94) 0%, rgba(8, 6, 4, 0.82) 24%, rgba(8, 6, 4, 0.57) 43%, rgba(8, 6, 4, 0.12) 69%, transparent 100%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 48%, rgba(8, 6, 4, 0.72) 100%),
     linear-gradient(
       180deg,
-      rgba(8, 6, 4, 0.75) 0%,
-      rgba(8, 6, 4, 0.15) 22%,
-      rgba(13, 10, 8, 0.1) 50%,
+      rgba(8, 6, 4, 0.72) 0%,
+      rgba(8, 6, 4, 0.1) 24%,
+      rgba(13, 10, 8, 0.08) 52%,
       rgba(13, 10, 8, 0.7) 82%,
       var(--color-ink-950) 100%
     );
@@ -313,25 +300,54 @@ const { t, locale } = useLocale();
 
 .hero-logo-row {
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.75rem, 2vw, 1.75rem);
+}
+
+@media (min-width: 768px) {
+  .hero-logo-row {
+    justify-content: flex-start;
+  }
 }
 
 /* Sized on a wrapper so it never competes with the logo component's own styles. */
 .hero-logo {
+  position: relative;
+  isolation: isolate;
   display: block;
-  width: min(80vw, 38rem);
+  width: min(80vw, 28rem);
   flex-shrink: 0;
 }
 
-.hero-blade {
-  width: clamp(3rem, 9vw, 8rem);
-  flex-shrink: 1;
-  color: var(--color-gold-300);
-  opacity: 1;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+.hero-logo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -30% -22% -20%;
+  background: radial-gradient(ellipse at center, rgba(13, 9, 5, 0.64), rgba(13, 9, 5, 0.2) 54%, transparent 76%);
+  pointer-events: none;
+}
+
+.hero-title-ornament {
+  position: relative;
+  display: block;
+  width: clamp(8rem, 54%, 14rem);
+  height: 1px;
+  margin-top: 0.45rem;
+  background: linear-gradient(90deg, transparent, rgba(231, 186, 90, 0.76) 18%, rgba(231, 186, 90, 0.76) 82%, transparent);
+  filter: drop-shadow(0 0 5px rgba(231, 186, 90, 0.32));
+}
+
+.hero-title-ornament::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid var(--color-gold-300);
+  background: var(--color-ink-950);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 /* ---- Tagline ----------------------------------------------------------- */
@@ -452,8 +468,19 @@ const { t, locale } = useLocale();
     letter-spacing: 0.08em;
   }
 
-  .hero-blade {
-    display: none;
+}
+
+@media (max-width: 767px) {
+  .hero-shade {
+    background:
+      radial-gradient(ellipse 110% 62% at 50% 68%, rgba(8, 6, 4, 0.82), rgba(8, 6, 4, 0.48) 56%, transparent 100%),
+      linear-gradient(180deg, rgba(8, 6, 4, 0.5) 0%, transparent 24%, rgba(13, 10, 8, 0.12) 42%, rgba(13, 10, 8, 0.74) 82%, var(--color-ink-950) 100%);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .hero-logo {
+    width: min(72vw, 28rem);
   }
 }
 </style>
