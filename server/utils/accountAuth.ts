@@ -35,7 +35,7 @@ export function requireAccountOrigin(event: H3Event) {
   }
 }
 
-export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" } = {}) {
+export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" | "/website/connections/patreon" | "/website/connections/patreon/start" } = {}) {
   const config = accountConfig(event);
   if (!config.key) throw createError({ statusCode: 503, statusMessage: "Account sign-in is not configured yet" });
   return $fetch<T>(`${config.serviceUrl}${options.path ?? "/website/session"}`, {

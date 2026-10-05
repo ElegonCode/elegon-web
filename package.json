@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test:account": "node --test --test-isolation=none tests/account-auth.test.ts tests/discord-link.test.ts",
+    "test:account": "node --test --test-isolation=none tests/account-auth.test.ts tests/discord-link.test.ts tests/patreon-link.test.ts",
     "changelog:build": "node scripts/build-changelog.mjs",
     "prebuild": "npm run changelog:build",
     "build": "nuxt build",

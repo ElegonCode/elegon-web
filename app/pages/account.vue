@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { PatreonSupport } from "../../server/utils/patreonSupport";
+import { patreonSupportDuration } from "~/utils/patreonStats";
 import type { CharacterCard } from "../../server/utils/accountCharacters";
 import { summarizeAccountRealms, formatAccountDate, formatAccountAge } from "~/utils/accountStats";
 
@@ -25,7 +27,55 @@ const connectionNotice = computed(() => connectionMessage.value || ({
   "discord-in-use": "That Discord account is connected to another Elegon account. Disconnect it there first.",
   "discord-already-linked": "Your Elegon account already has a Discord connection. Refresh to see it.",
   "discord-failed": "Discord could not be connected. Please try again.",
+  "patreon-linked": "Patreon connected to your Elegon account.",
+  "patreon-cancelled": "Patreon connection cancelled. Your connections have not changed.",
+  "patreon-expired": "This connection attempt expired. Sign in and try connecting Patreon again.",
+  "patreon-in-use": "That Patreon account is connected to another Elegon account. Disconnect it there first.",
+  "patreon-already-linked": "Your Elegon account already has a Patreon connection. Refresh to see it.",
+  "patreon-failed": "Patreon could not be connected. Please try again.",
 } as Record<string, string>)[String(route.query.connection ?? "")] || "");
+const connectingPatreon = ref(false);
+const disconnectingPatreon = ref(false);
+const patreonConnection = computed(() => account.value?.connections?.find(connection => connection.provider === "patreon"));
+const patreonSupport = ref<PatreonSupport | null>(null);
+const patreonLoading = ref(false);
+const patreonError = ref("");
+let supportRequest = 0;
+async function loadPatreonSupport() {
+  const request = ++supportRequest;
+  patreonSupport.value = null;
+  patreonError.value = "";
+  patreonLoading.value = !!patreonConnection.value;
+  if (!patreonConnection.value) return;
+  try {
+    const result = await $fetch<{ support: PatreonSupport | null }>("/api/account/patreon");
+    if (request === supportRequest) patreonSupport.value = result.support;
+  } catch { if (request === supportRequest) patreonError.value = "Support details are temporarily unavailable. Please try again."; }
+  finally { if (request === supportRequest) patreonLoading.value = false; }
+}
+watch(() => `${account.value?.id ?? ''}:${patreonConnection.value?.provider_subject ?? ''}`, loadPatreonSupport, { immediate: true });
+const patreonStatus = computed(() => ({ active: "Supporting Elegon", declined: "Payment needs attention", former: "Former supporter", free: "Free member", none: "No Elegon membership" } as Record<string, string>)[patreonSupport.value?.status ?? ""]);
+const patreonDuration = computed(() => patreonSupportDuration(patreonSupport.value?.since));
+async function connectPatreon() {
+  connectingPatreon.value = true;
+  connectionError.value = "";
+  try {
+    const result = await $fetch<{ url: string }>("/api/account/connections/patreon/start", { method: "POST" });
+    window.location.assign(result.url);
+  } catch { connectionError.value = "Patreon could not be connected. Refresh your account and try again."; connectingPatreon.value = false; }
+}
+async function disconnectPatreon() {
+  const id = patreonConnection.value?.provider_subject;
+  if (!id) return;
+  disconnectingPatreon.value = true;
+  connectionError.value = "";
+  try {
+    await $fetch("/api/account/connections/patreon", { method: "DELETE", body: { patreon_id: id } });
+    await refresh();
+    connectionMessage.value = "Patreon disconnected from your Elegon account.";
+  } catch { connectionError.value = "Patreon could not be disconnected. Refresh your account and try again."; }
+  finally { disconnectingPatreon.value = false; }
+}
 const stats = computed(() => summarizeAccountRealms(realms.value));
 const loginMessage = computed(() => {
   if (!route.query.login) return "";
@@ -110,7 +160,7 @@ async function disconnectDiscord() {
               <p class="mt-2 text-sm text-parchment-muted">Your Elegon account</p>
             </div>
           </div>
-          <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
+          <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
         <section class="mt-10" aria-labelledby="connections-heading">
           <h2 id="connections-heading" class="font-display text-2xl text-parchment">Connections</h2>
@@ -153,6 +203,45 @@ async function disconnectDiscord() {
                 <GameButton v-if="discordConnection" variant="secondary" :disabled="disconnectingDiscord || signingOut" @click="disconnectDiscord">{{ disconnectingDiscord ? 'Disconnecting…' : 'Disconnect Discord' }}</GameButton>
                 <GameButton v-else-if="data?.discord_enabled" variant="secondary" :disabled="connectingDiscord || signingOut" @click="connectDiscord">{{ connectingDiscord ? 'Connecting…' : 'Connect Discord' }}</GameButton>
                 <p v-else class="text-sm text-parchment-muted">Discord connections are being prepared.</p>
+              </div>
+            </div>
+            <div class="account-panel flex flex-col gap-5 md:col-span-2">
+              <div class="flex items-center gap-3">
+                <UIcon name="i-simple-icons-patreon" class="size-7 shrink-0 text-orange-300" />
+                <h3 class="font-display text-xl text-parchment">Patreon</h3>
+                <span class="ml-auto text-xs text-parchment-muted">{{ patreonConnection ? 'Connected' : 'Not connected' }}</span>
+              </div>
+              <div v-if="patreonConnection" class="flex min-w-0 items-center gap-3">
+                <img v-if="patreonConnection.avatar_url" :src="patreonConnection.avatar_url" alt="" referrerpolicy="no-referrer" class="size-10 shrink-0 rounded-sm" />
+                <div class="min-w-0">
+                  <p class="break-words text-parchment">{{ patreonConnection.display_name }}</p>
+                  <p class="mt-1 break-all text-xs text-parchment-muted">Patreon ID {{ patreonConnection.provider_subject }}</p>
+                  <p class="mt-1 text-xs text-parchment-muted">Connected {{ formatAccountDate(patreonConnection.linked_at) }}</p>
+                </div>
+              </div>
+              <template v-if="patreonConnection">
+                <p v-if="patreonLoading" role="status" class="text-sm text-parchment-muted">Checking your Elegon support…</p>
+                <p v-else-if="patreonError" role="status" class="text-sm text-parchment-muted">{{ patreonError }}</p>
+                <div v-else-if="patreonSupport" class="grid gap-5 border-t border-gold-500/15 pt-5 sm:grid-cols-2">
+                  <div>
+                    <p class="text-xs uppercase tracking-widest text-parchment-muted">Elegon support</p>
+                    <p class="mt-2 text-parchment">{{ patreonStatus }}</p>
+                    <p v-if="patreonSupport.tiers.length" class="mt-2 text-sm text-gold-300">{{ patreonSupport.tiers.join(' · ') }}</p>
+                  </div>
+                  <div v-if="patreonSupport.since">
+                    <p class="text-xs uppercase tracking-widest text-parchment-muted">Supporting since</p>
+                    <p class="mt-2 text-parchment">{{ formatAccountDate(patreonSupport.since) }}</p>
+                    <p class="mt-2 text-xs text-parchment-muted">{{ patreonDuration }}</p>
+                  </div>
+                </div>
+                <p class="text-xs leading-relaxed text-parchment-muted">Support details can take up to five minutes to update. Disconnecting here does not cancel your Patreon membership.</p>
+              </template>
+              <p v-else class="text-sm leading-relaxed text-parchment-muted">Connect your Patreon account to see your Elegon supporter tier and support history.</p>
+              <div class="mt-auto flex flex-wrap items-center gap-5">
+                <GameButton v-if="patreonConnection" variant="secondary" :disabled="disconnectingPatreon || signingOut" @click="disconnectPatreon">{{ disconnectingPatreon ? 'Disconnecting…' : 'Disconnect Patreon' }}</GameButton>
+                <GameButton v-else-if="data?.patreon_enabled" variant="secondary" :disabled="connectingPatreon || signingOut" @click="connectPatreon">{{ connectingPatreon ? 'Connecting…' : 'Connect Patreon' }}</GameButton>
+                <p v-else class="text-sm text-parchment-muted">Patreon connections are being prepared.</p>
+                <button v-if="patreonConnection" class="text-sm text-gold-300 disabled:opacity-50" :disabled="patreonLoading || disconnectingPatreon || signingOut" @click="loadPatreonSupport">Refresh support</button>
               </div>
             </div>
           </div>
