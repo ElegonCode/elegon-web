@@ -4,6 +4,7 @@ export type AccountInfo = {
   id: string; steam_id: string; display_name: string; avatar_url: string;
   linked_methods: string[]; game_identity: string; has_legacy_link: boolean;
   created_at: string; signed_in_at: string;
+  connections: { provider: string; provider_subject: string; display_name: string; avatar_url: string; linked_at: string }[];
 };
 export type AccountSession = { account: AccountInfo; realm_token: string };
 
@@ -34,10 +35,10 @@ export function requireAccountOrigin(event: H3Event) {
   }
 }
 
-export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string } = {}) {
+export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" } = {}) {
   const config = accountConfig(event);
   if (!config.key) throw createError({ statusCode: 503, statusMessage: "Account sign-in is not configured yet" });
-  return $fetch<T>(`${config.serviceUrl}/website/session`, {
+  return $fetch<T>(`${config.serviceUrl}${options.path ?? "/website/session"}`, {
     method: options.method ?? "GET", body: options.body,
     headers: { Authorization: `Bearer ${config.key}`, ...(options.session ? { "x-website-session": options.session } : {}) },
     timeout: 15_000, retry: 0,

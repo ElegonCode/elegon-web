@@ -19,6 +19,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     authServiceUrl: "https://auth.elegon.app",
     authWebsiteApiKey: "",
+    discordClientId: "",
+    discordClientSecret: "",
     accountSiteOrigin: "https://elegon.app",
     accountUsRealmUrl: "https://clockworklabsspacetime-production-7da0.up.railway.app",
     accountEuRealmUrl: "https://clockworklabsspacetime-production-7ab4.up.railway.app",

@@ -13,6 +13,19 @@ const realms = ref<Realm[]>([]);
 const loadingCharacters = ref(false);
 const characterError = ref("");
 const signingOut = ref(false);
+const connectingDiscord = ref(false);
+const disconnectingDiscord = ref(false);
+const connectionError = ref("");
+const connectionMessage = ref("");
+const discordConnection = computed(() => account.value?.connections?.find(connection => connection.provider === "discord"));
+const connectionNotice = computed(() => connectionMessage.value || ({
+  "discord-linked": "Discord connected to your Elegon account.",
+  "discord-cancelled": "Discord connection cancelled. Your connections have not changed.",
+  "discord-expired": "This connection attempt expired. Sign in and try connecting Discord again.",
+  "discord-in-use": "That Discord account is connected to another Elegon account. Disconnect it there first.",
+  "discord-already-linked": "Your Elegon account already has a Discord connection. Refresh to see it.",
+  "discord-failed": "Discord could not be connected. Please try again.",
+} as Record<string, string>)[String(route.query.connection ?? "")] || "");
 const stats = computed(() => summarizeAccountRealms(realms.value));
 const loginMessage = computed(() => {
   if (!route.query.login) return "";
@@ -40,6 +53,29 @@ async function signOut() {
     await refresh();
   } catch { characterError.value = "Sign-out could not be completed. Please try again."; }
   finally { signingOut.value = false; }
+}
+async function connectDiscord() {
+  connectingDiscord.value = true;
+  connectionError.value = "";
+  try {
+    const result = await $fetch<{ url: string }>("/api/account/connections/discord/start", { method: "POST" });
+    window.location.assign(result.url);
+  } catch {
+    connectionError.value = "Discord could not be connected. Refresh your account and try again.";
+    connectingDiscord.value = false;
+  }
+}
+async function disconnectDiscord() {
+  const id = discordConnection.value?.provider_subject;
+  if (!id) return;
+  disconnectingDiscord.value = true;
+  connectionError.value = "";
+  try {
+    await $fetch("/api/account/connections/discord", { method: "DELETE", body: { discord_id: id } });
+    await refresh();
+    connectionMessage.value = "Discord disconnected from your Elegon account.";
+  } catch { connectionError.value = "Discord could not be disconnected. Refresh your account and try again."; }
+  finally { disconnectingDiscord.value = false; }
 }
 </script>
 
@@ -71,12 +107,53 @@ async function signOut() {
             <img v-if="account.avatar_url" :src="account.avatar_url" alt="" referrerpolicy="no-referrer" class="size-16 rounded-sm border border-gold-500/30" />
             <div class="min-w-0">
               <h2 class="break-words font-display text-2xl text-parchment">{{ account.display_name || 'Adventurer' }}</h2>
-              <p class="mt-2 flex items-center gap-2 text-sm text-parchment-muted"><UIcon name="i-simple-icons-steam" class="size-4" /> Steam connected</p>
-              <p class="mt-1 break-all text-xs text-parchment-muted">Steam ID {{ account.steam_id }}</p>
+              <p class="mt-2 text-sm text-parchment-muted">Your Elegon account</p>
             </div>
           </div>
-          <GameButton variant="ghost" :disabled="signingOut" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
+          <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
+        <section class="mt-10" aria-labelledby="connections-heading">
+          <h2 id="connections-heading" class="font-display text-2xl text-parchment">Connections</h2>
+          <p class="mt-3 text-sm leading-relaxed text-parchment-muted">The accounts connected to your Elegon profile.</p>
+          <p v-if="connectionNotice" role="status" class="mt-5 rounded border border-gold-500/25 bg-gold-500/5 p-4 text-sm text-parchment">{{ connectionNotice }}</p>
+          <p v-if="connectionError" role="alert" class="mt-5 text-sm text-gold-300">{{ connectionError }}</p>
+          <div class="mt-6 grid gap-6 md:grid-cols-2">
+            <div class="account-panel flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <UIcon name="i-simple-icons-steam" class="size-7 shrink-0 text-gold-300" />
+                <h3 class="font-display text-xl text-parchment">Steam</h3>
+                <span class="ml-auto flex items-center gap-1.5 text-xs text-parchment-muted"><UIcon name="i-lucide-lock-keyhole" class="size-3.5" /> Required</span>
+              </div>
+              <div class="min-w-0">
+                <p class="break-words text-parchment">{{ account.display_name || 'Adventurer' }}</p>
+                <p class="mt-1 break-all text-xs text-parchment-muted">Steam ID {{ account.steam_id }}</p>
+              </div>
+              <p class="text-sm leading-relaxed text-parchment-muted">Steam is your primary sign-in and stays connected to your Elegon account.</p>
+              <a :href="`https://steamcommunity.com/profiles/${account.steam_id}`" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-1 text-sm text-gold-300 hover:text-gold-200">Steam profile <UIcon name="i-lucide-arrow-up-right" class="size-3" /></a>
+            </div>
+            <div class="account-panel flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <UIcon name="i-simple-icons-discord" class="size-7 shrink-0 text-indigo-300" />
+                <h3 class="font-display text-xl text-parchment">Discord</h3>
+                <span class="ml-auto text-xs text-parchment-muted">{{ discordConnection ? 'Connected' : 'Not connected' }}</span>
+              </div>
+              <div v-if="discordConnection" class="flex min-w-0 items-center gap-3">
+                <img v-if="discordConnection.avatar_url" :src="discordConnection.avatar_url" alt="" referrerpolicy="no-referrer" class="size-10 shrink-0 rounded-sm" />
+                <div class="min-w-0">
+                  <p class="break-words text-parchment">{{ discordConnection.display_name }}</p>
+                  <p class="mt-1 break-all text-xs text-parchment-muted">Discord ID {{ discordConnection.provider_subject }}</p>
+                  <p class="mt-1 text-xs text-parchment-muted">Connected {{ formatAccountDate(discordConnection.linked_at) }}</p>
+                </div>
+              </div>
+              <p v-else class="text-sm leading-relaxed text-parchment-muted">Connect your Discord account to your Elegon profile.</p>
+              <div class="mt-auto">
+                <GameButton v-if="discordConnection" variant="secondary" :disabled="disconnectingDiscord || signingOut" @click="disconnectDiscord">{{ disconnectingDiscord ? 'Disconnecting…' : 'Disconnect Discord' }}</GameButton>
+                <GameButton v-else-if="data?.discord_enabled" variant="secondary" :disabled="connectingDiscord || signingOut" @click="connectDiscord">{{ connectingDiscord ? 'Connecting…' : 'Connect Discord' }}</GameButton>
+                <p v-else class="text-sm text-parchment-muted">Discord connections are being prepared.</p>
+              </div>
+            </div>
+          </div>
+        </section>
         <dl class="account-panel mt-6 grid gap-6 sm:grid-cols-3">
           <div>
             <dt class="text-xs uppercase tracking-widest text-parchment-muted">Account created</dt>
@@ -91,7 +168,6 @@ async function signOut() {
           <div>
             <dt class="text-xs uppercase tracking-widest text-parchment-muted">This sign-in</dt>
             <dd class="mt-2 text-parchment">{{ formatAccountDate(account.signed_in_at) }}</dd>
-            <a :href="`https://steamcommunity.com/profiles/${account.steam_id}`" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1 text-xs text-gold-300 hover:text-gold-200">Steam profile <UIcon name="i-lucide-arrow-up-right" class="size-3" /></a>
           </div>
         </dl>
         <dl class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
