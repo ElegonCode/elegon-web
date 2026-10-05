@@ -134,6 +134,9 @@ onMounted(() => {
       </nav>
 
       <div class="flex shrink-0 items-center gap-1">
+        <NuxtLink to="/account" aria-label="Your account" title="Your account" class="flex size-9 items-center justify-center text-parchment-muted transition hover:text-gold-300">
+          <UIcon name="i-lucide-user-round" class="size-[1.15rem]" />
+        </NuxtLink>
         <details ref="languageMenu" class="header-menu">
           <summary class="flex size-9 cursor-pointer list-none items-center justify-center text-parchment-muted transition hover:text-gold-300" :aria-label="t('nav.language')">
             <UIcon name="i-lucide-languages" class="size-[1.15rem]" />
@@ -189,6 +192,7 @@ onMounted(() => {
       <template #body>
         <nav id="mobile-menu" :aria-label="t('nav.mobile')" class="flex h-full flex-col">
           <ul class="flex flex-col py-2">
+            <li><NuxtLink to="/account" class="mobile-link" @click="mobileOpen = false">Your account</NuxtLink></li>
             <li v-for="link in sectionLinks" :key="link.hash">
               <NuxtLink :to="{ path: localePath(), hash: `#${link.hash}` }" class="mobile-link" @click="mobileOpen = false">
                 {{ link.label }}

@@ -9,10 +9,20 @@ export default defineNuxtConfig({
     colorMode: false,
   },
   routeRules: {
+    "/account": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
+    "/auth/**": { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } },
+    "/api/account/**": { headers: { "Cache-Control": "private, no-store" } },
+    "/api/account": { headers: { "Cache-Control": "private, no-store" } },
     // Serve the landing page from the edge cache and refresh it in the background.
     "/": { isr: 600 },
   },
   runtimeConfig: {
+    authServiceUrl: "https://auth.elegon.app",
+    authWebsiteApiKey: "",
+    accountSiteOrigin: "https://elegon.app",
+    accountUsRealmUrl: "https://clockworklabsspacetime-production-7da0.up.railway.app",
+    accountEuRealmUrl: "https://clockworklabsspacetime-production-7ab4.up.railway.app",
+    accountRealmDatabase: "elegon",
     public: {
       // Canonical origin used for SEO tags, the sitemap and robots.txt.
       // Falls back to the request origin when unset.
