@@ -22,3 +22,12 @@ export function formatAccountDate(value: string | null | undefined) {
     day: "numeric", month: "short", year: "numeric", timeZone: "UTC",
   }).format(new Date(value));
 }
+
+export function formatAccountAge(value: string | null | undefined, now = Date.now()) {
+  if (!value || !Number.isFinite(Date.parse(value))) return null;
+  // Count calendar days in UTC, matching the date displayed above the caption.
+  const days = Math.floor(now / 86_400_000) - Math.floor(Date.parse(value) / 86_400_000);
+  if (days < 0) return null;
+  if (days === 0) return "Created today";
+  return `Created ${days} ${days === 1 ? "day" : "days"} ago`;
+}

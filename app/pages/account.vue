@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CharacterCard } from "../../server/utils/accountCharacters";
-import { summarizeAccountRealms, formatAccountDate } from "~/utils/accountStats";
+import { summarizeAccountRealms, formatAccountDate, formatAccountAge } from "~/utils/accountStats";
 
 type Realm = { name: string; available: boolean; characters: CharacterCard[]; error: string | null };
 useSeoMeta({ title: "Your account", robots: "noindex, nofollow" });
@@ -8,6 +8,7 @@ useHead({ htmlAttrs: { lang: "en" } });
 const route = useRoute();
 const { data, pending, error, refresh, status } = useAccount();
 const account = computed(() => data.value?.account);
+const accountAge = computed(() => formatAccountAge(account.value?.created_at));
 const realms = ref<Realm[]>([]);
 const loadingCharacters = ref(false);
 const characterError = ref("");
@@ -80,6 +81,7 @@ async function signOut() {
           <div>
             <dt class="text-xs uppercase tracking-widest text-parchment-muted">Account created</dt>
             <dd class="mt-2 text-parchment"><time v-if="account.created_at" :datetime="account.created_at">{{ formatAccountDate(account.created_at) }}</time><span v-else>Not recorded</span></dd>
+            <p v-if="accountAge" class="mt-2 text-xs text-parchment-muted">{{ accountAge }}</p>
           </div>
           <div>
             <dt class="text-xs uppercase tracking-widest text-parchment-muted">First character</dt>
