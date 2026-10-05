@@ -124,9 +124,12 @@ async function disconnectDiscord() {
                 <h3 class="font-display text-xl text-parchment">Steam</h3>
                 <span class="ml-auto flex items-center gap-1.5 text-xs text-parchment-muted"><UIcon name="i-lucide-lock-keyhole" class="size-3.5" /> Required</span>
               </div>
-              <div class="min-w-0">
-                <p class="break-words text-parchment">{{ account.display_name || 'Adventurer' }}</p>
-                <p class="mt-1 break-all text-xs text-parchment-muted">Steam ID {{ account.steam_id }}</p>
+              <div class="flex min-w-0 items-center gap-3">
+                <img v-if="account.avatar_url" :src="account.avatar_url" alt="" referrerpolicy="no-referrer" class="size-10 shrink-0 rounded-sm" />
+                <div class="min-w-0">
+                  <p class="break-words text-parchment">{{ account.display_name || 'Adventurer' }}</p>
+                  <p class="mt-1 break-all text-xs text-parchment-muted">Steam ID {{ account.steam_id }}</p>
+                </div>
               </div>
               <p class="text-sm leading-relaxed text-parchment-muted">Steam is your primary sign-in and stays connected to your Elegon account.</p>
               <a :href="`https://steamcommunity.com/profiles/${account.steam_id}`" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-1 text-sm text-gold-300 hover:text-gold-200">Steam profile <UIcon name="i-lucide-arrow-up-right" class="size-3" /></a>
