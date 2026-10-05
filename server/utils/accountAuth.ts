@@ -3,6 +3,7 @@ import type { H3Event } from "h3";
 export type AccountInfo = {
   id: string; steam_id: string; display_name: string; avatar_url: string;
   linked_methods: string[]; game_identity: string; has_legacy_link: boolean;
+  created_at: string; signed_in_at: string;
 };
 export type AccountSession = { account: AccountInfo; realm_token: string };
 

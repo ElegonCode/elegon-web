@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import type { AccountInfo } from "../../server/utils/accountAuth";
 import type { CharacterCard } from "../../server/utils/accountCharacters";
+import { summarizeAccountRealms, formatAccountDate } from "~/utils/accountStats";
 
 type Realm = { name: string; available: boolean; characters: CharacterCard[]; error: string | null };
 useSeoMeta({ title: "Your account", robots: "noindex, nofollow" });
 useHead({ htmlAttrs: { lang: "en" } });
 const route = useRoute();
-const { data, pending, error, refresh } = await useFetch<{ enabled: boolean; account: AccountInfo | null }>("/api/account", { key: "elegon-account" });
+const { data, pending, error, refresh, status } = useAccount();
 const account = computed(() => data.value?.account);
 const realms = ref<Realm[]>([]);
 const loadingCharacters = ref(false);
 const characterError = ref("");
 const signingOut = ref(false);
+const stats = computed(() => summarizeAccountRealms(realms.value));
 const loginMessage = computed(() => {
   if (!route.query.login) return "";
   return route.query.login === "unavailable"
@@ -26,7 +27,10 @@ async function loadCharacters() {
   catch { characterError.value = "Your characters could not be loaded. Please refresh and try again."; }
   finally { loadingCharacters.value = false; }
 }
-onMounted(() => { if (account.value) loadCharacters(); });
+watch(() => account.value?.id, (id) => {
+  realms.value = [];
+  if (id) loadCharacters();
+}, { immediate: true });
 async function signOut() {
   signingOut.value = true;
   try {
@@ -46,7 +50,7 @@ async function signOut() {
       <p class="mt-4 max-w-xl leading-relaxed text-parchment-muted">{{ account ? 'Your adventurers, across every realm. Your journey continues here.' : 'Your adventurers, across every realm. Sign in with the Steam account you use to play.' }}</p>
 
       <p v-if="loginMessage" role="alert" class="mt-8 rounded border border-gold-500/30 bg-gold-500/5 p-4 text-parchment">{{ loginMessage }}</p>
-      <p v-if="pending" role="status" class="mt-12 text-parchment-muted">Loading your account…</p>
+      <p v-if="pending || status === 'idle'" role="status" class="mt-12 text-parchment-muted">Loading your account…</p>
       <div v-else-if="error" role="alert" class="account-panel mt-10">
         <p class="text-parchment-muted">Your account could not be loaded. Please try again.</p>
         <GameButton class="mt-6" variant="secondary" @click="refresh()">Try again</GameButton>
@@ -72,6 +76,41 @@ async function signOut() {
           </div>
           <GameButton variant="ghost" :disabled="signingOut" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
+        <dl class="account-panel mt-6 grid gap-6 sm:grid-cols-3">
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Account created</dt>
+            <dd class="mt-2 text-parchment"><time v-if="account.created_at" :datetime="account.created_at">{{ formatAccountDate(account.created_at) }}</time><span v-else>Not recorded</span></dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">First character</dt>
+            <dd class="mt-2 text-parchment">{{ loadingCharacters ? 'Loading…' : stats.available ? formatAccountDate(stats.firstCharacter) : 'Unavailable' }}</dd>
+            <p v-if="stats.firstCharacter && account.created_at && stats.firstCharacter < account.created_at" class="mt-2 text-xs leading-relaxed text-parchment-muted">Your adventures began before this account record.</p>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">This sign-in</dt>
+            <dd class="mt-2 text-parchment">{{ formatAccountDate(account.signed_in_at) }}</dd>
+            <a :href="`https://steamcommunity.com/profiles/${account.steam_id}`" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1 text-xs text-gold-300 hover:text-gold-200">Steam profile <UIcon name="i-lucide-arrow-up-right" class="size-3" /></a>
+          </div>
+        </dl>
+        <dl class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div class="account-panel">
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Characters</dt>
+            <dd class="mt-3 font-display text-3xl text-gold-200">{{ loadingCharacters || !stats.available ? '—' : stats.characters }}</dd>
+          </div>
+          <div class="account-panel">
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Highest level</dt>
+            <dd class="mt-3 font-display text-3xl text-gold-200">{{ loadingCharacters || !stats.available ? '—' : stats.highestLevel ?? '—' }}</dd>
+          </div>
+          <div class="account-panel">
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Realms explored</dt>
+            <dd class="mt-3 font-display text-3xl text-gold-200">{{ loadingCharacters || !stats.available ? '—' : stats.realms }}</dd>
+          </div>
+          <div class="account-panel">
+            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Last played</dt>
+            <dd class="mt-3 font-display text-lg text-gold-200">{{ loadingCharacters || !stats.available ? '—' : formatAccountDate(stats.lastPlayed) }}</dd>
+          </div>
+        </dl>
+        <p v-if="!loadingCharacters && stats.partial" role="status" class="mt-4 text-sm text-parchment-muted">{{ stats.available ? 'Stats reflect available realms only. Refresh to try the others again.' : 'Character stats are unavailable while the realms cannot be reached.' }}</p>
         <div class="mb-6 mt-12 flex items-center justify-between gap-4">
           <h2 class="font-display text-2xl text-parchment">Your characters</h2>
           <button class="flex items-center gap-2 text-sm text-gold-300 disabled:opacity-50" :disabled="loadingCharacters" @click="loadCharacters">
@@ -91,6 +130,7 @@ async function signOut() {
                   <div class="min-w-0">
                     <p class="break-words font-display text-lg text-parchment">{{ character.name }}</p>
                     <p class="mt-1 text-sm text-parchment-muted">{{ className(character.classSelection) }} · {{ character.zone }}</p>
+                    <p v-if="character.lastPlayed" class="mt-1 text-xs text-parchment-muted">Last played {{ formatAccountDate(character.lastPlayed) }}</p>
                   </div>
                   <span class="shrink-0 rounded-sm border border-gold-500/20 px-2 py-1 text-xs text-gold-200">Level {{ character.level }}</span>
                 </div>
@@ -106,5 +146,5 @@ async function signOut() {
 
 <style scoped>
 .account-page { background: radial-gradient(ellipse at 50% 5%, rgba(231,186,90,0.06), transparent 65%); }
-.account-panel { padding: 1.75rem; border: 1px solid rgba(231,186,90,0.18); background: rgba(15,12,10,0.8); border-radius: 3px; }
+.account-panel { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid rgba(231,186,90,0.18); background: rgba(15,12,10,0.8); border-radius: 3px; }
 </style>

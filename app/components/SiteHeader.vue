@@ -2,6 +2,9 @@
 import { LOCALE_NAMES, SUPPORTED_LOCALES, type SupportedLocale } from "~/utils/locales";
 
 const route = useRoute();
+const { data: accountData } = useAccount();
+const accountName = computed(() => accountData.value?.account
+  ? accountData.value.account.display_name || "Adventurer" : "");
 const { locale, t, localePath } = useLocale();
 const localePreference = useCookie<SupportedLocale>("elegon_locale", {
   maxAge: 60 * 60 * 24 * 365,
@@ -96,7 +99,7 @@ onMounted(() => {
         <AppLogo
           class="h-9 w-9 shrink-0 rounded-sm ring-1 ring-gold-500/40 transition duration-300 group-hover:ring-gold-300 group-hover:shadow-[0_0_18px_rgba(231,186,90,0.45)]"
         />
-        <span class="font-display text-lg font-bold tracking-[0.28em] text-gold-gradient">ELEGON</span>
+        <span :class="['font-display text-lg font-bold tracking-[0.28em] text-gold-gradient', { 'max-[379px]:hidden': accountName }]">ELEGON</span>
       </NuxtLink>
 
       <nav :aria-label="t('nav.primary')" :class="['hidden min-w-0 flex-1 items-center justify-center 2xl:flex', { 'nav-locale-compact': locale !== 'en' }]">
@@ -134,8 +137,9 @@ onMounted(() => {
       </nav>
 
       <div class="flex shrink-0 items-center gap-1">
-        <NuxtLink to="/account" aria-label="Your account" title="Your account" class="flex size-9 items-center justify-center text-parchment-muted transition hover:text-gold-300">
-          <UIcon name="i-lucide-user-round" class="size-[1.15rem]" />
+        <NuxtLink to="/account" :aria-label="accountName ? `Your account: ${accountName}` : 'Your account'" :title="accountName || 'Your account'" class="flex h-9 items-center justify-center gap-1.5 px-1.5 text-parchment-muted transition hover:text-gold-300">
+          <UIcon name="i-lucide-user-round" class="size-[1.15rem] shrink-0" />
+          <span v-if="accountName" class="max-w-20 truncate text-sm text-gold-200 sm:max-w-28 lg:max-w-40 2xl:max-w-28">{{ accountName }}</span>
         </NuxtLink>
         <details ref="languageMenu" class="header-menu">
           <summary class="flex size-9 cursor-pointer list-none items-center justify-center text-parchment-muted transition hover:text-gold-300" :aria-label="t('nav.language')">
@@ -192,7 +196,7 @@ onMounted(() => {
       <template #body>
         <nav id="mobile-menu" :aria-label="t('nav.mobile')" class="flex h-full flex-col">
           <ul class="flex flex-col py-2">
-            <li><NuxtLink to="/account" class="mobile-link" @click="mobileOpen = false">Your account</NuxtLink></li>
+            <li><NuxtLink to="/account" class="mobile-link" @click="mobileOpen = false"><UIcon name="i-lucide-user-round" class="size-4 shrink-0" /><span class="truncate" :title="accountName">{{ accountName || 'Your account' }}</span></NuxtLink></li>
             <li v-for="link in sectionLinks" :key="link.hash">
               <NuxtLink :to="{ path: localePath(), hash: `#${link.hash}` }" class="mobile-link" @click="mobileOpen = false">
                 {{ link.label }}
