@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PatreonSupport } from "../../server/utils/patreonSupport";
-import { patreonSupportDuration } from "~/utils/patreonStats";
+import { patreonSupportDuration, patreonSupportMonths } from "~/utils/patreonStats";
 import type { CharacterCard } from "../../server/utils/accountCharacters";
 import { formatAccountDate, formatAccountAge } from "~/utils/accountStats";
 
@@ -105,6 +105,26 @@ async function loadPatreonSupport() {
 watch(() => `${account.value?.id ?? ''}:${patreonConnection.value?.provider_subject ?? ''}`, loadPatreonSupport, { immediate: true });
 const patreonStatus = computed(() => ({ active: "Supporting Elegon", declined: "Payment needs attention", former: "Former supporter", free: "Free member", none: "No Elegon membership" } as Record<string, string>)[patreonSupport.value?.status ?? ""]);
 const patreonDuration = computed(() => patreonSupportDuration(patreonSupport.value?.since));
+// The profile card's medal: only while the player is an active supporter.
+const supporterMonths = computed(() => patreonSupport.value?.status === "active" ? patreonSupportMonths(patreonSupport.value.since) ?? 0 : null);
+type FeedbackStats = { posts: number; comments: number; votes: number };
+const feedbackStats = ref<FeedbackStats | null>(null);
+const feedbackLinked = ref<boolean | null>(null);
+let feedbackRequest = 0;
+async function loadFeedbackStats() {
+  const request = ++feedbackRequest;
+  feedbackStats.value = null;
+  feedbackLinked.value = null;
+  if (!account.value || account.value.deletion_pending) return;
+  try {
+    const result = await $fetch<{ stats: FeedbackStats | null }>("/api/account/feedback");
+    if (request !== feedbackRequest) return;
+    feedbackStats.value = result.stats;
+    feedbackLinked.value = !!result.stats;
+  } catch { /* The counts are a decoration; leave them out if unavailable. */ }
+}
+watch(() => account.value?.id, loadFeedbackStats, { immediate: true });
+const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? "" : "s"}`;
 async function connectPatreon() {
   connectingPatreon.value = true;
   connectionError.value = "";
@@ -215,8 +235,16 @@ async function disconnectDiscord() {
             <div class="min-w-0">
               <h2 class="break-words font-display text-2xl text-parchment">{{ account.display_name || 'Adventurer' }}</h2>
               <p class="mt-2 text-sm text-parchment-muted">Account Created <time v-if="accountAge" :datetime="account.created_at">{{ formatAccountDate(account.created_at) }}</time><span v-else>Not recorded</span><span v-if="accountAge"> ({{ accountAge }})</span></p>
+              <p v-if="feedbackStats" class="mt-1 flex flex-wrap items-center gap-x-2 text-sm text-parchment-muted">
+                <UIcon name="i-lucide-message-square-heart" class="size-4 text-gold-300" />
+                <a href="https://feedback.elegon.app" target="_blank" rel="noopener" class="hover:text-gold-200">{{ plural(feedbackStats.posts, 'feedback post') }} · {{ plural(feedbackStats.comments, 'comment') }} · {{ plural(feedbackStats.votes, 'vote') }}</a>
+              </p>
+              <p v-else-if="feedbackLinked === false" class="mt-1 text-sm text-parchment-muted">
+                <button class="text-gold-300 hover:text-gold-200" @click="activeTab = 'details'">Add an email</button> to see your feedback here.
+              </p>
             </div>
           </div>
+          <SupporterBadge v-if="supporterMonths !== null" :months="supporterMonths" class="supporter-slot" />
           <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
         <div role="tablist" aria-label="Account sections" class="mt-8 flex flex-wrap gap-2 border-b border-gold-500/20 pb-3">
@@ -387,5 +415,7 @@ async function disconnectDiscord() {
 .account-dialog { width: min(36rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; margin: auto; padding: 1.75rem; border: 1px solid rgba(248,113,113,0.35); border-radius: 3px; background: #100e0c; }
 .account-dialog::backdrop { background: rgba(0,0,0,0.8); }
 .account-page { background: radial-gradient(ellipse at 50% 5%, rgba(231,186,90,0.06), transparent 65%); }
+.supporter-slot { margin-left: auto; padding: 0.4rem 1rem 0.4rem 0.5rem; border-left: 1px solid rgba(231,186,90,0.18); }
+@media (max-width: 640px) { .supporter-slot { margin-left: 0; border-left: 0; padding-left: 0; } }
 .account-panel { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid rgba(231,186,90,0.18); background: rgba(15,12,10,0.8); border-radius: 3px; }
 </style>
