@@ -3,7 +3,7 @@ import type { H3Event } from "h3";
 export type AccountInfo = {
   id: string; steam_id: string; display_name: string; avatar_url: string;
   linked_methods: string[]; game_identity: string; has_legacy_link: boolean;
-  created_at: string; signed_in_at: string;
+  created_at: string; signed_in_at: string; deletion_pending: boolean;
   connections: { provider: string; provider_subject: string; display_name: string; avatar_url: string; linked_at: string }[];
 };
 export type AccountSession = { account: AccountInfo; realm_token: string };
@@ -35,7 +35,7 @@ export function requireAccountOrigin(event: H3Event) {
   }
 }
 
-export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" | "/website/connections/patreon" | "/website/connections/patreon/start" } = {}) {
+export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: "/website/account/username" | "/website/account/delete" | "/website/account/delete/realm" | "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" | "/website/connections/patreon" | "/website/connections/patreon/start" } = {}) {
   const config = accountConfig(event);
   if (!config.key) throw createError({ statusCode: 503, statusMessage: "Account sign-in is not configured yet" });
   return $fetch<T>(`${config.serviceUrl}${options.path ?? "/website/session"}`, {

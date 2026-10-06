@@ -10,6 +10,48 @@ useHead({ htmlAttrs: { lang: "en" } });
 const route = useRoute();
 const { data, pending, error, refresh, status } = useAccount();
 const account = computed(() => data.value?.account);
+const tabs = [{ id: 'details', label: 'Details & stats' }, { id: 'connections', label: 'Connections' }, { id: 'characters', label: 'Characters' }, { id: 'danger', label: 'Danger zone' }];
+const activeTab = ref(route.query.connection ? 'connections' : 'details');
+const username = ref('');
+const savingUsername = ref(false);
+const usernameMessage = ref('');
+const usernameError = ref('');
+const deleteDialog = ref<HTMLDialogElement | null>(null);
+const deletionConfirmation = ref('');
+const deleting = ref(false);
+const deletionError = ref('');
+const deleted = ref(false);
+const steamConnection = computed(() => account.value?.connections?.find(c => c.provider === 'steam'));
+watch(() => account.value?.display_name, name => { username.value = name ?? ''; }, { immediate: true });
+watch(() => account.value?.deletion_pending, pending => { if (pending) activeTab.value = 'danger'; }, { immediate: true });
+function tabKey(event: KeyboardEvent, index: number) {
+  let next = index;
+  if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+  else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+  else if (event.key === 'Home') next = 0;
+  else if (event.key === 'End') next = tabs.length - 1;
+  else return;
+  event.preventDefault(); activeTab.value = tabs[next]!.id;
+  document.getElementById(`account-tab-${activeTab.value}`)?.focus();
+}
+async function saveUsername() {
+  savingUsername.value = true; usernameError.value = ''; usernameMessage.value = '';
+  try {
+    await $fetch('/api/account/username', { method: 'POST', body: { username: username.value } });
+    await refresh(); usernameMessage.value = 'Your Elegon username has been updated.';
+  } catch { usernameError.value = 'Your username could not be saved. Use 2–32 letters, numbers, spaces, dots, underscores or hyphens.'; }
+  finally { savingUsername.value = false; }
+}
+function openDeleteDialog() { deletionConfirmation.value = ''; deletionError.value = ''; deleteDialog.value?.showModal(); }
+async function deleteAccount() {
+  if (!account.value || deletionConfirmation.value !== 'DELETE') return;
+  deleting.value = true; deletionError.value = '';
+  try {
+    await $fetch('/api/account/delete', { method: 'POST', body: { account_id: account.value.id, confirmation: deletionConfirmation.value }, timeout: 90_000, retry: 0 });
+    deleteDialog.value?.close(); realms.value = []; deleted.value = true; await refresh();
+  } catch { deletionError.value = 'Deletion could not finish. Please try again to resume cleanup. Your account is locked while deletion is in progress.'; await refresh(); }
+  finally { deleting.value = false; }
+}
 const accountAge = computed(() => formatAccountAge(account.value?.created_at));
 const realms = ref<Realm[]>([]);
 const loadingCharacters = ref(false);
@@ -84,16 +126,24 @@ const loginMessage = computed(() => {
     : "Steam sign-in could not be completed. Please try again.";
 });
 const className = (selection: number) => ({ 1: "Knight", 2: "Mage", 3: "Cleric" }[selection] ?? "Adventurer");
+let rosterRequest = 0;
 async function loadCharacters() {
+  if (!account.value || account.value.deletion_pending) return;
+  const request = ++rosterRequest;
   loadingCharacters.value = true;
   characterError.value = "";
-  try { realms.value = (await $fetch<{ realms: Realm[] }>("/api/account/characters")).realms; }
-  catch { characterError.value = "Your characters could not be loaded. Please refresh and try again."; }
-  finally { loadingCharacters.value = false; }
+  try {
+    const result = await $fetch<{ realms: Realm[] }>("/api/account/characters");
+    if (request === rosterRequest) realms.value = result.realms;
+  }
+  catch { if (request === rosterRequest) characterError.value = "Your characters could not be loaded. Please refresh and try again."; }
+  finally { if (request === rosterRequest) loadingCharacters.value = false; }
 }
-watch(() => account.value?.id, (id) => {
+watch(() => `${account.value?.id ?? ''}:${!!account.value?.deletion_pending}`, () => {
+  ++rosterRequest;
   realms.value = [];
-  if (id) loadCharacters();
+  loadingCharacters.value = false;
+  if (account.value && !account.value.deletion_pending) loadCharacters();
 }, { immediate: true });
 async function signOut() {
   signingOut.value = true;
@@ -136,6 +186,7 @@ async function disconnectDiscord() {
       <h1 class="font-display text-4xl text-parchment sm:text-5xl">Your account</h1>
       <p class="mt-4 max-w-xl leading-relaxed text-parchment-muted">{{ account ? 'Your adventurers, across every realm. Your journey continues here.' : 'Your adventurers, across every realm. Sign in with the Steam account you use to play.' }}</p>
 
+      <p v-if="deleted" role="status" class="account-panel mt-8 text-parchment">Your Elegon account and characters have been deleted. You are signed out.</p>
       <p v-if="loginMessage" role="alert" class="mt-8 rounded border border-gold-500/30 bg-gold-500/5 p-4 text-parchment">{{ loginMessage }}</p>
       <p v-if="pending || status === 'idle'" role="status" class="mt-12 text-parchment-muted">Loading your account…</p>
       <div v-else-if="error" role="alert" class="account-panel mt-10">
@@ -162,7 +213,11 @@ async function disconnectDiscord() {
           </div>
           <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
-        <section class="mt-10" aria-labelledby="connections-heading">
+        <div role="tablist" aria-label="Account sections" class="mt-8 flex flex-wrap gap-2 border-b border-gold-500/20 pb-3">
+          <button v-for="(tab, index) in tabs" :id="`account-tab-${tab.id}`" :key="tab.id" role="tab" :aria-selected="activeTab === tab.id" :aria-controls="`account-panel-${tab.id}`" :tabindex="activeTab === tab.id ? 0 : -1" class="rounded-sm px-4 py-3 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-300" :class="activeTab === tab.id ? 'bg-gold-400/10 text-gold-200' : 'text-parchment-muted hover:text-parchment'" @click="activeTab = tab.id" @keydown="tabKey($event, index)">{{ tab.label }}</button>
+        </div>
+        <p v-if="account.deletion_pending" role="alert" class="mt-6 rounded border border-red-400/40 p-4 text-sm text-red-200">Your account is being deleted. Resume deletion in Danger zone to finish removing data from both realms.</p>
+        <section v-show="activeTab === 'connections'" id="account-panel-connections" role="tabpanel" aria-labelledby="account-tab-connections" tabindex="0" class="mt-10">
           <h2 id="connections-heading" class="font-display text-2xl text-parchment">Connections</h2>
           <p class="mt-3 text-sm leading-relaxed text-parchment-muted">The accounts connected to your Elegon profile.</p>
           <p v-if="connectionNotice" role="status" class="mt-5 rounded border border-gold-500/25 bg-gold-500/5 p-4 text-sm text-parchment">{{ connectionNotice }}</p>
@@ -177,7 +232,7 @@ async function disconnectDiscord() {
               <div class="flex min-w-0 items-center gap-3">
                 <img v-if="account.avatar_url" :src="account.avatar_url" alt="" referrerpolicy="no-referrer" class="size-10 shrink-0 rounded-sm" />
                 <div class="min-w-0">
-                  <p class="break-words text-parchment">{{ account.display_name || 'Adventurer' }}</p>
+                  <p class="break-words text-parchment">{{ steamConnection?.display_name || 'Adventurer' }}</p>
                   <p class="mt-1 break-all text-xs text-parchment-muted">Steam ID {{ account.steam_id }}</p>
                 </div>
               </div>
@@ -200,8 +255,8 @@ async function disconnectDiscord() {
               </div>
               <p v-else class="text-sm leading-relaxed text-parchment-muted">Connect your Discord account to your Elegon profile.</p>
               <div class="mt-auto">
-                <GameButton v-if="discordConnection" variant="secondary" :disabled="disconnectingDiscord || signingOut" @click="disconnectDiscord">{{ disconnectingDiscord ? 'Disconnecting…' : 'Disconnect Discord' }}</GameButton>
-                <GameButton v-else-if="data?.discord_enabled" variant="secondary" :disabled="connectingDiscord || signingOut" @click="connectDiscord">{{ connectingDiscord ? 'Connecting…' : 'Connect Discord' }}</GameButton>
+                <GameButton v-if="discordConnection" variant="secondary" :disabled="account.deletion_pending || disconnectingDiscord || signingOut" @click="disconnectDiscord">{{ disconnectingDiscord ? 'Disconnecting…' : 'Disconnect Discord' }}</GameButton>
+                <GameButton v-else-if="data?.discord_enabled" variant="secondary" :disabled="account.deletion_pending || connectingDiscord || signingOut" @click="connectDiscord">{{ connectingDiscord ? 'Connecting…' : 'Connect Discord' }}</GameButton>
                 <p v-else class="text-sm text-parchment-muted">Discord connections are being prepared.</p>
               </div>
             </div>
@@ -238,14 +293,25 @@ async function disconnectDiscord() {
               </template>
               <p v-else class="text-sm leading-relaxed text-parchment-muted">Connect your Patreon account to see your Elegon supporter tier and support history.</p>
               <div class="mt-auto flex flex-wrap items-center gap-5">
-                <GameButton v-if="patreonConnection" variant="secondary" :disabled="disconnectingPatreon || signingOut" @click="disconnectPatreon">{{ disconnectingPatreon ? 'Disconnecting…' : 'Disconnect Patreon' }}</GameButton>
-                <GameButton v-else-if="data?.patreon_enabled" variant="secondary" :disabled="connectingPatreon || signingOut" @click="connectPatreon">{{ connectingPatreon ? 'Connecting…' : 'Connect Patreon' }}</GameButton>
+                <GameButton v-if="patreonConnection" variant="secondary" :disabled="account.deletion_pending || disconnectingPatreon || signingOut" @click="disconnectPatreon">{{ disconnectingPatreon ? 'Disconnecting…' : 'Disconnect Patreon' }}</GameButton>
+                <GameButton v-else-if="data?.patreon_enabled" variant="secondary" :disabled="account.deletion_pending || connectingPatreon || signingOut" @click="connectPatreon">{{ connectingPatreon ? 'Connecting…' : 'Connect Patreon' }}</GameButton>
                 <p v-else class="text-sm text-parchment-muted">Patreon connections are being prepared.</p>
                 <button v-if="patreonConnection" class="text-sm text-gold-300 disabled:opacity-50" :disabled="patreonLoading || disconnectingPatreon || signingOut" @click="loadPatreonSupport">Refresh support</button>
               </div>
             </div>
           </div>
         </section>
+        <section v-show="activeTab === 'details'" id="account-panel-details" role="tabpanel" aria-labelledby="account-tab-details" tabindex="0">
+        <form class="account-panel mt-6" @submit.prevent="saveUsername">
+          <label for="account-username" class="font-display text-xl text-parchment">Elegon username</label>
+          <p id="username-help" class="mt-2 text-sm text-parchment-muted">Choose the name for your Elegon account. Your character names and Steam profile stay the same.</p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <input id="account-username" v-model="username" autocomplete="nickname" minlength="2" maxlength="64" required aria-describedby="username-help" :disabled="savingUsername || account.deletion_pending" class="min-w-0 flex-1 rounded-sm border border-gold-500/30 bg-black/30 px-4 py-3 text-parchment focus:outline-gold-300" />
+            <GameButton type="submit" variant="secondary" :disabled="savingUsername || account.deletion_pending || username.trim() === account.display_name">{{ savingUsername ? 'Saving…' : 'Save username' }}</GameButton>
+          </div>
+          <p v-if="usernameMessage" role="status" class="mt-4 text-sm text-gold-200">{{ usernameMessage }}</p>
+          <p v-if="usernameError" role="alert" class="mt-4 text-sm text-red-200">{{ usernameError }}</p>
+        </form>
         <dl class="account-panel mt-6 grid gap-6 sm:grid-cols-3">
           <div>
             <dt class="text-xs uppercase tracking-widest text-parchment-muted">Account created</dt>
@@ -281,9 +347,11 @@ async function disconnectDiscord() {
           </div>
         </dl>
         <p v-if="!loadingCharacters && stats.partial" role="status" class="mt-4 text-sm text-parchment-muted">{{ stats.available ? 'Stats reflect available realms only. Refresh to try the others again.' : 'Character stats are unavailable while the realms cannot be reached.' }}</p>
-        <div class="mb-6 mt-12 flex items-center justify-between gap-4">
+        </section>
+        <section v-show="activeTab === 'characters'" id="account-panel-characters" role="tabpanel" aria-labelledby="account-tab-characters" tabindex="0">
+        <div class="mb-6 mt-8 flex items-center justify-between gap-4">
           <h2 class="font-display text-2xl text-parchment">Your characters</h2>
-          <button class="flex items-center gap-2 text-sm text-gold-300 disabled:opacity-50" :disabled="loadingCharacters" @click="loadCharacters">
+          <button class="flex items-center gap-2 text-sm text-gold-300 disabled:opacity-50" :disabled="loadingCharacters || account.deletion_pending" @click="loadCharacters">
             <UIcon name="i-lucide-refresh-cw" class="size-4" /> Refresh
           </button>
         </div>
@@ -309,12 +377,35 @@ async function disconnectDiscord() {
           </section>
         </div>
         <p v-if="account.has_legacy_link && realms.some(realm => realm.available && !realm.characters.length)" class="mt-6 max-w-2xl text-sm leading-relaxed text-parchment-muted">Characters from the previous sign-in system remain linked. If an expected character is missing, sign in to its realm in the game once to complete the existing account migration, then refresh here.</p>
+        </section>
+        <section v-show="activeTab === 'danger'" id="account-panel-danger" role="tabpanel" aria-labelledby="account-tab-danger" tabindex="0" class="account-panel mt-8 border-red-400/30">
+          <h2 class="font-display text-2xl text-red-200">Delete your Elegon account</h2>
+          <p class="mt-4 max-w-2xl leading-relaxed text-parchment-muted">Permanently delete every character on both realms, including their inventory, progression and related data. All account connections will be removed and you will be signed out. This cannot be undone.</p>
+          <p class="mt-3 text-sm text-parchment-muted">Deleting your Elegon account does not delete your Steam, Discord or Patreon accounts, or cancel a Patreon membership.</p>
+          <button class="mt-6 rounded-sm border border-red-400/50 bg-red-500/10 px-5 py-3 text-sm text-red-200 hover:bg-red-500/20" @click="openDeleteDialog">{{ account.deletion_pending ? 'Resume account deletion' : 'Delete account…' }}</button>
+        </section>
+        <dialog ref="deleteDialog" aria-labelledby="delete-title" aria-describedby="delete-description" class="account-dialog" @cancel="deleting && $event.preventDefault()">
+          <form @submit.prevent="deleteAccount">
+            <h2 id="delete-title" class="font-display text-2xl text-red-200">Permanently delete your account?</h2>
+            <p id="delete-description" class="mt-4 leading-relaxed text-parchment-muted">You are deleting {{ account.display_name }}. Every character and its related data on EU and US will be removed, and all connections will be unlinked. You cannot recover this account.</p>
+            <label for="delete-confirmation" class="mt-6 block text-sm text-parchment">Type <strong>DELETE</strong> to confirm</label>
+            <input id="delete-confirmation" v-model="deletionConfirmation" autofocus autocomplete="off" :disabled="deleting" class="mt-3 w-full rounded-sm border border-red-400/40 bg-black/30 px-4 py-3 text-parchment focus:outline-red-300" />
+            <p v-if="deletionError" role="alert" class="mt-4 text-sm text-red-200">{{ deletionError }}</p>
+            <p v-if="deleting" role="status" class="mt-4 text-sm text-parchment-muted">Removing your account from both realms. Please keep this page open.</p>
+            <div class="mt-7 flex flex-wrap justify-end gap-3">
+              <button type="button" :disabled="deleting" class="px-4 py-3 text-sm text-parchment-muted disabled:opacity-50" @click="deleteDialog?.close()">Cancel</button>
+              <button type="submit" :disabled="deleting || deletionConfirmation !== 'DELETE'" class="rounded-sm border border-red-400/50 bg-red-500/15 px-5 py-3 text-sm text-red-200 disabled:opacity-40">{{ deleting ? 'Deleting…' : 'Delete permanently' }}</button>
+            </div>
+          </form>
+        </dialog>
       </template>
     </div>
   </section>
 </template>
 
 <style scoped>
+.account-dialog { width: min(36rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; margin: auto; padding: 1.75rem; border: 1px solid rgba(248,113,113,0.35); border-radius: 3px; background: #100e0c; }
+.account-dialog::backdrop { background: rgba(0,0,0,0.8); }
 .account-page { background: radial-gradient(ellipse at 50% 5%, rgba(231,186,90,0.06), transparent 65%); }
 .account-panel { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid rgba(231,186,90,0.18); background: rgba(15,12,10,0.8); border-radius: 3px; }
 </style>

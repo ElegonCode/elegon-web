@@ -3,6 +3,7 @@ import { CHARACTER_QUERY, parseAccountCharacters } from "../../utils/accountChar
 export default defineEventHandler(async (event) => {
   const session = await getAccountSession(event);
   if (!session) throw createError({ statusCode: 401, statusMessage: "Please sign in" });
+  if (session.account.deletion_pending) throw createError({ statusCode: 409, statusMessage: "Account deletion is in progress" });
   const config = useRuntimeConfig(event);
   const realms = [{ name: "EU", url: config.accountEuRealmUrl }, { name: "US", url: config.accountUsRealmUrl }];
   return { realms: await Promise.all(realms.map(async (realm) => {
