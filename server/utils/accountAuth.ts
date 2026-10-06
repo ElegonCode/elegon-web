@@ -7,7 +7,7 @@ export type AccountInfo = {
   connections: { provider: string; provider_subject: string; display_name: string; avatar_url: string; linked_at: string }[];
 };
 export type AuthServicePath = "/website/feedback-stats" | "/website/session/game" | "/website/game-account" | "/website/email" | "/website/email/start" | "/website/email/verify" | `/website/oauth/request?request=${string}` | "/website/oauth/approve" | "/website/oauth/deny" | "/website/account/username" | "/website/account/delete" | "/website/account/delete/realm" | "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" | "/website/connections/patreon" | "/website/connections/patreon/start";
-export type AccountSession = { account: AccountInfo; realm_token: string };
+export type AccountSession = { account: AccountInfo; realm_token: string; max_age?: number };
 
 export function accountConfig(event: H3Event) {
   const config = useRuntimeConfig(event);
@@ -51,7 +51,8 @@ export async function getAccountSession(event: H3Event) {
   const config = accountConfig(event);
   const session = getCookie(event, config.sessionCookie);
   if (!session || !/^[a-f0-9]{64}$/.test(session)) return null;
-  try { return await authServiceRequest<AccountSession>(event, { session }); }
+  let result: AccountSession;
+  try { result = await authServiceRequest<AccountSession>(event, { session }); }
   catch (error: any) {
     if (error.statusCode === 401 || error.response?.status === 401) {
       deleteCookie(event, config.sessionCookie, { path: "/", secure: config.secure });
@@ -59,4 +60,11 @@ export async function getAccountSession(event: H3Event) {
     }
     throw createError({ statusCode: 503, statusMessage: "Your account could not be loaded. Please try again." });
   }
+  // The auth service renews a session while it is in use; keep the cookie in step.
+  if (result.max_age && result.max_age > 0) {
+    setCookie(event, config.sessionCookie, session, {
+      httpOnly: true, secure: config.secure, sameSite: "lax", path: "/", maxAge: result.max_age,
+    });
+  }
+  return result;
 }
