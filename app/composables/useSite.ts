@@ -2,6 +2,7 @@ export const SITE_LINKS = {
   steam: "https://store.steampowered.com/app/4235360/Elegon/",
   discord: "https://discord.gg/4G32msBn7V",
   youtube: "https://www.youtube.com/@ElegonMMO",
+  reddit: "https://www.reddit.com/r/Elegon/",
   patreon: "https://www.patreon.com/cw/Elegon",
   feedback: "https://feedback.elegon.app",
 } as const;

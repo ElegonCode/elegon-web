@@ -17,6 +17,7 @@ const columns = computed(() => [
       { label: "Steam", to: SITE_LINKS.steam },
       { label: "Discord", to: SITE_LINKS.discord },
       { label: "YouTube", to: SITE_LINKS.youtube },
+      { label: "Reddit", to: SITE_LINKS.reddit },
       { label: "Patreon", to: SITE_LINKS.patreon },
     ],
   },
