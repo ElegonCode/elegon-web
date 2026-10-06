@@ -107,6 +107,9 @@ const patreonStatus = computed(() => ({ active: "Supporting Elegon", declined: "
 const patreonDuration = computed(() => patreonSupportDuration(patreonSupport.value?.since));
 // The profile card's medal: only while the player is an active supporter.
 const supporterMonths = computed(() => patreonSupport.value?.status === "active" ? patreonSupportMonths(patreonSupport.value.since) ?? 0 : null);
+// A former supporter keeps the medal their last run earned. Coming back starts
+// a new run, so the active medal counts from its own start again.
+const formerSupporterMonths = computed(() => patreonSupport.value?.status === "former" && patreonSupport.value.past_months ? patreonSupport.value.past_months : null);
 type FeedbackStats = { posts: number; comments: number; votes: number };
 const feedbackStats = ref<FeedbackStats | null>(null);
 const feedbackLinked = ref<boolean | null>(null);
@@ -245,6 +248,7 @@ async function disconnectDiscord() {
             </div>
           </div>
           <SupporterBadge v-if="supporterMonths !== null" :months="supporterMonths" :tiers="patreonSupport?.tiers" class="supporter-slot" />
+          <SupporterBadge v-else-if="formerSupporterMonths !== null" :months="formerSupporterMonths" former class="supporter-slot" />
           <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
         <div role="tablist" aria-label="Account sections" class="mt-8 flex flex-wrap gap-2 border-b border-gold-500/20 pb-3">

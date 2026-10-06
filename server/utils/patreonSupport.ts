@@ -1,7 +1,19 @@
 import { createHash } from "node:crypto";
 
 export type PatreonSupport = { status: "active" | "declined" | "former" | "free" | "none";
-  tiers: string[]; since: string | null; checked_at: string };
+  tiers: string[]; since: string | null; checked_at: string;
+  /** For a former supporter: how many months their last run of support lasted. */
+  past_months: number | null };
+
+// Whole months from the first charge of a run to its last, counting the month
+// the last charge paid for: Jan 5 to Mar 5 is three months of support.
+export function pastSupportMonths(start: number, lastCharge: number) {
+  if (!Number.isFinite(start) || !Number.isFinite(lastCharge) || lastCharge < start) return null;
+  const a = new Date(start), b = new Date(lastCharge);
+  let months = (b.getUTCFullYear() - a.getUTCFullYear()) * 12 + b.getUTCMonth() - a.getUTCMonth();
+  if (b.getUTCDate() < a.getUTCDate()) months--;
+  return Math.max(months, 0) + 1;
+}
 type CreatorConfig = { campaignId: string; accessToken: string; userAgent: string };
 type Snapshot = { members: Map<string, PatreonSupport>; checkedAt: string };
 let cache: { key: string; expires: number; value: Promise<Snapshot> } | undefined;
@@ -31,9 +43,12 @@ export function parsePatreonMembers(response: any, campaignId: string, checkedAt
       if (tier.type !== "tier" || !tiers.has(tier.id)) throw new Error("Missing Patreon tier");
       return tiers.get(tier.id)!;
     });
+    const lastCharge = typeof attrs.last_charge_date === "string" && /^\d{4}-\d\d-\d\dT/.test(attrs.last_charge_date)
+      ? Date.parse(attrs.last_charge_date) : NaN;
     members.set(user.id, { status, tiers: [...new Set(titles)],
       since: status === "active" && Number.isFinite(date) && date <= Date.parse(checkedAt) ? new Date(date).toISOString() : null,
-      checked_at: checkedAt });
+      checked_at: checkedAt,
+      past_months: status === "former" ? pastSupportMonths(date, lastCharge) : null });
   }
   return members;
 }
@@ -46,7 +61,7 @@ export async function fetchPatreonMembers(config: CreatorConfig, fetcher: typeof
   const seen = new Set<string>();
   for (let page = 0; page < 100; page++) {
     const url = new URL(`https://www.patreon.com/api/oauth2/v2/campaigns/${config.campaignId}/members`);
-    url.search = new URLSearchParams({ include: "user,currently_entitled_tiers,campaign", "fields[member]": "patron_status,pledge_relationship_start",
+    url.search = new URLSearchParams({ include: "user,currently_entitled_tiers,campaign", "fields[member]": "patron_status,pledge_relationship_start,last_charge_date",
       "fields[tier]": "title", "page[count]": "100" }).toString();
     if (cursor) url.searchParams.set("page[cursor]", cursor);
     const response = await fetcher(url, { redirect: "error", signal: AbortSignal.timeout(10_000),
@@ -70,5 +85,5 @@ export async function getPatreonSupport(config: CreatorConfig, userId: string): 
     entry.value.catch(() => { if (cache === entry) cache = undefined; });
   }
   const snapshot = await cache.value;
-  return snapshot.members.get(userId) ?? { status: "none", tiers: [], since: null, checked_at: snapshot.checkedAt };
+  return snapshot.members.get(userId) ?? { status: "none", tiers: [], since: null, checked_at: snapshot.checkedAt, past_months: null };
 }
