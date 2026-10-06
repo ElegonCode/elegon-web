@@ -27,6 +27,7 @@ const externalLinks = computed(() => [
 const socials = computed(() => [
   { label: t("devlogs.subscribe"), icon: "i-simple-icons-youtube", to: SITE_LINKS.youtube },
   { label: t("faq.join"), icon: "i-simple-icons-discord", to: SITE_LINKS.discord },
+  { label: "Reddit", icon: "i-simple-icons-reddit", to: SITE_LINKS.reddit },
   { label: t("supporters.become"), icon: "i-simple-icons-patreon", to: SITE_LINKS.patreon },
 ]);
 

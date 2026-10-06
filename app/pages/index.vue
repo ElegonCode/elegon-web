@@ -103,7 +103,7 @@ useSeoMeta({
   twitterImageAlt: SCREENSHOT.alt,
 });
 
-const sameAs = [SITE_LINKS.steam, SITE_LINKS.youtube, SITE_LINKS.discord, SITE_LINKS.patreon];
+const sameAs = [SITE_LINKS.steam, SITE_LINKS.youtube, SITE_LINKS.discord, SITE_LINKS.reddit, SITE_LINKS.patreon];
 
 useHead({
   script: [
