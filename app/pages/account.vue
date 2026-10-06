@@ -10,7 +10,7 @@ useHead({ htmlAttrs: { lang: "en" } });
 const route = useRoute();
 const { data, pending, error, refresh, status } = useAccount();
 const account = computed(() => data.value?.account);
-const tabs = [{ id: 'details', label: 'Details' }, { id: 'connections', label: 'Connections' }, { id: 'characters', label: 'Characters' }, { id: 'danger', label: 'Danger zone' }];
+const tabs: { id: string; label: string; disabled?: boolean }[] = [{ id: 'details', label: 'Details' }, { id: 'subscription', label: 'Manage subscription', disabled: true }, { id: 'connections', label: 'Connections' }, { id: 'characters', label: 'Characters' }, { id: 'danger', label: 'Danger zone' }];
 const activeTab = ref(route.query.connection ? 'connections' : 'details');
 const username = ref('');
 const savingUsername = ref(false);
@@ -25,13 +25,15 @@ const steamConnection = computed(() => account.value?.connections?.find(c => c.p
 watch(() => account.value?.display_name, name => { username.value = name ?? ''; }, { immediate: true });
 watch(() => account.value?.deletion_pending, pending => { if (pending) activeTab.value = 'danger'; }, { immediate: true });
 function tabKey(event: KeyboardEvent, index: number) {
+  const enabledTabs = tabs.filter(tab => !tab.disabled);
+  index = enabledTabs.findIndex(tab => tab.id === tabs[index]?.id);
   let next = index;
-  if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
-  else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+  if (event.key === 'ArrowRight') next = (index + 1) % enabledTabs.length;
+  else if (event.key === 'ArrowLeft') next = (index + enabledTabs.length - 1) % enabledTabs.length;
   else if (event.key === 'Home') next = 0;
-  else if (event.key === 'End') next = tabs.length - 1;
+  else if (event.key === 'End') next = enabledTabs.length - 1;
   else return;
-  event.preventDefault(); activeTab.value = tabs[next]!.id;
+  event.preventDefault(); activeTab.value = enabledTabs[next]!.id;
   document.getElementById(`account-tab-${activeTab.value}`)?.focus();
 }
 async function saveUsername() {
@@ -218,7 +220,7 @@ async function disconnectDiscord() {
           <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
         <div role="tablist" aria-label="Account sections" class="mt-8 flex flex-wrap gap-2 border-b border-gold-500/20 pb-3">
-          <button v-for="(tab, index) in tabs" :id="`account-tab-${tab.id}`" :key="tab.id" role="tab" :aria-selected="activeTab === tab.id" :aria-controls="`account-panel-${tab.id}`" :tabindex="activeTab === tab.id ? 0 : -1" class="inline-flex items-center gap-2 rounded-sm px-4 py-3 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-300" :class="activeTab === tab.id ? 'bg-gold-400/10 text-gold-200' : 'text-parchment-muted hover:text-parchment'" @click="activeTab = tab.id" @keydown="tabKey($event, index)">
+          <button v-for="(tab, index) in tabs" :id="`account-tab-${tab.id}`" :key="tab.id" role="tab" :disabled="tab.disabled" :aria-disabled="tab.disabled || undefined" :aria-selected="activeTab === tab.id" :aria-controls="tab.disabled ? undefined : `account-panel-${tab.id}`" :tabindex="!tab.disabled && activeTab === tab.id ? 0 : -1" class="inline-flex items-center gap-2 rounded-sm px-4 py-3 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-300 disabled:cursor-not-allowed disabled:opacity-40" :class="activeTab === tab.id ? 'bg-gold-400/10 text-gold-200' : tab.disabled ? 'text-parchment-muted' : 'text-parchment-muted hover:text-parchment'" @click="activeTab = tab.id" @keydown="tabKey($event, index)">
             {{ tab.label }}
             <span v-if="tab.id === 'connections'" class="rounded-full border px-2 py-0.5 text-xs font-medium tabular-nums" :class="connectedProviders === 3 ? 'border-green-400/40 bg-green-400/10 text-green-300' : 'border-yellow-400/40 bg-yellow-400/10 text-yellow-300'" :aria-label="`${connectedProviders} of 3 accounts connected`">{{ connectedProviders }}/3</span>
             <span v-if="tab.id === 'characters'" class="rounded-full border border-gold-400/30 bg-gold-400/10 px-2 py-0.5 text-xs font-medium tabular-nums text-gold-200" :aria-label="totalCharacters === null ? (loadingCharacters ? 'Loading character count' : 'Character count unavailable') : `${totalCharacters} total characters`">{{ loadingCharacters ? '…' : totalCharacters ?? '—' }}</span>
