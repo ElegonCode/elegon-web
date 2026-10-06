@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { patreonAuthorizationUrl, parsePatreonUser, verifyPatreonCode } from "../server/utils/patreonOAuth.ts";
 import { fetchPatreonMembers, parsePatreonMembers } from "../server/utils/patreonSupport.ts";
-import { patreonSupportDuration } from "../app/utils/patreonStats.ts";
+import { patreonSupportDuration, patreonSupportMonths } from "../app/utils/patreonStats.ts";
 
 const config = { clientId: "fixture-client", clientSecret: "fixture-secret", redirectUri: "https://elegon.app/auth/patreon/callback" };
 const user = { data: { type: "user", id: "12345", attributes: { full_name: "Adventurer", image_url: "https://c10.patreonusercontent.com/avatar.png" } } };
@@ -75,4 +75,13 @@ test("Support duration counts elapsed calendar months without claiming payments"
   assert.equal(patreonSupportDuration("2026-09-01T12:00:00Z", new Date(now)), "1 month in this support period");
   assert.equal(patreonSupportDuration("invalid"), "");
   assert.equal(patreonSupportDuration("2099-01-01T12:00:00Z"), "");
+});
+
+test("support months count whole months for the profile medal", () => {
+  const now = new Date("2026-10-05T12:00:00Z");
+  assert.equal(patreonSupportMonths("2026-05-14T12:00:00Z", now), 4);
+  assert.equal(patreonSupportMonths("2026-09-20T12:00:00Z", now), 0);
+  assert.equal(patreonSupportMonths("2024-10-05T12:00:00Z", now), 24);
+  assert.equal(patreonSupportMonths(null, now), null);
+  assert.equal(patreonSupportMonths("2027-01-01T00:00:00Z", now), null);
 });
