@@ -322,6 +322,11 @@ async function disconnectDiscord() {
           <p v-if="usernameMessage" role="status" class="mt-4 text-sm text-gold-200">{{ usernameMessage }}</p>
           <p v-if="usernameError" role="alert" class="mt-4 text-sm text-red-200">{{ usernameError }}</p>
         </form>
+        <div class="account-panel mt-6">
+          <h3 class="font-display text-xl text-parchment">Email</h3>
+          <p class="mt-2 mb-5 max-w-2xl text-sm leading-relaxed text-parchment-muted">Used to sign in to <a href="https://feedback.elegon.app" target="_blank" rel="noopener" class="text-gold-300 hover:text-gold-200">Elegon Feedback</a> and to send feedback from the game. If you posted feedback before, use the same email to claim it.</p>
+          <AccountEmail :disabled="account.deletion_pending" />
+        </div>
         </section>
         <section v-show="activeTab === 'characters'" id="account-panel-characters" role="tabpanel" aria-labelledby="account-tab-characters" tabindex="0">
         <div class="mb-6 mt-8 flex items-center justify-between gap-4">

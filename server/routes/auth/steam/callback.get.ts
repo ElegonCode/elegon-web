@@ -8,6 +8,8 @@ export default defineEventHandler(async (event) => {
   const state = params.get("state") ?? "";
   const expected = getCookie(event, config.stateCookie) ?? "";
   deleteCookie(event, config.stateCookie, { path: "/", secure: config.secure });
+  const returnPath = feedbackReturnPath(getCookie(event, feedbackReturnCookie(event)));
+  deleteCookie(event, feedbackReturnCookie(event), { path: "/", secure: config.secure });
   if (!/^[a-f0-9]{64}$/.test(state) || !/^[a-f0-9]{64}$/.test(expected) || !timingSafeEqual(Buffer.from(state), Buffer.from(expected))) {
     return sendRedirect(event, "/account?login=expired", 303);
   }
@@ -22,7 +24,7 @@ export default defineEventHandler(async (event) => {
     setCookie(event, config.sessionCookie, result.session, {
       httpOnly: true, secure: config.secure, sameSite: "lax", path: "/", maxAge: result.max_age,
     });
-    return sendRedirect(event, "/account", 303);
+    return sendRedirect(event, returnPath ?? "/account", 303);
   } catch {
     return sendRedirect(event, "/account?login=failed", 303);
   }
