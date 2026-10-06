@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     patreonClientId: "",
     patreonClientSecret: "",
     accountSiteOrigin: "https://elegon.app",
+    feedbackSiteUrl: "https://feedback.elegon.app",
     accountUsRealmUrl: "https://clockworklabsspacetime-production-7da0.up.railway.app",
     accountEuRealmUrl: "https://clockworklabsspacetime-production-7ab4.up.railway.app",
     accountRealmDatabase: "elegon",

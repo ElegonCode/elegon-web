@@ -10,6 +10,16 @@ export function feedbackRequestId(value: unknown) {
   return typeof value === "string" && /^[a-f0-9]{64}$/.test(value) ? value : null;
 }
 
+/** Set when the game opens the feedback site, so the sign-in page continues by itself. */
+export function feedbackAutoContinueCookie(event: H3Event) {
+  return accountConfig(event).secure ? "__Host-elegon_feedback_auto" : "elegon_feedback_auto_dev";
+}
+
+/** Where a game sign-in link may go next; anything else goes to the account page. */
+export function gameLoginTarget(value: unknown) {
+  return value === "feedback" ? "feedback" : "account";
+}
+
 export function feedbackReturnCookie(event: H3Event) {
   return accountConfig(event).secure ? "__Host-elegon_return" : "elegon_return_dev";
 }
