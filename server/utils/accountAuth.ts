@@ -6,6 +6,7 @@ export type AccountInfo = {
   created_at: string; signed_in_at: string; deletion_pending: boolean;
   connections: { provider: string; provider_subject: string; display_name: string; avatar_url: string; linked_at: string }[];
 };
+export type AuthServicePath = "/website/email" | "/website/email/start" | "/website/email/verify" | `/website/oauth/request?request=${string}` | "/website/oauth/approve" | "/website/oauth/deny" | "/website/account/username" | "/website/account/delete" | "/website/account/delete/realm" | "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" | "/website/connections/patreon" | "/website/connections/patreon/start";
 export type AccountSession = { account: AccountInfo; realm_token: string };
 
 export function accountConfig(event: H3Event) {
@@ -35,7 +36,7 @@ export function requireAccountOrigin(event: H3Event) {
   }
 }
 
-export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: "/website/account/username" | "/website/account/delete" | "/website/account/delete/realm" | "/website/session" | "/website/connections/discord" | "/website/connections/discord/start" | "/website/connections/patreon" | "/website/connections/patreon/start" } = {}) {
+export async function authServiceRequest<T>(event: H3Event, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; session?: string; path?: AuthServicePath } = {}) {
   const config = accountConfig(event);
   if (!config.key) throw createError({ statusCode: 503, statusMessage: "Account sign-in is not configured yet" });
   return $fetch<T>(`${config.serviceUrl}${options.path ?? "/website/session"}`, {

@@ -10,6 +10,8 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/account": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
+    "/feedback/**": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer" } },
+    "/api/feedback/**": { headers: { "Cache-Control": "private, no-store" } },
     "/auth/**": { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } },
     "/api/account/**": { headers: { "Cache-Control": "private, no-store" } },
     "/api/account": { headers: { "Cache-Control": "private, no-store" } },
