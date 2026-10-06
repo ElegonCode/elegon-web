@@ -244,7 +244,7 @@ async function disconnectDiscord() {
               </p>
             </div>
           </div>
-          <SupporterBadge v-if="supporterMonths !== null" :months="supporterMonths" class="supporter-slot" />
+          <SupporterBadge v-if="supporterMonths !== null" :months="supporterMonths" :tiers="patreonSupport?.tiers" class="supporter-slot" />
           <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
         <div role="tablist" aria-label="Account sections" class="mt-8 flex flex-wrap gap-2 border-b border-gold-500/20 pb-3">

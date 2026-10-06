@@ -1,16 +1,18 @@
 <script setup lang="ts">
 // A medal for Patreon supporters with their months of support in the middle.
 // It grows grander with time: bronze, silver, gold with laurels, an amethyst
-// gem, then a radiant legendary star.
-const props = defineProps<{ months: number }>();
+// gem, then a radiant legendary star. The looks are named only in code: the
+// label shows the player's Patreon tier, so the two are never confused.
+const props = defineProps<{ months: number; tiers?: string[] }>();
+const tierLabel = computed(() => props.tiers?.filter(Boolean).join(" · ") || "Elegon supporter");
 
-type Tier = { key: string; name: string; light: string; mid: string; dark: string; ink: string; glow: string };
+type Tier = { key: string; light: string; mid: string; dark: string; ink: string; glow: string };
 const TIERS: (Tier & { from: number })[] = [
-  { from: 24, key: "legendary", name: "Legendary", light: "#fff3c4", mid: "#f6a623", dark: "#a2470c", ink: "#3a1602", glow: "rgba(246,166,35,0.55)" },
-  { from: 12, key: "epic", name: "Epic", light: "#f0dcff", mid: "#a76bf0", dark: "#4b1d86", ink: "#fff", glow: "rgba(167,107,240,0.45)" },
-  { from: 6, key: "gold", name: "Gold", light: "#fff6cf", mid: "#e7ba5a", dark: "#8a5a12", ink: "#3b2504", glow: "rgba(231,186,90,0.35)" },
-  { from: 3, key: "silver", name: "Silver", light: "#ffffff", mid: "#c3cad3", dark: "#5f6873", ink: "#22272d", glow: "rgba(195,202,211,0.25)" },
-  { from: 0, key: "bronze", name: "Bronze", light: "#f7d2b0", mid: "#c07a43", dark: "#6b3a17", ink: "#2c1406", glow: "rgba(192,122,67,0.2)" },
+  { from: 24, key: "legendary", light: "#fff3c4", mid: "#f6a623", dark: "#a2470c", ink: "#3a1602", glow: "rgba(246,166,35,0.55)" },
+  { from: 12, key: "epic", light: "#f0dcff", mid: "#a76bf0", dark: "#4b1d86", ink: "#fff", glow: "rgba(167,107,240,0.45)" },
+  { from: 6, key: "gold", light: "#fff6cf", mid: "#e7ba5a", dark: "#8a5a12", ink: "#3b2504", glow: "rgba(231,186,90,0.35)" },
+  { from: 3, key: "silver", light: "#ffffff", mid: "#c3cad3", dark: "#5f6873", ink: "#22272d", glow: "rgba(195,202,211,0.25)" },
+  { from: 0, key: "bronze", light: "#f7d2b0", mid: "#c07a43", dark: "#6b3a17", ink: "#2c1406", glow: "rgba(192,122,67,0.2)" },
 ];
 const tier = computed(() => TIERS.find(t => props.months >= t.from)!);
 const label = computed(() => (props.months < 1 ? "New" : String(props.months)));
@@ -39,7 +41,7 @@ const leaves = [
 
 <template>
   <div class="supporter-badge" :class="`supporter-badge--${tier.key}`" :style="{ '--glow': tier.glow }">
-    <svg viewBox="0 0 64 64" class="supporter-badge__medal" role="img" :aria-label="`${tier.name} supporter medal, ${months} months`">
+    <svg viewBox="0 0 64 64" class="supporter-badge__medal" role="img" :aria-label="`Supporter medal, ${months} ${months === 1 ? 'month' : 'months'} of support`">
       <defs>
         <radialGradient :id="gradient" cx="38%" cy="30%" r="75%">
           <stop offset="0%" :stop-color="tier.light" />
@@ -81,7 +83,7 @@ const leaves = [
     </svg>
     <div class="min-w-0">
       <p class="text-xs uppercase tracking-[0.2em] text-orange-200/90">Patreon supporter</p>
-      <p class="mt-1 font-display text-lg leading-tight text-parchment">{{ tier.name }} supporter</p>
+      <p class="mt-1 font-display text-lg leading-tight text-parchment">{{ tierLabel }}</p>
       <p class="mt-0.5 text-xs text-parchment-muted">{{ months < 1 ? 'Supporting Elegon since this month' : `${months} ${months === 1 ? 'month' : 'months'} supporting Elegon` }}</p>
     </div>
   </div>
