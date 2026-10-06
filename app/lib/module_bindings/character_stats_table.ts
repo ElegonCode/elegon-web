@@ -25,4 +25,5 @@ export default __t.row({
   alacrity: __t.i32(),
   tempo: __t.i32(),
   accuracy: __t.i32(),
+  swimFatigueMs: __t.i32().name("swim_fatigue_ms"),
 });

@@ -28,6 +28,5 @@ export function formatAccountAge(value: string | null | undefined, now = Date.no
   // Count calendar days in UTC, matching the date displayed above the caption.
   const days = Math.floor(now / 86_400_000) - Math.floor(Date.parse(value) / 86_400_000);
   if (days < 0) return null;
-  if (days === 0) return "Created today";
-  return `Created ${days} ${days === 1 ? "day" : "days"} ago`;
+  return `${days} ${days === 1 ? "Day" : "Days"} ago`;
 }

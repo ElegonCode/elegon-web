@@ -24,4 +24,5 @@ export default __t.row({
   skinToneSelection: __t.i32().name("skin_tone_selection"),
   hairStyleSelection: __t.i32().name("hair_style_selection"),
   hairColorSelection: __t.i32().name("hair_color_selection"),
+  zoneName: __t.string().name("zone_name"),
 });

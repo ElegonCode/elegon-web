@@ -18,4 +18,5 @@ export default __t.row({
   discoveredAt: __t.timestamp().name("discovered_at"),
   isSeen: __t.bool().name("is_seen"),
   bestQuality: __t.i32().name("best_quality"),
+  bestFishWeightTenths: __t.i32().name("best_fish_weight_tenths"),
 });

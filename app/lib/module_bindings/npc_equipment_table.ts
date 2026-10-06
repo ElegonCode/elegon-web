@@ -17,4 +17,9 @@ export default __t.row({
   shoulderItemId: __t.i32().name("shoulder_item_id"),
   mainHandItemId: __t.i32().name("main_hand_item_id"),
   offHandItemId: __t.i32().name("off_hand_item_id"),
+  chestItemId: __t.i32().name("chest_item_id"),
+  waistItemId: __t.i32().name("waist_item_id"),
+  legsItemId: __t.i32().name("legs_item_id"),
+  handsItemId: __t.i32().name("hands_item_id"),
+  feetItemId: __t.i32().name("feet_item_id"),
 });

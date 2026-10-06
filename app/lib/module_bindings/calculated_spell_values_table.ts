@@ -18,6 +18,7 @@ export default __t.row({
   healing: __t.f32(),
   castTime: __t.f32().name("cast_time"),
   activeEffectAmount: __t.f32().name("active_effect_amount"),
+  activeEffectDuration: __t.f32().name("active_effect_duration"),
   talentRank: __t.i32().name("talent_rank"),
   isUnlocked: __t.bool().name("is_unlocked"),
 });

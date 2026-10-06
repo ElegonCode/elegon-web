@@ -16,6 +16,7 @@ import {
 
 
 export default __t.row({
+  questId: __t.i32().primaryKey().name("quest_id"),
   get questData() {
     return __t.option(Quest).name("quest_data");
   },

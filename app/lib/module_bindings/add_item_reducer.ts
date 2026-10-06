@@ -29,5 +29,12 @@ export default {
   consumableEffectDurationSeconds: __t.f32(),
   consumableEffectTickIntervalSeconds: __t.f32(),
   slot: __t.string(),
+  vitality: __t.i32(),
+  fortitude: __t.i32(),
+  strength: __t.i32(),
+  grace: __t.i32(),
+  alacrity: __t.i32(),
+  tempo: __t.i32(),
+  weaponHand: __t.string(),
   targetId: __t.string(),
 };

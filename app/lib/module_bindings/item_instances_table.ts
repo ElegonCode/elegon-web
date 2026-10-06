@@ -16,4 +16,6 @@ export default __t.row({
   quantity: __t.i32(),
   characterId: __t.u64().name("character_id"),
   qualityLevel: __t.i32().name("quality_level"),
+  isTradable: __t.bool().name("is_tradable"),
+  instabilityTier: __t.i32().name("instability_tier"),
 });

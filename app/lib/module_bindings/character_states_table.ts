@@ -25,4 +25,6 @@ export default __t.row({
   isWeaponDrawn: __t.bool().name("is_weapon_drawn"),
   isSitting: __t.bool().name("is_sitting"),
   instanceId: __t.u32().name("instance_id"),
+  isSwimming: __t.bool().name("is_swimming"),
+  isInLava: __t.bool().name("is_in_lava"),
 });

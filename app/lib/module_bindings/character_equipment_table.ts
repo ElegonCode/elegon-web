@@ -22,4 +22,7 @@ export default __t.row({
   footSlotItemInstanceId: __t.i32().name("foot_slot_item_instance_id"),
   mainHandSlotItemInstanceId: __t.i32().name("main_hand_slot_item_instance_id"),
   offHandSlotItemInstanceId: __t.i32().name("off_hand_slot_item_instance_id"),
+  handSlotItemInstanceId: __t.i32().name("hand_slot_item_instance_id"),
+  pickaxeSlotItemInstanceId: __t.i32().name("pickaxe_slot_item_instance_id"),
+  fishingRodSlotItemInstanceId: __t.i32().name("fishing_rod_slot_item_instance_id"),
 });

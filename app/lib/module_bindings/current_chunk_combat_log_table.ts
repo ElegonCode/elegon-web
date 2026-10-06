@@ -21,4 +21,12 @@ export default __t.row({
   chunkX: __t.i32().name("chunk_x"),
   chunkZ: __t.i32().name("chunk_z"),
   instanceId: __t.u32().name("instance_id"),
+  sourceKind: __t.u8().name("source_kind"),
+  sourceEntityId: __t.u32().name("source_entity_id"),
+  targetCharacterId: __t.u64().name("target_character_id"),
+  targetKind: __t.u8().name("target_kind"),
+  sourceEnemyId: __t.u32().name("source_enemy_id"),
+  targetEnemyId: __t.u32().name("target_enemy_id"),
+  outcome: __t.u8(),
+  isPeriodic: __t.bool().name("is_periodic"),
 });

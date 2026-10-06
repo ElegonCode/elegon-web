@@ -18,4 +18,8 @@ export default __t.row({
   modelPath: __t.string().name("model_path"),
   scale: __t.f32(),
   requireQuestForInteraction: __t.bool().name("require_quest_for_interaction"),
+  gatheringSkillId: __t.i32().name("gathering_skill_id"),
+  requiredSkillLevel: __t.i32().name("required_skill_level"),
+  tintHex: __t.string().name("tint_hex"),
+  gatherDurationSeconds: __t.f32().name("gather_duration_seconds"),
 });

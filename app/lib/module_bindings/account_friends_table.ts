@@ -17,4 +17,5 @@ export default __t.row({
   friendName: __t.string().name("friend_name"),
   friendTag: __t.i32().name("friend_tag"),
   isOnline: __t.bool().name("is_online"),
+  zoneName: __t.string().name("zone_name"),
 });

@@ -16,4 +16,6 @@ export default __t.row({
   partyId: __t.u64().name("party_id"),
   ownerCharacterId: __t.u64().name("owner_character_id"),
   createdAt: __t.timestamp().name("created_at"),
+  instability: __t.u32(),
+  isCompleted: __t.bool().name("is_completed"),
 });

@@ -41,4 +41,12 @@ export default __t.row({
   lastUpdateUnix: __t.i64().name("last_update_unix"),
   lastWanderUnix: __t.i64().name("last_wander_unix"),
   instanceId: __t.u32().name("instance_id"),
+  maxHealth: __t.i32().name("max_health"),
+  motionSequence: __t.u64().name("motion_sequence"),
+  motionMode: __t.u8().name("motion_mode"),
+  pathRevision: __t.u32().name("path_revision"),
+  teleportSequence: __t.u32().name("teleport_sequence"),
+  velocityX: __t.f32().name("velocity_x"),
+  velocityY: __t.f32().name("velocity_y"),
+  velocityZ: __t.f32().name("velocity_z"),
 });

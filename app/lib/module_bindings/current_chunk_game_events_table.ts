@@ -23,5 +23,11 @@ export default __t.row({
   duration: __t.option(__t.f32()),
   chunkX: __t.i32().name("chunk_x"),
   chunkZ: __t.i32().name("chunk_z"),
+  deliveryType: __t.i32().name("delivery_type"),
+  phase: __t.i32(),
+  groundX: __t.f32().name("ground_x"),
+  groundZ: __t.f32().name("ground_z"),
   instanceId: __t.u32().name("instance_id"),
+  fishWeightTenths: __t.i32().name("fish_weight_tenths"),
+  isNewBestCatch: __t.bool().name("is_new_best_catch"),
 });

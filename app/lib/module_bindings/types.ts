@@ -10,6 +10,35 @@ import {
   type Infer as __Infer,
 } from "spacetimedb";
 
+export const AccountAcquaintance = __t.object("AccountAcquaintance", {
+  id: __t.u64(),
+  ownerAccountId: __t.identity(),
+  otherCharacterId: __t.u64(),
+  groupedCount: __t.i32(),
+  whisperCount: __t.i32(),
+  tradeCount: __t.i32(),
+  firstMetAt: __t.timestamp(),
+  lastInteractionAt: __t.timestamp(),
+});
+export type AccountAcquaintance = __Infer<typeof AccountAcquaintance>;
+
+export const AccountAcquaintanceSummary = __t.object("AccountAcquaintanceSummary", {
+  id: __t.u64(),
+  otherCharacterId: __t.u64(),
+  groupedCount: __t.i32(),
+  whisperCount: __t.i32(),
+  tradeCount: __t.i32(),
+  firstMetAt: __t.timestamp(),
+  lastInteractionAt: __t.timestamp(),
+});
+export type AccountAcquaintanceSummary = __Infer<typeof AccountAcquaintanceSummary>;
+
+export const AccountConnection = __t.object("AccountConnection", {
+  accountId: __t.identity(),
+  connectionKey: __t.string(),
+});
+export type AccountConnection = __Infer<typeof AccountConnection>;
+
 export const AccountFriend = __t.object("AccountFriend", {
   id: __t.u64(),
   ownerAccountId: __t.identity(),
@@ -28,6 +57,7 @@ export const AccountFriendPresence = __t.object("AccountFriendPresence", {
   friendName: __t.string(),
   friendTag: __t.i32(),
   isOnline: __t.bool(),
+  zoneName: __t.string(),
 });
 export type AccountFriendPresence = __Infer<typeof AccountFriendPresence>;
 
@@ -55,13 +85,69 @@ export const ActiveEffect = __t.object("ActiveEffect", {
   tickIntervalMs: __t.i32(),
   amount: __t.f32(),
   sourceItemId: __t.i32(),
+  sourceProcId: __t.i32(),
+  displayExpiresAtUnix: __t.i64(),
+  sourceEnemyEntityId: __t.u32(),
+  sourceEnemyId: __t.u32(),
 });
 export type ActiveEffect = __Infer<typeof ActiveEffect>;
 
+export const ActiveEnemyCast = __t.object("ActiveEnemyCast", {
+  enemyEntityId: __t.u32(),
+  spellId: __t.u64(),
+  abilitySlot: __t.i32(),
+  rosterLength: __t.i32(),
+  targetCharacterId: __t.u64(),
+  startedAtUnix: __t.i64(),
+  completesAtUnix: __t.i64(),
+  instanceId: __t.u32(),
+  chunkX: __t.i32(),
+  chunkZ: __t.i32(),
+});
+export type ActiveEnemyCast = __Infer<typeof ActiveEnemyCast>;
+
 export const ActiveEnemyEntity = __t.object("ActiveEnemyEntity", {
   enemyEntityId: __t.u32(),
+  navigationRecoveryMode: __t.u8(),
+  navigationRecoveryDeadlineUnix: __t.i64(),
+  navigationRecoveryAnchorX: __t.f32(),
+  navigationRecoveryAnchorZ: __t.f32(),
 });
 export type ActiveEnemyEntity = __Infer<typeof ActiveEnemyEntity>;
+
+export const ActivityCycleRow = __t.object("ActivityCycleRow", {
+  cadence: __t.i32(),
+  cycleNumber: __t.i32(),
+  startsAtUnix: __t.i64(),
+  endsAtUnix: __t.i64(),
+});
+export type ActivityCycleRow = __Infer<typeof ActivityCycleRow>;
+
+export const ActivityTaskRow = __t.object("ActivityTaskRow", {
+  id: __t.u32(),
+  cadence: __t.i32(),
+  cycleNumber: __t.i32(),
+  kind: __t.i32(),
+  targetId: __t.u32(),
+  zoneName: __t.string(),
+  requiredAmount: __t.i32(),
+  points: __t.i32(),
+  recommendedLevel: __t.i32(),
+  title: __t.string(),
+  description: __t.string(),
+  hasMarker: __t.bool(),
+  markerX: __t.f32(),
+  markerZ: __t.f32(),
+  markerRadius: __t.f32(),
+  sortOrder: __t.i32(),
+});
+export type ActivityTaskRow = __Infer<typeof ActivityTaskRow>;
+
+export const AmbientEnemyTickTimer = __t.object("AmbientEnemyTickTimer", {
+  scheduledId: __t.u64(),
+  scheduledAt: __t.scheduleAt(),
+});
+export type AmbientEnemyTickTimer = __Infer<typeof AmbientEnemyTickTimer>;
 
 export const AreaEffect = __t.object("AreaEffect", {
   id: __t.u64(),
@@ -89,6 +175,30 @@ export const AreaEffectTarget = __t.object("AreaEffectTarget", {
   activeEffectId: __t.u64(),
 });
 export type AreaEffectTarget = __Infer<typeof AreaEffectTarget>;
+
+export const AugmentDefinition = __t.object("AugmentDefinition", {
+  itemId: __t.i32(),
+  tier: __t.i32(),
+  primaryStatId: __t.i32(),
+  primaryBaseCentis: __t.i32(),
+  primaryPerLevelCentis: __t.i32(),
+  secondaryStatId: __t.i32(),
+  secondaryBaseCentis: __t.i32(),
+  secondaryPerLevelCentis: __t.i32(),
+  maxLevel: __t.i32(),
+  itemLevelRequirement: __t.i32(),
+});
+export type AugmentDefinition = __Infer<typeof AugmentDefinition>;
+
+export const AugmentUpgradeCost = __t.object("AugmentUpgradeCost", {
+  id: __t.i32(),
+  augmentTier: __t.i32(),
+  augmentLevel: __t.i32(),
+  materialItemId: __t.i32(),
+  materialQuantity: __t.i32(),
+  copperCost: __t.i32(),
+});
+export type AugmentUpgradeCost = __Infer<typeof AugmentUpgradeCost>;
 
 export const AuthSession = __t.object("AuthSession", {
   accountId: __t.identity(),
@@ -126,8 +236,25 @@ export const BankSlot = __t.object("BankSlot", {
   id: __t.i32(),
   itemInstanceId: __t.i32(),
   characterId: __t.u64(),
+  tabIndex: __t.i32(),
 });
 export type BankSlot = __Infer<typeof BankSlot>;
+
+export const BankTab = __t.object("BankTab", {
+  id: __t.i32(),
+  characterId: __t.u64(),
+  tabIndex: __t.i32(),
+  name: __t.string(),
+});
+export type BankTab = __Infer<typeof BankTab>;
+
+export const BreachRewardEntry = __t.object("BreachRewardEntry", {
+  id: __t.i32(),
+  mapId: __t.string(),
+  itemId: __t.i32(),
+  rewardKind: __t.i32(),
+});
+export type BreachRewardEntry = __Infer<typeof BreachRewardEntry>;
 
 export const CalculatedSpellValues = __t.object("CalculatedSpellValues", {
   id: __t.string(),
@@ -137,6 +264,7 @@ export const CalculatedSpellValues = __t.object("CalculatedSpellValues", {
   healing: __t.f32(),
   castTime: __t.f32(),
   activeEffectAmount: __t.f32(),
+  activeEffectDuration: __t.f32(),
   talentRank: __t.i32(),
   isUnlocked: __t.bool(),
 });
@@ -163,8 +291,44 @@ export const Character = __t.object("Character", {
   skinToneSelection: __t.i32(),
   hairStyleSelection: __t.i32(),
   hairColorSelection: __t.i32(),
+  zoneName: __t.string(),
 });
 export type Character = __Infer<typeof Character>;
+
+export const CharacterAbilityCooldown = __t.object("CharacterAbilityCooldown", {
+  id: __t.string(),
+  characterId: __t.u64(),
+  spellId: __t.u64(),
+  readyAtUnix: __t.i64(),
+});
+export type CharacterAbilityCooldown = __Infer<typeof CharacterAbilityCooldown>;
+
+export const CharacterActionBarSetting = __t.object("CharacterActionBarSetting", {
+  characterId: __t.u64(),
+  visibleBarCount: __t.i32(),
+});
+export type CharacterActionBarSetting = __Infer<typeof CharacterActionBarSetting>;
+
+export const CharacterActivityProgressRow = __t.object("CharacterActivityProgressRow", {
+  id: __t.u64(),
+  characterId: __t.u64(),
+  taskId: __t.u32(),
+  cadence: __t.i32(),
+  cycleNumber: __t.i32(),
+  currentAmount: __t.i32(),
+  isComplete: __t.bool(),
+  completedAtUnix: __t.i64(),
+});
+export type CharacterActivityProgressRow = __Infer<typeof CharacterActivityProgressRow>;
+
+export const CharacterBreachProgressRow = __t.object("CharacterBreachProgressRow", {
+  id: __t.u64(),
+  characterId: __t.u64(),
+  mapId: __t.string(),
+  highestClearedInstability: __t.u32(),
+  updatedAt: __t.timestamp(),
+});
+export type CharacterBreachProgressRow = __Infer<typeof CharacterBreachProgressRow>;
 
 export const CharacterChunkPosition = __t.object("CharacterChunkPosition", {
   characterId: __t.u64(),
@@ -191,12 +355,15 @@ export const CharacterCompendiumDiscovery = __t.object("CharacterCompendiumDisco
   discoveredAt: __t.timestamp(),
   isSeen: __t.bool(),
   bestQuality: __t.i32(),
+  bestFishWeightTenths: __t.i32(),
 });
 export type CharacterCompendiumDiscovery = __Infer<typeof CharacterCompendiumDiscovery>;
 
 export const CharacterCurrency = __t.object("CharacterCurrency", {
   characterId: __t.u64(),
   gold: __t.i32(),
+  silver: __t.i32(),
+  copper: __t.i32(),
 });
 export type CharacterCurrency = __Infer<typeof CharacterCurrency>;
 
@@ -212,6 +379,9 @@ export const CharacterEquipment = __t.object("CharacterEquipment", {
   footSlotItemInstanceId: __t.i32(),
   mainHandSlotItemInstanceId: __t.i32(),
   offHandSlotItemInstanceId: __t.i32(),
+  handSlotItemInstanceId: __t.i32(),
+  pickaxeSlotItemInstanceId: __t.i32(),
+  fishingRodSlotItemInstanceId: __t.i32(),
 });
 export type CharacterEquipment = __Infer<typeof CharacterEquipment>;
 
@@ -225,16 +395,31 @@ export const CharacterMapFog = __t.object("CharacterMapFog", {
 });
 export type CharacterMapFog = __Infer<typeof CharacterMapFog>;
 
+export const CharacterMapFogBlock = __t.object("CharacterMapFogBlock", {
+  id: __t.u64(),
+  characterId: __t.u64(),
+  blockX: __t.i32(),
+  blockY: __t.i32(),
+  cells: __t.byteArray(),
+  updatedAt: __t.timestamp(),
+});
+export type CharacterMapFogBlock = __Infer<typeof CharacterMapFogBlock>;
+
 export const CharacterMotionSample = __t.object("CharacterMotionSample", {
   characterId: __t.u64(),
   velocityX: __t.f32(),
   velocityZ: __t.f32(),
   lastObservedUnix: __t.i64(),
   lastAggroCheckUnix: __t.i64(),
+  isGrounded: __t.bool(),
+  airborneSinceUnix: __t.i64(),
+  airbornePeakY: __t.f32(),
+  lastSwimmingUnix: __t.i64(),
 });
 export type CharacterMotionSample = __Infer<typeof CharacterMotionSample>;
 
 export const CharacterQuest = __t.object("CharacterQuest", {
+  questId: __t.i32(),
   get questData() {
     return __t.option(Quest);
   },
@@ -254,6 +439,31 @@ export const CharacterRecallBind = __t.object("CharacterRecallBind", {
 });
 export type CharacterRecallBind = __Infer<typeof CharacterRecallBind>;
 
+export const CharacterServiceRecordRow = __t.object("CharacterServiceRecordRow", {
+  characterId: __t.u64(),
+  lifetimeMarks: __t.i32(),
+  rank: __t.i32(),
+  activeTitleRank: __t.i32(),
+});
+export type CharacterServiceRecordRow = __Infer<typeof CharacterServiceRecordRow>;
+
+export const CharacterServiceRewardClaimRow = __t.object("CharacterServiceRewardClaimRow", {
+  id: __t.u64(),
+  characterId: __t.u64(),
+  rank: __t.i32(),
+  claimedAtUnix: __t.i64(),
+});
+export type CharacterServiceRewardClaimRow = __Infer<typeof CharacterServiceRewardClaimRow>;
+
+export const CharacterSkill = __t.object("CharacterSkill", {
+  id: __t.u64(),
+  characterId: __t.u64(),
+  skillId: __t.i32(),
+  level: __t.i32(),
+  xp: __t.i32(),
+});
+export type CharacterSkill = __Infer<typeof CharacterSkill>;
+
 export const CharacterState = __t.object("CharacterState", {
   characterId: __t.u64(),
   get position() {
@@ -265,6 +475,8 @@ export const CharacterState = __t.object("CharacterState", {
   isWeaponDrawn: __t.bool(),
   isSitting: __t.bool(),
   instanceId: __t.u32(),
+  isSwimming: __t.bool(),
+  isInLava: __t.bool(),
 });
 export type CharacterState = __Infer<typeof CharacterState>;
 
@@ -283,6 +495,7 @@ export const CharacterStats = __t.object("CharacterStats", {
   alacrity: __t.i32(),
   tempo: __t.i32(),
   accuracy: __t.i32(),
+  swimFatigueMs: __t.i32(),
 });
 export type CharacterStats = __Infer<typeof CharacterStats>;
 
@@ -316,11 +529,16 @@ export const CharacterSummary = __t.object("CharacterSummary", {
   deletedAt: __t.timestamp(),
   lastPlayed: __t.timestamp(),
   isWeaponDrawn: __t.bool(),
+  isSwimming: __t.bool(),
+  swimFatigueMs: __t.i32(),
   tag: __t.i32(),
   gold: __t.i32(),
   skinToneSelection: __t.i32(),
   hairStyleSelection: __t.i32(),
   hairColorSelection: __t.i32(),
+  silver: __t.i32(),
+  copper: __t.i32(),
+  zoneName: __t.string(),
 });
 export type CharacterSummary = __Infer<typeof CharacterSummary>;
 
@@ -338,6 +556,50 @@ export const CharacterTrackedQuest = __t.object("CharacterTrackedQuest", {
 });
 export type CharacterTrackedQuest = __Infer<typeof CharacterTrackedQuest>;
 
+export const CharacterTransferCredit = __t.object("CharacterTransferCredit", {
+  accountId: __t.identity(),
+  transfersUsed: __t.i32(),
+  lastTransferAt: __t.timestamp(),
+});
+export type CharacterTransferCredit = __Infer<typeof CharacterTransferCredit>;
+
+export const CharacterTransferTicket = __t.object("CharacterTransferTicket", {
+  id: __t.u64(),
+  accountId: __t.identity(),
+  nonce: __t.string(),
+  characterName: __t.string(),
+  characterTag: __t.i32(),
+  characterLevel: __t.i32(),
+  payload: __t.string(),
+  signature: __t.string(),
+  createdAt: __t.timestamp(),
+});
+export type CharacterTransferTicket = __Infer<typeof CharacterTransferTicket>;
+
+export const CharacterTravelSample = __t.object("CharacterTravelSample", {
+  characterId: __t.u64(),
+  instanceId: __t.u32(),
+  anchorX: __t.f32(),
+  anchorZ: __t.f32(),
+});
+export type CharacterTravelSample = __Infer<typeof CharacterTravelSample>;
+
+export const CharacterWeeklyActivityRow = __t.object("CharacterWeeklyActivityRow", {
+  id: __t.u64(),
+  characterId: __t.u64(),
+  weekNumber: __t.i32(),
+  points: __t.i32(),
+  tasksCompleted: __t.i32(),
+  dailiesCompleted: __t.i32(),
+  breachClears: __t.i32(),
+  bestBreachMapId: __t.string(),
+  bestBreachLevel: __t.i32(),
+  highestInstability: __t.u32(),
+  isClaimed: __t.bool(),
+  claimedAtUnix: __t.i64(),
+});
+export type CharacterWeeklyActivityRow = __Infer<typeof CharacterWeeklyActivityRow>;
+
 export const CombatLogEvent = __t.object("CombatLogEvent", {
   id: __t.u64(),
   characterId: __t.u64(),
@@ -349,8 +611,39 @@ export const CombatLogEvent = __t.object("CombatLogEvent", {
   chunkX: __t.i32(),
   chunkZ: __t.i32(),
   instanceId: __t.u32(),
+  sourceKind: __t.u8(),
+  sourceEntityId: __t.u32(),
+  targetCharacterId: __t.u64(),
+  targetKind: __t.u8(),
+  sourceEnemyId: __t.u32(),
+  targetEnemyId: __t.u32(),
+  outcome: __t.u8(),
+  isPeriodic: __t.bool(),
 });
 export type CombatLogEvent = __Infer<typeof CombatLogEvent>;
+
+export const ConnectionDiagnostic = __t.object("ConnectionDiagnostic", {
+  connectionKey: __t.string(),
+  accountId: __t.identity(),
+  connectedAt: __t.timestamp(),
+  lastHeartbeatAt: __t.timestamp(),
+  heartbeatCount: __t.u64(),
+  lastHeartbeatSequence: __t.u64(),
+  clientVersion: __t.i32(),
+});
+export type ConnectionDiagnostic = __Infer<typeof ConnectionDiagnostic>;
+
+export const ConsumableEffect = __t.object("ConsumableEffect", {
+  id: __t.i32(),
+  itemId: __t.i32(),
+  effectKind: __t.i32(),
+  statId: __t.i32(),
+  amount: __t.f32(),
+  durationSeconds: __t.f32(),
+  tickIntervalSeconds: __t.f32(),
+  sortOrder: __t.i32(),
+});
+export type ConsumableEffect = __Infer<typeof ConsumableEffect>;
 
 export const ConsumableItem = __t.object("ConsumableItem", {
   itemId: __t.i32(),
@@ -362,12 +655,82 @@ export const ConsumableItem = __t.object("ConsumableItem", {
 });
 export type ConsumableItem = __Infer<typeof ConsumableItem>;
 
+export const ConsumedTransferNonce = __t.object("ConsumedTransferNonce", {
+  nonce: __t.string(),
+  accountId: __t.identity(),
+  characterId: __t.u64(),
+  claimedAt: __t.timestamp(),
+});
+export type ConsumedTransferNonce = __Infer<typeof ConsumedTransferNonce>;
+
+export const CookingDish = __t.object("CookingDish", {
+  id: __t.i32(),
+  affinity: __t.i32(),
+  tier: __t.i32(),
+  itemId: __t.i32(),
+  requiredCookingSkill: __t.i32(),
+  cookSeconds: __t.f32(),
+  skillXp: __t.i32(),
+});
+export type CookingDish = __Infer<typeof CookingDish>;
+
+export const CookingFire = __t.object("CookingFire", {
+  characterId: __t.u64(),
+  get position() {
+    return DbVector3;
+  },
+  instanceId: __t.u32(),
+  chunkX: __t.i32(),
+  chunkZ: __t.i32(),
+  litFromX: __t.f32(),
+  litFromY: __t.f32(),
+  litFromZ: __t.f32(),
+  expiresAtUnix: __t.i64(),
+});
+export type CookingFire = __Infer<typeof CookingFire>;
+
+export const CookingIngredient = __t.object("CookingIngredient", {
+  itemId: __t.i32(),
+  affinity: __t.i32(),
+  potency: __t.i32(),
+  note: __t.string(),
+});
+export type CookingIngredient = __Infer<typeof CookingIngredient>;
+
+export const CookingSession = __t.object("CookingSession", {
+  characterId: __t.u64(),
+  instanceId: __t.u32(),
+  startedX: __t.f32(),
+  startedY: __t.f32(),
+  startedZ: __t.f32(),
+  ingredient1ItemId: __t.i32(),
+  ingredient2ItemId: __t.i32(),
+  ingredient3ItemId: __t.i32(),
+  resultItemId: __t.i32(),
+  startedAtUnix: __t.i64(),
+  completesAtUnix: __t.i64(),
+  expiresAtUnix: __t.i64(),
+});
+export type CookingSession = __Infer<typeof CookingSession>;
+
+export const CreatureLore = __t.object("CreatureLore", {
+  enemyId: __t.u32(),
+  text: __t.string(),
+});
+export type CreatureLore = __Infer<typeof CreatureLore>;
+
 export const DbVector3 = __t.object("DbVector3", {
   x: __t.f32(),
   y: __t.f32(),
   z: __t.f32(),
 });
 export type DbVector3 = __Infer<typeof DbVector3>;
+
+export const DefenseXpGuard = __t.object("DefenseXpGuard", {
+  characterId: __t.u64(),
+  nextXpAtUnix: __t.i64(),
+});
+export type DefenseXpGuard = __Infer<typeof DefenseXpGuard>;
 
 export const Enemy = __t.object("Enemy", {
   id: __t.u32(),
@@ -390,6 +753,49 @@ export const Enemy = __t.object("Enemy", {
 });
 export type Enemy = __Infer<typeof Enemy>;
 
+export const EnemyAbilityCooldown = __t.object("EnemyAbilityCooldown", {
+  enemyEntityId: __t.u32(),
+  readyAtUnix: __t.array(__t.i64()),
+});
+export type EnemyAbilityCooldown = __Infer<typeof EnemyAbilityCooldown>;
+
+export const EnemyGroundAttack = __t.object("EnemyGroundAttack", {
+  id: __t.u64(),
+  enemyEntityId: __t.u32(),
+  instanceId: __t.u32(),
+  chunkX: __t.i32(),
+  chunkZ: __t.i32(),
+  get position() {
+    return DbVector3;
+  },
+  directionX: __t.f32(),
+  directionZ: __t.f32(),
+  radius: __t.f32(),
+  halfAngle: __t.f32(),
+  startedAtUnix: __t.i64(),
+  activatesAtUnix: __t.i64(),
+  expiresAtUnix: __t.i64(),
+  tickIntervalMs: __t.i32(),
+  power: __t.f32(),
+  spellId: __t.u64(),
+});
+export type EnemyGroundAttack = __Infer<typeof EnemyGroundAttack>;
+
+export const EnemyGroundAttackSchedule = __t.object("EnemyGroundAttackSchedule", {
+  id: __t.u64(),
+  enemyEntityId: __t.u32(),
+  scheduledAt: __t.scheduleAt(),
+  previousPulseUnix: __t.i64(),
+});
+export type EnemyGroundAttackSchedule = __Infer<typeof EnemyGroundAttackSchedule>;
+
+export const EnemyGroundAttackState = __t.object("EnemyGroundAttackState", {
+  enemyEntityId: __t.u32(),
+  readyAtUnix: __t.i64(),
+  sequence: __t.u32(),
+});
+export type EnemyGroundAttackState = __Infer<typeof EnemyGroundAttackState>;
+
 export const EnemyLootDrop = __t.object("EnemyLootDrop", {
   id: __t.i32(),
   enemyId: __t.i32(),
@@ -404,6 +810,9 @@ export const EnemyLootDrop = __t.object("EnemyLootDrop", {
   goldAmount: __t.i32(),
   qualityLevel: __t.i32(),
   instanceId: __t.u32(),
+  copperAmount: __t.i32(),
+  instabilityTier: __t.i32(),
+  sourceEnemyId: __t.u32(),
 });
 export type EnemyLootDrop = __Infer<typeof EnemyLootDrop>;
 
@@ -413,6 +822,32 @@ export const EnemyMotionState = __t.object("EnemyMotionState", {
   velocityZ: __t.f32(),
 });
 export type EnemyMotionState = __Infer<typeof EnemyMotionState>;
+
+export const EnemyNavigationState = __t.object("EnemyNavigationState", {
+  enemyEntityId: __t.u32(),
+  mode: __t.u8(),
+  targetCharacterId: __t.u64(),
+  goalX: __t.f32(),
+  goalY: __t.f32(),
+  goalZ: __t.f32(),
+  waypointX: __t.f32(),
+  waypointY: __t.f32(),
+  waypointZ: __t.f32(),
+  hasWaypoint: __t.bool(),
+  replanAfterUnix: __t.i64(),
+  revision: __t.u32(),
+  pathX: __t.array(__t.f32()),
+  pathY: __t.array(__t.f32()),
+  pathZ: __t.array(__t.f32()),
+  pathCursor: __t.i32(),
+});
+export type EnemyNavigationState = __Infer<typeof EnemyNavigationState>;
+
+export const EnemySimulationState = __t.object("EnemySimulationState", {
+  id: __t.u8(),
+  schedulerVersion: __t.i32(),
+});
+export type EnemySimulationState = __Infer<typeof EnemySimulationState>;
 
 export const EnemySlowState = __t.object("EnemySlowState", {
   enemyEntityId: __t.u32(),
@@ -447,6 +882,14 @@ export const Entity = __t.object("Entity", {
   lastUpdateUnix: __t.i64(),
   lastWanderUnix: __t.i64(),
   instanceId: __t.u32(),
+  maxHealth: __t.i32(),
+  motionSequence: __t.u64(),
+  motionMode: __t.u8(),
+  pathRevision: __t.u32(),
+  teleportSequence: __t.u32(),
+  velocityX: __t.f32(),
+  velocityY: __t.f32(),
+  velocityZ: __t.f32(),
 });
 export type Entity = __Infer<typeof Entity>;
 
@@ -474,6 +917,35 @@ export const FastTickTimer = __t.object("FastTickTimer", {
 });
 export type FastTickTimer = __Infer<typeof FastTickTimer>;
 
+export const FishingCatch = __t.object("FishingCatch", {
+  itemId: __t.i32(),
+  zone: __t.string(),
+  minFishingLevel: __t.i32(),
+  weight: __t.i32(),
+  rarity: __t.i32(),
+  skillXp: __t.i32(),
+});
+export type FishingCatch = __Infer<typeof FishingCatch>;
+
+export const FishingSession = __t.object("FishingSession", {
+  characterId: __t.u64(),
+  instanceId: __t.u32(),
+  startedX: __t.f32(),
+  startedY: __t.f32(),
+  startedZ: __t.f32(),
+  spotX: __t.f32(),
+  spotZ: __t.f32(),
+  catchItemId: __t.i32(),
+  rarity: __t.i32(),
+  castAtUnix: __t.i64(),
+  biteAtUnix: __t.i64(),
+  hookedAtUnix: __t.i64(),
+  earliestLandAtUnix: __t.i64(),
+  expiresAtUnix: __t.i64(),
+  fishWeightTenths: __t.i32(),
+});
+export type FishingSession = __Infer<typeof FishingSession>;
+
 export const GameEvent = __t.object("GameEvent", {
   id: __t.i32(),
   fromNpcId: __t.option(__t.i32()),
@@ -487,9 +959,63 @@ export const GameEvent = __t.object("GameEvent", {
   duration: __t.option(__t.f32()),
   chunkX: __t.i32(),
   chunkZ: __t.i32(),
+  deliveryType: __t.i32(),
+  phase: __t.i32(),
+  groundX: __t.f32(),
+  groundZ: __t.f32(),
   instanceId: __t.u32(),
+  fishWeightTenths: __t.i32(),
+  isNewBestCatch: __t.bool(),
 });
 export type GameEvent = __Infer<typeof GameEvent>;
+
+export const Guild = __t.object("Guild", {
+  id: __t.u64(),
+  name: __t.string(),
+  nameKey: __t.string(),
+  ownerCharacterId: __t.u64(),
+  createdAt: __t.timestamp(),
+});
+export type Guild = __Infer<typeof Guild>;
+
+export const GuildInvite = __t.object("GuildInvite", {
+  id: __t.u64(),
+  guildId: __t.u64(),
+  inviterCharacterId: __t.u64(),
+  targetCharacterId: __t.u64(),
+  createdAt: __t.timestamp(),
+});
+export type GuildInvite = __Infer<typeof GuildInvite>;
+
+export const GuildMember = __t.object("GuildMember", {
+  characterId: __t.u64(),
+  guildId: __t.u64(),
+  characterName: __t.string(),
+  characterTag: __t.i32(),
+  joinedAt: __t.timestamp(),
+});
+export type GuildMember = __Infer<typeof GuildMember>;
+
+export const GuildMessageEvent = __t.object("GuildMessageEvent", {
+  guildId: __t.u64(),
+  characterId: __t.u64(),
+  text: __t.string(),
+  sent: __t.timestamp(),
+});
+export type GuildMessageEvent = __Infer<typeof GuildMessageEvent>;
+
+export const HealingXpGuard = __t.object("HealingXpGuard", {
+  characterId: __t.u64(),
+  nextXpAtUnix: __t.i64(),
+});
+export type HealingXpGuard = __Infer<typeof HealingXpGuard>;
+
+export const InstanceExpirySchedule = __t.object("InstanceExpirySchedule", {
+  scheduledId: __t.u64(),
+  instanceId: __t.u32(),
+  scheduledAt: __t.scheduleAt(),
+});
+export type InstanceExpirySchedule = __Infer<typeof InstanceExpirySchedule>;
 
 export const ItemDefinition = __t.object("ItemDefinition", {
   id: __t.i32(),
@@ -510,8 +1036,26 @@ export const ItemInstance = __t.object("ItemInstance", {
   quantity: __t.i32(),
   characterId: __t.u64(),
   qualityLevel: __t.i32(),
+  isTradable: __t.bool(),
+  instabilityTier: __t.i32(),
 });
 export type ItemInstance = __Infer<typeof ItemInstance>;
+
+export const ItemSocket = __t.object("ItemSocket", {
+  id: __t.i32(),
+  itemInstanceId: __t.i32(),
+  characterId: __t.u64(),
+  socketIndex: __t.i32(),
+  augmentItemInstanceId: __t.i32(),
+});
+export type ItemSocket = __Infer<typeof ItemSocket>;
+
+export const ItemUpgrade = __t.object("ItemUpgrade", {
+  itemInstanceId: __t.i32(),
+  characterId: __t.u64(),
+  upgradeLevel: __t.i32(),
+});
+export type ItemUpgrade = __Infer<typeof ItemUpgrade>;
 
 export const LevelRequirement = __t.object("LevelRequirement", {
   level: __t.i32(),
@@ -530,6 +1074,27 @@ export const LootTableEntry = __t.object("LootTableEntry", {
   rolls: __t.i32(),
 });
 export type LootTableEntry = __Infer<typeof LootTableEntry>;
+
+export const MapFogRepackSchedule = __t.object("MapFogRepackSchedule", {
+  scheduledId: __t.u64(),
+  migratedCells: __t.u64(),
+  scheduledAt: __t.scheduleAt(),
+});
+export type MapFogRepackSchedule = __Infer<typeof MapFogRepackSchedule>;
+
+export const Merchant = __t.object("Merchant", {
+  npcId: __t.u32(),
+  name: __t.string(),
+});
+export type Merchant = __Infer<typeof Merchant>;
+
+export const MerchantStockEntry = __t.object("MerchantStockEntry", {
+  id: __t.i32(),
+  npcId: __t.u32(),
+  itemId: __t.i32(),
+  price: __t.i32(),
+});
+export type MerchantStockEntry = __Infer<typeof MerchantStockEntry>;
 
 export const MessageEvent = __t.object("MessageEvent", {
   characterId: __t.u64(),
@@ -561,8 +1126,33 @@ export const NpcEquipment = __t.object("NpcEquipment", {
   shoulderItemId: __t.i32(),
   mainHandItemId: __t.i32(),
   offHandItemId: __t.i32(),
+  chestItemId: __t.i32(),
+  waistItemId: __t.i32(),
+  legsItemId: __t.i32(),
+  handsItemId: __t.i32(),
+  feetItemId: __t.i32(),
 });
 export type NpcEquipment = __Infer<typeof NpcEquipment>;
+
+export const NpcTopic = __t.object("NpcTopic", {
+  id: __t.u32(),
+  npcId: __t.u32(),
+  topic: __t.string(),
+  text: __t.string(),
+  requiredQuestComplete: __t.i32(),
+  sortOrder: __t.i32(),
+});
+export type NpcTopic = __Infer<typeof NpcTopic>;
+
+export const ObservedEnemyEntity = __t.object("ObservedEnemyEntity", {
+  enemyEntityId: __t.u32(),
+  navigationRecoveryDeadlineUnix: __t.i64(),
+  navigationRecoveryAnchorX: __t.f32(),
+  navigationRecoveryAnchorZ: __t.f32(),
+  navigationRecoveryGoalX: __t.f32(),
+  navigationRecoveryGoalZ: __t.f32(),
+});
+export type ObservedEnemyEntity = __Infer<typeof ObservedEnemyEntity>;
 
 export const Party = __t.object("Party", {
   id: __t.u64(),
@@ -586,12 +1176,25 @@ export const PartyMember = __t.object("PartyMember", {
 });
 export type PartyMember = __Infer<typeof PartyMember>;
 
+export const PendingMiningAction = __t.object("PendingMiningAction", {
+  characterId: __t.u64(),
+  worldObjectEntityId: __t.u32(),
+  startedX: __t.f32(),
+  startedY: __t.f32(),
+  startedZ: __t.f32(),
+  instanceId: __t.u32(),
+  completesAtUnix: __t.i64(),
+  durationSeconds: __t.f32(),
+});
+export type PendingMiningAction = __Infer<typeof PendingMiningAction>;
+
 export const PendingProjectileImpact = __t.object("PendingProjectileImpact", {
   id: __t.u64(),
   characterId: __t.u64(),
   spellId: __t.u64(),
   targetEntityId: __t.i32(),
   impactsAtUnix: __t.i64(),
+  procId: __t.i32(),
 });
 export type PendingProjectileImpact = __Infer<typeof PendingProjectileImpact>;
 
@@ -604,8 +1207,21 @@ export const PendingSpellCast = __t.object("PendingSpellCast", {
   startedX: __t.f32(),
   startedZ: __t.f32(),
   completesAtUnix: __t.i64(),
+  deliveryType: __t.i32(),
 });
 export type PendingSpellCast = __Infer<typeof PendingSpellCast>;
+
+export const ProcDefinition = __t.object("ProcDefinition", {
+  id: __t.i32(),
+  classId: __t.i32(),
+  name: __t.string(),
+  description: __t.string(),
+  iconTexture: __t.string(),
+  chancePercent: __t.f32(),
+  durationSeconds: __t.f32(),
+  powerBonusPercent: __t.f32(),
+});
+export type ProcDefinition = __Infer<typeof ProcDefinition>;
 
 export const Quest = __t.object("Quest", {
   id: __t.i32(),
@@ -627,6 +1243,12 @@ export const Quest = __t.object("Quest", {
   questRewardItems: __t.array(__t.i32()),
 });
 export type Quest = __Infer<typeof Quest>;
+
+export const QuestCompletionText = __t.object("QuestCompletionText", {
+  questId: __t.i32(),
+  text: __t.string(),
+});
+export type QuestCompletionText = __Infer<typeof QuestCompletionText>;
 
 export const QuestObjective = __t.object("QuestObjective", {
   objectiveType: __t.i32(),
@@ -673,11 +1295,53 @@ export const QuestTargetEntity = __t.object("QuestTargetEntity", {
 });
 export type QuestTargetEntity = __Infer<typeof QuestTargetEntity>;
 
+export const RefinementCost = __t.object("RefinementCost", {
+  id: __t.i32(),
+  materialTier: __t.i32(),
+  refinementLevel: __t.i32(),
+  materialItemId: __t.i32(),
+  materialQuantity: __t.i32(),
+  copperCost: __t.i32(),
+});
+export type RefinementCost = __Infer<typeof RefinementCost>;
+
+export const ServerRealmConfig = __t.object("ServerRealmConfig", {
+  id: __t.i32(),
+  timeZoneId: __t.string(),
+});
+export type ServerRealmConfig = __Infer<typeof ServerRealmConfig>;
+
 export const ServerSettings = __t.object("ServerSettings", {
   minReqGameVersion: __t.i32(),
   maxConcurrentPlayers: __t.i32(),
 });
 export type ServerSettings = __Infer<typeof ServerSettings>;
+
+export const ServiceRankRow = __t.object("ServiceRankRow", {
+  rank: __t.i32(),
+  threshold: __t.i32(),
+  title: __t.string(),
+  rewardItemId: __t.i32(),
+});
+export type ServiceRankRow = __Infer<typeof ServiceRankRow>;
+
+export const SkillDefinition = __t.object("SkillDefinition", {
+  id: __t.i32(),
+  name: __t.string(),
+  description: __t.string(),
+  iconTexture: __t.string(),
+  maxLevel: __t.i32(),
+  xpPerLevel: __t.i32(),
+});
+export type SkillDefinition = __Infer<typeof SkillDefinition>;
+
+export const SocketUnlockCost = __t.object("SocketUnlockCost", {
+  socketIndex: __t.i32(),
+  materialItemId: __t.i32(),
+  materialQuantity: __t.i32(),
+  copperCost: __t.i32(),
+});
+export type SocketUnlockCost = __Infer<typeof SocketUnlockCost>;
 
 export const Spell = __t.object("Spell", {
   id: __t.u64(),
@@ -701,6 +1365,13 @@ export const Spell = __t.object("Spell", {
   activeEffectDuration: __t.f32(),
   activeEffectTickInterval: __t.f32(),
   activeEffectAmount: __t.f32(),
+  deliveryType: __t.i32(),
+  projectileSpeed: __t.f32(),
+  impactDelaySeconds: __t.f32(),
+  areaFollowMode: __t.i32(),
+  procTriggerId: __t.i32(),
+  procConsumerId: __t.i32(),
+  activeEffectIsStackable: __t.bool(),
 });
 export type Spell = __Infer<typeof Spell>;
 
@@ -711,6 +1382,13 @@ export const SpellButtonBinding = __t.object("SpellButtonBinding", {
   characterId: __t.u64(),
 });
 export type SpellButtonBinding = __Infer<typeof SpellButtonBinding>;
+
+export const StarterGearEntry = __t.object("StarterGearEntry", {
+  id: __t.i32(),
+  classId: __t.i32(),
+  itemId: __t.i32(),
+});
+export type StarterGearEntry = __Infer<typeof StarterGearEntry>;
 
 export const StatDefinition = __t.object("StatDefinition", {
   id: __t.i32(),
@@ -774,12 +1452,57 @@ export const TickTimer = __t.object("TickTimer", {
 });
 export type TickTimer = __Infer<typeof TickTimer>;
 
+export const TradeOfferSlot = __t.object("TradeOfferSlot", {
+  id: __t.u64(),
+  tradeId: __t.u64(),
+  characterId: __t.u64(),
+  slotIndex: __t.i32(),
+  itemInstanceId: __t.i32(),
+  itemId: __t.i32(),
+  quantity: __t.i32(),
+  qualityLevel: __t.i32(),
+  instabilityTier: __t.i32(),
+});
+export type TradeOfferSlot = __Infer<typeof TradeOfferSlot>;
+
+export const TradeSession = __t.object("TradeSession", {
+  id: __t.u64(),
+  initiatorCharacterId: __t.u64(),
+  targetCharacterId: __t.u64(),
+  initiatorAccepted: __t.bool(),
+  targetAccepted: __t.bool(),
+  initiatorOfferedCopper: __t.i64(),
+  targetOfferedCopper: __t.i64(),
+  createdAt: __t.timestamp(),
+});
+export type TradeSession = __Infer<typeof TradeSession>;
+
+export const TransferTicketSummary = __t.object("TransferTicketSummary", {
+  id: __t.u64(),
+  nonce: __t.string(),
+  characterName: __t.string(),
+  characterTag: __t.i32(),
+  characterLevel: __t.i32(),
+  payload: __t.string(),
+  signature: __t.string(),
+  createdAt: __t.timestamp(),
+});
+export type TransferTicketSummary = __Infer<typeof TransferTicketSummary>;
+
+export const WeatherClockState = __t.object("WeatherClockState", {
+  id: __t.u8(),
+  nowUnixMs: __t.i64(),
+});
+export type WeatherClockState = __Infer<typeof WeatherClockState>;
+
 export const WorldInstance = __t.object("WorldInstance", {
   id: __t.u32(),
   mapId: __t.string(),
   partyId: __t.u64(),
   ownerCharacterId: __t.u64(),
   createdAt: __t.timestamp(),
+  instability: __t.u32(),
+  isCompleted: __t.bool(),
 });
 export type WorldInstance = __Infer<typeof WorldInstance>;
 
@@ -791,6 +1514,10 @@ export const WorldObject = __t.object("WorldObject", {
   modelPath: __t.string(),
   scale: __t.f32(),
   requireQuestForInteraction: __t.bool(),
+  gatheringSkillId: __t.i32(),
+  requiredSkillLevel: __t.i32(),
+  tintHex: __t.string(),
+  gatherDurationSeconds: __t.f32(),
 });
 export type WorldObject = __Infer<typeof WorldObject>;
 
@@ -807,4 +1534,32 @@ export const WorldTime = __t.object("WorldTime", {
   updatedAtUnix: __t.i64(),
 });
 export type WorldTime = __Infer<typeof WorldTime>;
+
+export const ZoneWeatherConfig = __t.object("ZoneWeatherConfig", {
+  zone: __t.string(),
+  clearMinSeconds: __t.u32(),
+  clearMaxSeconds: __t.u32(),
+  rainMinSeconds: __t.u32(),
+  rainMaxSeconds: __t.u32(),
+  fadeSeconds: __t.u32(),
+});
+export type ZoneWeatherConfig = __Infer<typeof ZoneWeatherConfig>;
+
+export const ZoneWeatherSchedule = __t.object("ZoneWeatherSchedule", {
+  scheduledId: __t.u64(),
+  scheduledAt: __t.scheduleAt(),
+  zone: __t.string(),
+});
+export type ZoneWeatherSchedule = __Infer<typeof ZoneWeatherSchedule>;
+
+export const ZoneWeatherState = __t.object("ZoneWeatherState", {
+  zone: __t.string(),
+  raining: __t.bool(),
+  startedAtUnixMs: __t.i64(),
+  endsAtUnixMs: __t.i64(),
+  fadeSeconds: __t.u32(),
+  randomState: __t.u64(),
+  wetnessAtStart: __t.f32(),
+});
+export type ZoneWeatherState = __Infer<typeof ZoneWeatherState>;
 

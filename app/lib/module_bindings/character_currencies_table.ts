@@ -13,4 +13,6 @@ import {
 export default __t.row({
   characterId: __t.u64().primaryKey().name("character_id"),
   gold: __t.i32(),
+  silver: __t.i32(),
+  copper: __t.i32(),
 });

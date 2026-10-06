@@ -25,4 +25,8 @@ export default __t.row({
   tickIntervalMs: __t.i32().name("tick_interval_ms"),
   amount: __t.f32(),
   sourceItemId: __t.i32().name("source_item_id"),
+  sourceProcId: __t.i32().name("source_proc_id"),
+  displayExpiresAtUnix: __t.i64().name("display_expires_at_unix"),
+  sourceEnemyEntityId: __t.u32().name("source_enemy_entity_id"),
+  sourceEnemyId: __t.u32().name("source_enemy_id"),
 });

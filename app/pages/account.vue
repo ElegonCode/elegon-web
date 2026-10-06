@@ -2,7 +2,7 @@
 import type { PatreonSupport } from "../../server/utils/patreonSupport";
 import { patreonSupportDuration } from "~/utils/patreonStats";
 import type { CharacterCard } from "../../server/utils/accountCharacters";
-import { summarizeAccountRealms, formatAccountDate, formatAccountAge } from "~/utils/accountStats";
+import { formatAccountDate, formatAccountAge } from "~/utils/accountStats";
 
 type Realm = { name: string; available: boolean; characters: CharacterCard[]; error: string | null };
 useSeoMeta({ title: "Your account", robots: "noindex, nofollow" });
@@ -10,7 +10,7 @@ useHead({ htmlAttrs: { lang: "en" } });
 const route = useRoute();
 const { data, pending, error, refresh, status } = useAccount();
 const account = computed(() => data.value?.account);
-const tabs = [{ id: 'details', label: 'Details & stats' }, { id: 'connections', label: 'Connections' }, { id: 'characters', label: 'Characters' }, { id: 'danger', label: 'Danger zone' }];
+const tabs = [{ id: 'details', label: 'Details' }, { id: 'connections', label: 'Connections' }, { id: 'characters', label: 'Characters' }, { id: 'danger', label: 'Danger zone' }];
 const activeTab = ref(route.query.connection ? 'connections' : 'details');
 const username = ref('');
 const savingUsername = ref(false);
@@ -79,6 +79,11 @@ const connectionNotice = computed(() => connectionMessage.value || ({
 const connectingPatreon = ref(false);
 const disconnectingPatreon = ref(false);
 const patreonConnection = computed(() => account.value?.connections?.find(connection => connection.provider === "patreon"));
+const connectedProviders = computed(() => 1 + Number(!!discordConnection.value) + Number(!!patreonConnection.value));
+const totalCharacters = computed(() => {
+  if (loadingCharacters.value || characterError.value || !realms.value.length || realms.value.some(realm => !realm.available)) return null;
+  return realms.value.reduce((total, realm) => total + realm.characters.length, 0);
+});
 const patreonSupport = ref<PatreonSupport | null>(null);
 const patreonLoading = ref(false);
 const patreonError = ref("");
@@ -118,7 +123,6 @@ async function disconnectPatreon() {
   } catch { connectionError.value = "Patreon could not be disconnected. Refresh your account and try again."; }
   finally { disconnectingPatreon.value = false; }
 }
-const stats = computed(() => summarizeAccountRealms(realms.value));
 const loginMessage = computed(() => {
   if (!route.query.login) return "";
   return route.query.login === "unavailable"
@@ -208,13 +212,17 @@ async function disconnectDiscord() {
             <img v-if="account.avatar_url" :src="account.avatar_url" alt="" referrerpolicy="no-referrer" class="size-16 rounded-sm border border-gold-500/30" />
             <div class="min-w-0">
               <h2 class="break-words font-display text-2xl text-parchment">{{ account.display_name || 'Adventurer' }}</h2>
-              <p class="mt-2 text-sm text-parchment-muted">Your Elegon account</p>
+              <p class="mt-2 text-sm text-parchment-muted">Account Created <time v-if="accountAge" :datetime="account.created_at">{{ formatAccountDate(account.created_at) }}</time><span v-else>Not recorded</span><span v-if="accountAge"> ({{ accountAge }})</span></p>
             </div>
           </div>
           <GameButton variant="ghost" :disabled="signingOut || connectingDiscord || disconnectingDiscord || connectingPatreon || disconnectingPatreon" @click="signOut">{{ signingOut ? 'Signing out…' : 'Sign out' }}</GameButton>
         </div>
         <div role="tablist" aria-label="Account sections" class="mt-8 flex flex-wrap gap-2 border-b border-gold-500/20 pb-3">
-          <button v-for="(tab, index) in tabs" :id="`account-tab-${tab.id}`" :key="tab.id" role="tab" :aria-selected="activeTab === tab.id" :aria-controls="`account-panel-${tab.id}`" :tabindex="activeTab === tab.id ? 0 : -1" class="rounded-sm px-4 py-3 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-300" :class="activeTab === tab.id ? 'bg-gold-400/10 text-gold-200' : 'text-parchment-muted hover:text-parchment'" @click="activeTab = tab.id" @keydown="tabKey($event, index)">{{ tab.label }}</button>
+          <button v-for="(tab, index) in tabs" :id="`account-tab-${tab.id}`" :key="tab.id" role="tab" :aria-selected="activeTab === tab.id" :aria-controls="`account-panel-${tab.id}`" :tabindex="activeTab === tab.id ? 0 : -1" class="inline-flex items-center gap-2 rounded-sm px-4 py-3 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-300" :class="activeTab === tab.id ? 'bg-gold-400/10 text-gold-200' : 'text-parchment-muted hover:text-parchment'" @click="activeTab = tab.id" @keydown="tabKey($event, index)">
+            {{ tab.label }}
+            <span v-if="tab.id === 'connections'" class="rounded-full border px-2 py-0.5 text-xs font-medium tabular-nums" :class="connectedProviders === 3 ? 'border-green-400/40 bg-green-400/10 text-green-300' : 'border-yellow-400/40 bg-yellow-400/10 text-yellow-300'" :aria-label="`${connectedProviders} of 3 accounts connected`">{{ connectedProviders }}/3</span>
+            <span v-if="tab.id === 'characters'" class="rounded-full border border-gold-400/30 bg-gold-400/10 px-2 py-0.5 text-xs font-medium tabular-nums text-gold-200" :aria-label="totalCharacters === null ? (loadingCharacters ? 'Loading character count' : 'Character count unavailable') : `${totalCharacters} total characters`">{{ loadingCharacters ? '…' : totalCharacters ?? '—' }}</span>
+          </button>
         </div>
         <p v-if="account.deletion_pending" role="alert" class="mt-6 rounded border border-red-400/40 p-4 text-sm text-red-200">Your account is being deleted. Resume deletion in Danger zone to finish removing data from both realms.</p>
         <section v-show="activeTab === 'connections'" id="account-panel-connections" role="tabpanel" aria-labelledby="account-tab-connections" tabindex="0" class="mt-10">
@@ -312,41 +320,6 @@ async function disconnectDiscord() {
           <p v-if="usernameMessage" role="status" class="mt-4 text-sm text-gold-200">{{ usernameMessage }}</p>
           <p v-if="usernameError" role="alert" class="mt-4 text-sm text-red-200">{{ usernameError }}</p>
         </form>
-        <dl class="account-panel mt-6 grid gap-6 sm:grid-cols-3">
-          <div>
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Account created</dt>
-            <dd class="mt-2 text-parchment"><time v-if="account.created_at" :datetime="account.created_at">{{ formatAccountDate(account.created_at) }}</time><span v-else>Not recorded</span></dd>
-            <p v-if="accountAge" class="mt-2 text-xs text-parchment-muted">{{ accountAge }}</p>
-          </div>
-          <div>
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">First character</dt>
-            <dd class="mt-2 text-parchment">{{ loadingCharacters ? 'Loading…' : stats.available ? formatAccountDate(stats.firstCharacter) : 'Unavailable' }}</dd>
-            <p v-if="stats.firstCharacter && account.created_at && stats.firstCharacter < account.created_at" class="mt-2 text-xs leading-relaxed text-parchment-muted">Your adventures began before this account record.</p>
-          </div>
-          <div>
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">This sign-in</dt>
-            <dd class="mt-2 text-parchment">{{ formatAccountDate(account.signed_in_at) }}</dd>
-          </div>
-        </dl>
-        <dl class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <div class="account-panel">
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Characters</dt>
-            <dd class="mt-3 font-display text-3xl text-gold-200">{{ loadingCharacters || !stats.available ? '—' : stats.characters }}</dd>
-          </div>
-          <div class="account-panel">
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Highest level</dt>
-            <dd class="mt-3 font-display text-3xl text-gold-200">{{ loadingCharacters || !stats.available ? '—' : stats.highestLevel ?? '—' }}</dd>
-          </div>
-          <div class="account-panel">
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Realms explored</dt>
-            <dd class="mt-3 font-display text-3xl text-gold-200">{{ loadingCharacters || !stats.available ? '—' : stats.realms }}</dd>
-          </div>
-          <div class="account-panel">
-            <dt class="text-xs uppercase tracking-widest text-parchment-muted">Last played</dt>
-            <dd class="mt-3 font-display text-lg text-gold-200">{{ loadingCharacters || !stats.available ? '—' : formatAccountDate(stats.lastPlayed) }}</dd>
-          </div>
-        </dl>
-        <p v-if="!loadingCharacters && stats.partial" role="status" class="mt-4 text-sm text-parchment-muted">{{ stats.available ? 'Stats reflect available realms only. Refresh to try the others again.' : 'Character stats are unavailable while the realms cannot be reached.' }}</p>
         </section>
         <section v-show="activeTab === 'characters'" id="account-panel-characters" role="tabpanel" aria-labelledby="account-tab-characters" tabindex="0">
         <div class="mb-6 mt-8 flex items-center justify-between gap-4">

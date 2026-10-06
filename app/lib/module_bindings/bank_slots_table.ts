@@ -14,4 +14,5 @@ export default __t.row({
   id: __t.i32().primaryKey(),
   itemInstanceId: __t.i32().name("item_instance_id"),
   characterId: __t.u64().name("character_id"),
+  tabIndex: __t.i32().name("tab_index"),
 });

@@ -11,5 +11,5 @@ import {
 } from "spacetimedb";
 
 export default {
-  targetHandle: __t.string(),
+  targetName: __t.string(),
 };

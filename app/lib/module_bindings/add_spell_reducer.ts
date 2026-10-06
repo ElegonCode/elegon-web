@@ -27,6 +27,7 @@ export default {
   activeEffectType: __t.i32(),
   activeEffectIsBuff: __t.bool(),
   activeEffectIsDurationless: __t.bool(),
+  activeEffectIsStackable: __t.bool(),
   activeEffectTarget: __t.i32(),
   activeEffectDuration: __t.f32(),
   activeEffectTickInterval: __t.f32(),

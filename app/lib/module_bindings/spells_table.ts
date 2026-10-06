@@ -32,4 +32,11 @@ export default __t.row({
   activeEffectDuration: __t.f32().name("active_effect_duration"),
   activeEffectTickInterval: __t.f32().name("active_effect_tick_interval"),
   activeEffectAmount: __t.f32().name("active_effect_amount"),
+  deliveryType: __t.i32().name("delivery_type"),
+  projectileSpeed: __t.f32().name("projectile_speed"),
+  impactDelaySeconds: __t.f32().name("impact_delay_seconds"),
+  areaFollowMode: __t.i32().name("area_follow_mode"),
+  procTriggerId: __t.i32().name("proc_trigger_id"),
+  procConsumerId: __t.i32().name("proc_consumer_id"),
+  activeEffectIsStackable: __t.bool().name("active_effect_is_stackable"),
 });

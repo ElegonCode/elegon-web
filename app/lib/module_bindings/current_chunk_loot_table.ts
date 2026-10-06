@@ -28,4 +28,7 @@ export default __t.row({
   goldAmount: __t.i32().name("gold_amount"),
   qualityLevel: __t.i32().name("quality_level"),
   instanceId: __t.u32().name("instance_id"),
+  copperAmount: __t.i32().name("copper_amount"),
+  instabilityTier: __t.i32().name("instability_tier"),
+  sourceEnemyId: __t.u32().name("source_enemy_id"),
 });
