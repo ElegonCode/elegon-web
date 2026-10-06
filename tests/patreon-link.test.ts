@@ -43,13 +43,23 @@ test("Patreon profile rejects invalid identity, provider failure and foreign ava
 });
 test("Support summary includes only Elegon membership and omits monetary and private fields", () => {
   const summary = parsePatreonMembers(payload, "42", now).get("12345");
-  assert.deepEqual(summary, { status: "active", tiers: ["Legendary Supporter"], since: "2026-05-14T12:00:00.000Z", checked_at: now });
+  assert.deepEqual(summary, { status: "active", tiers: ["Legendary Supporter"], since: "2026-05-14T12:00:00.000Z", checked_at: now, past_months: null });
   assert.equal(JSON.stringify(summary).includes("99999"), false);
   assert.throws(() => parsePatreonMembers(payload, "other-campaign", now));
   assert.throws(() => parsePatreonMembers({ data: [{ ...member, attributes: {} }] }, "42", now));
   assert.throws(() => parsePatreonMembers({ ...payload, included: [] }, "42", now));
   assert.equal(parsePatreonMembers({ ...payload, data: [{ ...member, attributes: { patron_status: "former_patron" } }] }, "42", now).get("12345")?.since, null);
   assert.equal(parsePatreonMembers({ ...payload, data: [{ ...member, attributes: { patron_status: null } }] }, "42", now).get("12345")?.status, "free");
+});
+test("former supporters keep the length of their last run of support", () => {
+  const former = (attributes: Record<string, unknown>) => parsePatreonMembers({ ...payload, data: [{ ...member, attributes: { patron_status: "former_patron", ...attributes } }] }, "42", now).get("12345");
+  const summary = former({ pledge_relationship_start: "2026-01-05T09:00:00Z", last_charge_date: "2026-03-05T09:00:00Z" });
+  assert.equal(summary?.status, "former");
+  assert.equal(summary?.since, null, "no current streak");
+  assert.equal(summary?.past_months, 3);
+  assert.equal(former({ pledge_relationship_start: "2026-01-05T09:00:00Z", last_charge_date: "2026-01-05T09:00:00Z" })?.past_months, 1);
+  assert.equal(former({ pledge_relationship_start: "2026-01-05T09:00:00Z" })?.past_months, null, "unknown without a last charge");
+  assert.equal(parsePatreonMembers({ ...payload, data: [{ ...member, attributes: { ...member.attributes, last_charge_date: "2026-10-01T00:00:00Z" } }] }, "42", now).get("12345")?.past_months, null, "only former supporters have a past run");
 });
 test("Creator membership fetch paginates fixed campaign URLs and rejects failed or looping responses", async () => {
   let calls = 0;
@@ -58,7 +68,7 @@ test("Creator membership fetch paginates fixed campaign URLs and rejects failed 
     const url = new URL(String(input));
     assert.equal(url.origin, "https://www.patreon.com");
     assert.equal(url.pathname, "/api/oauth2/v2/campaigns/42/members");
-    assert.equal(url.searchParams.get("fields[member]"), "patron_status,pledge_relationship_start");
+    assert.equal(url.searchParams.get("fields[member]"), "patron_status,pledge_relationship_start,last_charge_date");
     assert.equal((options?.headers as any).Authorization, "Bearer creator-secret");
     assert.equal(options?.redirect, "error");
     calls++;

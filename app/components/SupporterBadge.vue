@@ -3,7 +3,8 @@
 // It grows grander with time: bronze, silver, gold with laurels, an amethyst
 // gem, then a radiant legendary star. The looks are named only in code: the
 // label shows the player's Patreon tier, so the two are never confused.
-const props = defineProps<{ months: number; tiers?: string[] }>();
+// `former`: the run has ended. The medal they earned stays, shown calmer.
+const props = defineProps<{ months: number; tiers?: string[]; former?: boolean }>();
 const tierLabel = computed(() => props.tiers?.filter(Boolean).join(" · ") || "Elegon supporter");
 
 type Tier = { key: string; light: string; mid: string; dark: string; ink: string; glow: string };
@@ -40,8 +41,8 @@ const leaves = [
 </script>
 
 <template>
-  <div class="supporter-badge" :class="`supporter-badge--${tier.key}`" :style="{ '--glow': tier.glow }">
-    <svg viewBox="0 0 64 64" class="supporter-badge__medal" role="img" :aria-label="`Supporter medal, ${months} ${months === 1 ? 'month' : 'months'} of support`">
+  <div class="supporter-badge" :class="[`supporter-badge--${tier.key}`, { 'supporter-badge--former': former }]" :style="{ '--glow': tier.glow }">
+    <svg viewBox="0 0 64 64" class="supporter-badge__medal" role="img" :aria-label="`${former ? 'Former supporter' : 'Supporter'} medal, ${months} ${months === 1 ? 'month' : 'months'} of support`">
       <defs>
         <radialGradient :id="gradient" cx="38%" cy="30%" r="75%">
           <stop offset="0%" :stop-color="tier.light" />
@@ -82,9 +83,16 @@ const leaves = [
       <rect v-if="tier.key !== 'bronze'" class="supporter-badge__shine" x="-30" y="0" width="22" height="64" :fill="`url(#${shine})`" transform="skewX(-20)" />
     </svg>
     <div class="min-w-0">
-      <p class="text-xs uppercase tracking-[0.2em] text-orange-200/90">Patreon supporter</p>
-      <p class="mt-1 font-display text-lg leading-tight text-parchment">{{ tierLabel }}</p>
-      <p class="mt-0.5 text-xs text-parchment-muted">{{ months < 1 ? 'Supporting Elegon since this month' : `${months} ${months === 1 ? 'month' : 'months'} supporting Elegon` }}</p>
+      <template v-if="former">
+        <p class="text-xs uppercase tracking-[0.2em] text-parchment-muted">Former Patreon supporter</p>
+        <p class="mt-1 font-display text-lg leading-tight text-parchment">Thank you for your support</p>
+        <p class="mt-0.5 text-xs text-parchment-muted">Supported Elegon for {{ months }} {{ months === 1 ? 'month' : 'months' }}</p>
+      </template>
+      <template v-else>
+        <p class="text-xs uppercase tracking-[0.2em] text-orange-200/90">Patreon supporter</p>
+        <p class="mt-1 font-display text-lg leading-tight text-parchment">{{ tierLabel }}</p>
+        <p class="mt-0.5 text-xs text-parchment-muted">{{ months < 1 ? 'Supporting Elegon since this month' : `${months} ${months === 1 ? 'month' : 'months'} supporting Elegon` }}</p>
+      </template>
     </div>
   </div>
 </template>
@@ -102,6 +110,9 @@ const leaves = [
 @keyframes badge-shine { 0%, 55% { opacity: 0; transform: skewX(-20deg) translateX(0); } 60% { opacity: 1; } 85%, 100% { opacity: 0; transform: skewX(-20deg) translateX(110px); } }
 @keyframes badge-spin { to { transform: rotate(360deg); } }
 @keyframes badge-pulse { 50% { filter: drop-shadow(0 0 0.9rem var(--glow)); } }
+/* An ended run keeps its medal, quieter: muted colour and no movement. */
+.supporter-badge--former .supporter-badge__medal { filter: grayscale(0.45) brightness(0.85); animation: none !important; }
+.supporter-badge--former .supporter-badge__shine, .supporter-badge--former .supporter-badge__rays { animation: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .supporter-badge__shine, .supporter-badge__rays, .supporter-badge__medal { animation: none !important; }
 }
