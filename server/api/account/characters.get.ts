@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
   const realms = [{ name: "EU", url: config.accountEuRealmUrl }, { name: "US", url: config.accountUsRealmUrl }];
   return { realms: await Promise.all(realms.map(async (realm) => {
     try {
-      // HTTP SQL has no WebSocket connection lifecycle: no login queue,
-      // ownership takeover, logout, or gameplay reducers are invoked here.
+      // A scoped read token bypasses game connection handling. HTTP requests
+      // otherwise trigger the realm lifecycle and could disturb a game session.
       const results = await $fetch<any>(`${realm.url.replace(/\/+$/, "")}/v1/database/${encodeURIComponent(config.accountRealmDatabase)}/sql`, {
         method: "POST", body: CHARACTER_QUERY,
         headers: { Authorization: `Bearer ${session.realm_token}`, "Content-Type": "text/plain" },
