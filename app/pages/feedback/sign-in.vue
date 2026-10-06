@@ -10,12 +10,18 @@ const account = computed(() => data.value?.account);
 const live = ref<boolean | null>(null);
 const hasEmail = ref<boolean | null>(null);
 const busy = ref(false);
+// Opened from the game's feedback button: nothing to decide here, so continue.
+const autoContinue = ref(false);
 const failure = ref("");
 const steamUrl = computed(() => `/auth/steam/start?return=${encodeURIComponent(`/feedback/sign-in?request=${request.value}`)}`);
 
 onMounted(async () => {
   if (!request.value) { live.value = false; return; }
-  try { live.value = (await $fetch<{ live: boolean }>("/api/feedback/request", { query: { request: request.value } })).live; }
+  try {
+    const result = await $fetch<{ live: boolean; auto?: boolean }>("/api/feedback/request", { query: { request: request.value } });
+    live.value = result.live;
+    autoContinue.value = !!result.auto;
+  }
   catch { live.value = null; failure.value = "Sign-in is unavailable right now. Please try again in a moment."; }
 });
 watch(() => account.value?.id, async id => {
@@ -24,6 +30,13 @@ watch(() => account.value?.id, async id => {
   try { hasEmail.value = !!(await $fetch<{ email: string | null }>("/api/account/email")).email; }
   catch { failure.value = "Your account could not be loaded. Please refresh and try again."; }
 }, { immediate: true });
+
+watch(() => [autoContinue.value, live.value, account.value?.id, account.value?.deletion_pending, hasEmail.value] as const, ([auto, isLive, id, deleting, email]) => {
+  if (auto && isLive && id && !deleting && email === true && !busy.value) {
+    autoContinue.value = false;
+    finish("approve");
+  }
+});
 
 async function finish(action: "approve" | "deny") {
   busy.value = true; failure.value = "";
