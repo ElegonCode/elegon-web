@@ -3,9 +3,10 @@ import { LOCALE_NAMES, SUPPORTED_LOCALES, type SupportedLocale } from "~/utils/l
 
 const route = useRoute();
 const { data: accountData } = useAccount();
-const accountName = computed(() => accountData.value?.account
-  ? accountData.value.account.display_name || "Adventurer" : "");
 const { locale, t, localePath } = useLocale();
+const { t: accountT } = useAccountMessages();
+const accountName = computed(() => accountData.value?.account
+  ? accountData.value.account.display_name || accountT("profile.adventurer") : "");
 const localePreference = useCookie<SupportedLocale>("elegon_locale", {
   maxAge: 60 * 60 * 24 * 365,
   sameSite: "lax",
@@ -138,7 +139,7 @@ onMounted(() => {
       </nav>
 
       <div class="flex shrink-0 items-center gap-1">
-        <NuxtLink to="/account" :aria-label="accountName ? `Your account: ${accountName}` : 'Your account'" :title="accountName || 'Your account'" class="flex h-9 items-center justify-center gap-1.5 px-1.5 text-parchment-muted transition hover:text-gold-300">
+        <NuxtLink :to="localePath('/account')" :aria-label="accountName ? `${accountT('header.title')}: ${accountName}` : accountT('header.title')" :title="accountName || accountT('header.title')" class="flex h-9 items-center justify-center gap-1.5 px-1.5 text-parchment-muted transition hover:text-gold-300">
           <UIcon name="i-lucide-user-round" class="size-[1.15rem] shrink-0" />
           <span v-if="accountName" class="max-w-20 truncate text-sm text-gold-200 sm:max-w-28 lg:max-w-40 2xl:max-w-28">{{ accountName }}</span>
         </NuxtLink>
@@ -197,7 +198,7 @@ onMounted(() => {
       <template #body>
         <nav id="mobile-menu" :aria-label="t('nav.mobile')" class="flex h-full flex-col">
           <ul class="flex flex-col py-2">
-            <li><NuxtLink to="/account" class="mobile-link" @click="mobileOpen = false"><UIcon name="i-lucide-user-round" class="size-4 shrink-0" /><span class="truncate" :title="accountName">{{ accountName || 'Your account' }}</span></NuxtLink></li>
+            <li><NuxtLink :to="localePath('/account')" class="mobile-link" @click="mobileOpen = false"><UIcon name="i-lucide-user-round" class="size-4 shrink-0" /><span class="truncate" :title="accountName">{{ accountName || accountT('header.title') }}</span></NuxtLink></li>
             <li v-for="link in sectionLinks" :key="link.hash">
               <NuxtLink :to="{ path: localePath(), hash: `#${link.hash}` }" class="mobile-link" @click="mobileOpen = false">
                 {{ link.label }}

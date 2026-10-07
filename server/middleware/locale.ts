@@ -3,8 +3,8 @@ const localeMap = {
 } as const;
 
 export default defineEventHandler((event) => {
-  const path = getRequestURL(event).pathname;
-  if (path !== "/" && path !== "/changelog") return;
+  const { pathname: path, search } = getRequestURL(event);
+  if (path !== "/" && path !== "/changelog" && path !== "/account") return;
   const userAgent = getRequestHeader(event, "user-agent") ?? "";
   if (/bot|crawler|spider|facebookexternalhit|slurp/i.test(userAgent)) return;
   const saved = getCookie(event, "elegon_locale")?.toLowerCase();
@@ -26,5 +26,6 @@ export default defineEventHandler((event) => {
       .find(Boolean);
   if (!locale) return;
   setResponseHeader(event, "Vary", "Accept-Language");
-  return sendRedirect(event, `/${locale}${path === "/" ? "" : path}`, 302);
+  // Keep the query so sign-in and connection results still reach the account page.
+  return sendRedirect(event, `/${locale}${path === "/" ? "" : path}${search}`, 302);
 });
