@@ -1,3 +1,5 @@
+import { SUPPORTED_LOCALES } from "./app/utils/locales";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@vercel/speed-insights", "@nuxtjs/mdc"],
@@ -10,6 +12,10 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/account": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
+    ...Object.fromEntries(SUPPORTED_LOCALES.map((locale) => [
+      `/${locale}/account`,
+      { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
+    ])),
     "/feedback/**": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer" } },
     "/api/feedback/**": { headers: { "Cache-Control": "private, no-store" } },
     "/auth/**": { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } },
