@@ -72,7 +72,7 @@ const { t, locale } = useLocale();
         fetchpriority="high"
         decoding="async"
         class="hero-img"
-        onload="this.parentElement.setAttribute('data-loaded', '')"
+        onload="this.parentElement.setAttribute(&quot;data-loaded&quot;, &quot;&quot;);"
       />
     </div>
 
@@ -86,8 +86,12 @@ const { t, locale } = useLocale();
     <div class="hero-fog hero-fog--b" aria-hidden="true" />
     <EmberField class="z-[2]" :density="6" />
 
-    <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-32 pb-28 sm:px-6 sm:pt-36 sm:pb-40 lg:px-8">
-      <div class="hero-copy flex max-w-xl flex-col items-center text-center md:items-start md:text-left">
+    <div
+      class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-32 pb-28 sm:px-6 sm:pt-36 sm:pb-40 lg:px-8"
+    >
+      <div
+        class="hero-copy flex max-w-xl flex-col items-center text-center md:items-start md:text-left"
+      >
         <p class="hero-pill">
           <span class="size-2 rounded-full bg-green-400 animate-ember-pulse" aria-hidden="true" />
           {{ t("hero.live") }}
@@ -101,10 +105,14 @@ const { t, locale } = useLocale();
             </span>
           </span>
           <span class="hero-title-ornament" aria-hidden="true" />
-          <span :class="['hero-tagline', { 'hero-tagline--cjk': locale === 'zh-CN' }]">{{ t("hero.tagline") }}</span>
+          <span :class="['hero-tagline', { 'hero-tagline--cjk': locale === 'zh-CN' }]">{{
+            t("hero.tagline")
+          }}</span>
         </h1>
 
-        <p class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/90 text-pretty sm:text-xl">
+        <p
+          class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/90 text-pretty sm:text-xl"
+        >
           {{ t("hero.description") }}
         </p>
 
@@ -112,12 +120,20 @@ const { t, locale } = useLocale();
           <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">
             {{ t("nav.wishlistSteam") }}
           </GameButton>
-          <GameButton :to="SITE_LINKS.discord" size="lg" variant="secondary" icon="i-simple-icons-discord">
+          <GameButton
+            :to="SITE_LINKS.discord"
+            size="lg"
+            variant="secondary"
+            icon="i-simple-icons-discord"
+          >
             {{ t("hero.community") }}
           </GameButton>
         </div>
 
-        <ul class="mt-8 flex items-center gap-5 text-xs text-parchment/75 md:self-start" :aria-label="t('hero.platforms')">
+        <ul
+          class="mt-8 flex items-center gap-5 text-xs text-parchment/75 md:self-start"
+          :aria-label="t('hero.platforms')"
+        >
           <li v-for="platform in platforms" :key="platform.label" class="flex items-center gap-2">
             <UIcon :name="platform.icon" class="size-4" />
             <span class="font-display tracking-[0.18em] uppercase">{{ platform.label }}</span>
@@ -127,7 +143,9 @@ const { t, locale } = useLocale();
     </div>
 
     <a href="#world" class="hero-scroll" :aria-label="t('hero.begin')">
-      <span class="font-display text-[0.62rem] tracking-[0.4em] uppercase">{{ t("hero.begin") }}</span>
+      <span class="font-display text-[0.62rem] tracking-[0.4em] uppercase">{{
+        t("hero.begin")
+      }}</span>
       <span class="hero-scroll__line" aria-hidden="true" />
     </a>
   </section>
@@ -169,7 +187,14 @@ const { t, locale } = useLocale();
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(8, 6, 4, 0.94) 0%, rgba(8, 6, 4, 0.82) 24%, rgba(8, 6, 4, 0.57) 43%, rgba(8, 6, 4, 0.12) 69%, transparent 100%),
+    linear-gradient(
+      90deg,
+      rgba(8, 6, 4, 0.94) 0%,
+      rgba(8, 6, 4, 0.82) 24%,
+      rgba(8, 6, 4, 0.57) 43%,
+      rgba(8, 6, 4, 0.12) 69%,
+      transparent 100%
+    ),
     radial-gradient(ellipse 120% 90% at 50% 40%, transparent 48%, rgba(8, 6, 4, 0.72) 100%),
     linear-gradient(
       180deg,
@@ -208,7 +233,12 @@ const { t, locale } = useLocale();
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle closest-side, rgba(255, 196, 120, 0.4), rgba(255, 170, 90, 0.12) 18%, transparent 34%);
+  background: radial-gradient(
+    circle closest-side,
+    rgba(255, 196, 120, 0.4),
+    rgba(255, 170, 90, 0.12) 18%,
+    transparent 34%
+  );
   animation: rays-breathe 9s ease-in-out infinite;
 }
 
@@ -324,7 +354,12 @@ const { t, locale } = useLocale();
   position: absolute;
   z-index: -1;
   inset: -30% -22% -20%;
-  background: radial-gradient(ellipse at center, rgba(13, 9, 5, 0.64), rgba(13, 9, 5, 0.2) 54%, transparent 76%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(13, 9, 5, 0.64),
+    rgba(13, 9, 5, 0.2) 54%,
+    transparent 76%
+  );
   pointer-events: none;
 }
 
@@ -334,7 +369,13 @@ const { t, locale } = useLocale();
   width: clamp(8rem, 54%, 14rem);
   height: 1px;
   margin-top: 0.45rem;
-  background: linear-gradient(90deg, transparent, rgba(231, 186, 90, 0.76) 18%, rgba(231, 186, 90, 0.76) 82%, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(231, 186, 90, 0.76) 18%,
+    rgba(231, 186, 90, 0.76) 82%,
+    transparent
+  );
   filter: drop-shadow(0 0 5px rgba(231, 186, 90, 0.32));
 }
 
@@ -417,7 +458,6 @@ const { t, locale } = useLocale();
   }
 }
 
-
 @keyframes rays-sway {
   from {
     rotate: -4deg;
@@ -437,14 +477,11 @@ const { t, locale } = useLocale();
   }
 }
 
-
 @keyframes fog-drift {
   to {
     transform: translate3d(30vw, -4vh, 0);
   }
 }
-
-
 
 @keyframes scroll-cue {
   from {
@@ -467,14 +504,25 @@ const { t, locale } = useLocale();
   .hero-tagline {
     letter-spacing: 0.08em;
   }
-
 }
 
 @media (max-width: 767px) {
   .hero-shade {
     background:
-      radial-gradient(ellipse 110% 62% at 50% 68%, rgba(8, 6, 4, 0.82), rgba(8, 6, 4, 0.48) 56%, transparent 100%),
-      linear-gradient(180deg, rgba(8, 6, 4, 0.5) 0%, transparent 24%, rgba(13, 10, 8, 0.12) 42%, rgba(13, 10, 8, 0.74) 82%, var(--color-ink-950) 100%);
+      radial-gradient(
+        ellipse 110% 62% at 50% 68%,
+        rgba(8, 6, 4, 0.82),
+        rgba(8, 6, 4, 0.48) 56%,
+        transparent 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(8, 6, 4, 0.5) 0%,
+        transparent 24%,
+        rgba(13, 10, 8, 0.12) 42%,
+        rgba(13, 10, 8, 0.74) 82%,
+        var(--color-ink-950) 100%
+      );
   }
 }
 

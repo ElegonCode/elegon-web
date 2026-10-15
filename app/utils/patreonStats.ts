@@ -2,9 +2,12 @@ export function patreonSupportDuration(since: string | null | undefined, now = n
   if (!since) return "";
   const start = new Date(since);
   if (!Number.isFinite(start.getTime()) || start > now) return "";
-  let months = (now.getUTCFullYear() - start.getUTCFullYear()) * 12 + now.getUTCMonth() - start.getUTCMonth();
+  let months =
+    (now.getUTCFullYear() - start.getUTCFullYear()) * 12 + now.getUTCMonth() - start.getUTCMonth();
   if (now.getUTCDate() < start.getUTCDate()) months--;
-  return months <= 0 ? "Less than 1 month in this support period" : `${months} ${months === 1 ? "month" : "months"} in this support period`;
+  return months <= 0
+    ? "Less than 1 month in this support period"
+    : `${months} ${months === 1 ? "month" : "months"} in this support period`;
 }
 
 /** Whole months of support so far, counted like patreonSupportDuration; null when unknown. */
@@ -12,7 +15,8 @@ export function patreonSupportMonths(since: string | null | undefined, now = new
   if (!since) return null;
   const start = new Date(since);
   if (!Number.isFinite(start.getTime()) || start > now) return null;
-  let months = (now.getUTCFullYear() - start.getUTCFullYear()) * 12 + now.getUTCMonth() - start.getUTCMonth();
+  let months =
+    (now.getUTCFullYear() - start.getUTCFullYear()) * 12 + now.getUTCMonth() - start.getUTCMonth();
   if (now.getUTCDate() < start.getUTCDate()) months--;
   return Math.max(months, 0);
 }

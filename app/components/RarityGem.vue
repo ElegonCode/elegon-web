@@ -14,7 +14,10 @@ withDefaults(
 
 <template>
   <span
-    :class="['rarity-gem flex shrink-0 items-center justify-center', size === 'sm' ? 'size-8' : 'size-10']"
+    :class="[
+      'rarity-gem flex shrink-0 items-center justify-center',
+      size === 'sm' ? 'size-8' : 'size-10',
+    ]"
     :style="{ '--rarity': rarity.color }"
   >
     <svg

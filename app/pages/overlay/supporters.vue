@@ -52,7 +52,9 @@ onMounted(() => {
           </div>
 
           <div class="flex min-w-0 flex-1 flex-col justify-center gap-0.5 py-2">
-            <p class="flex items-baseline gap-2 px-3 font-display text-[0.62rem] font-bold tracking-[0.14em] uppercase">
+            <p
+              class="flex items-baseline gap-2 px-3 font-display text-[0.62rem] font-bold tracking-[0.14em] uppercase"
+            >
               <span class="truncate text-[var(--rarity)]">{{ tier.label }}</span>
               <span class="shrink-0 text-parchment-dim">· {{ tier.memberCount }}</span>
             </p>
@@ -113,7 +115,11 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   border-right: 1px solid color-mix(in srgb, var(--rarity) 25%, transparent);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--rarity) 18%, transparent), transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--rarity) 18%, transparent),
+    transparent
+  );
 }
 
 /* Fade names in and out at the edges without painting a background colour over the card. */

@@ -15,7 +15,9 @@ const { t } = useLocale();
         class="size-full object-cover object-[50%_20%] brightness-[0.75] saturate-[1.2]"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-ink-950 via-transparent to-ink-950" />
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(13,10,8,0.35)_0%,rgba(13,10,8,0.85)_90%)]" />
+      <div
+        class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(13,10,8,0.35)_0%,rgba(13,10,8,0.85)_90%)]"
+      />
     </div>
     <EmberField :density="4" />
 
@@ -30,12 +32,22 @@ const { t } = useLocale();
         </h2>
       </div>
       <OrnamentDivider v-reveal="140" class="mt-6" />
-      <p v-reveal="180" class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/85 sm:text-xl">
+      <p
+        v-reveal="180"
+        class="mt-6 max-w-xl font-serif text-lg leading-relaxed text-parchment/85 sm:text-xl"
+      >
         {{ t("cta.text") }}
       </p>
       <div v-reveal="240" class="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-        <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">{{ t("cta.wishlist") }}</GameButton>
-        <GameButton :to="SITE_LINKS.discord" size="lg" variant="secondary" icon="i-simple-icons-discord">
+        <GameButton :to="SITE_LINKS.steam" size="lg" icon="i-simple-icons-steam">{{
+          t("cta.wishlist")
+        }}</GameButton>
+        <GameButton
+          :to="SITE_LINKS.discord"
+          size="lg"
+          variant="secondary"
+          icon="i-simple-icons-discord"
+        >
           {{ t("cta.discord") }}
         </GameButton>
       </div>

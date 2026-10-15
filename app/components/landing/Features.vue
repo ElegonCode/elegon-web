@@ -3,27 +3,39 @@ const { t } = useLocale();
 const features = computed(() => [
   {
     icon: "i-lucide-trending-up",
-    tag: t("features.p1.tag"), title: t("features.p1.title"), text: t("features.p1.text"),
+    tag: t("features.p1.tag"),
+    title: t("features.p1.title"),
+    text: t("features.p1.text"),
   },
   {
     icon: "i-lucide-mountain",
-    tag: t("features.p2.tag"), title: t("features.p2.title"), text: t("features.p2.text"),
+    tag: t("features.p2.tag"),
+    title: t("features.p2.title"),
+    text: t("features.p2.text"),
   },
   {
     icon: "i-lucide-skull",
-    tag: t("features.p3.tag"), title: t("features.p3.title"), text: t("features.p3.text"),
+    tag: t("features.p3.tag"),
+    title: t("features.p3.title"),
+    text: t("features.p3.text"),
   },
   {
     icon: "i-lucide-users",
-    tag: t("features.p4.tag"), title: t("features.p4.title"), text: t("features.p4.text"),
+    tag: t("features.p4.tag"),
+    title: t("features.p4.title"),
+    text: t("features.p4.text"),
   },
   {
     icon: "i-lucide-book-open",
-    tag: t("features.p5.tag"), title: t("features.p5.title"), text: t("features.p5.text"),
+    tag: t("features.p5.tag"),
+    title: t("features.p5.title"),
+    text: t("features.p5.text"),
   },
   {
     icon: "i-lucide-scale",
-    tag: t("features.p6.tag"), title: t("features.p6.title"), text: t("features.p6.text"),
+    tag: t("features.p6.tag"),
+    title: t("features.p6.title"),
+    text: t("features.p6.text"),
   },
 ]);
 
@@ -36,11 +48,19 @@ function spotlight(event: PointerEvent) {
 </script>
 
 <template>
-  <section id="features" aria-labelledby="features-title" class="features relative overflow-hidden py-24 sm:py-32">
+  <section
+    id="features"
+    aria-labelledby="features-title"
+    class="features relative overflow-hidden py-24 sm:py-32"
+  >
     <div class="glow-orb top-1/3 -right-40 size-[36rem] bg-gold-500/10" aria-hidden="true" />
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <SectionHeading id="features-title" :eyebrow="t('features.eyebrow')" :title="t('features.title')">
+      <SectionHeading
+        id="features-title"
+        :eyebrow="t('features.eyebrow')"
+        :title="t('features.title')"
+      >
         {{ t("features.intro") }}
       </SectionHeading>
 
@@ -57,11 +77,15 @@ function spotlight(event: PointerEvent) {
               <span class="feature-icon">
                 <UIcon :name="feature.icon" class="relative size-6 text-gold-300" />
               </span>
-              <span class="font-display text-[0.62rem] font-semibold tracking-[0.28em] text-parchment-dim uppercase">
+              <span
+                class="font-display text-[0.62rem] font-semibold tracking-[0.28em] text-parchment-dim uppercase"
+              >
                 {{ feature.tag }}
               </span>
             </div>
-            <h3 class="font-display text-xl font-bold tracking-wide text-parchment transition group-hover:text-gold-200">
+            <h3
+              class="font-display text-xl font-bold tracking-wide text-parchment transition group-hover:text-gold-200"
+            >
               {{ feature.title }}
             </h3>
             <p class="mt-3 leading-relaxed text-parchment-muted">{{ feature.text }}</p>
@@ -100,7 +124,11 @@ function spotlight(event: PointerEvent) {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: radial-gradient(420px circle at var(--x) var(--y), rgba(231, 186, 90, 0.13), transparent 45%);
+  background: radial-gradient(
+    420px circle at var(--x) var(--y),
+    rgba(231, 186, 90, 0.13),
+    transparent 45%
+  );
   transition: opacity 0.4s ease;
 }
 

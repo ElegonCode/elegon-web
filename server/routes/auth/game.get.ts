@@ -5,7 +5,8 @@ export default defineEventHandler(async (event) => {
   privateAccountResponse(event);
   const config = accountConfig(event);
   const query = getQuery(event);
-  const code = typeof query.code === "string" && /^[a-f0-9]{64}$/.test(query.code) ? query.code : "";
+  const code =
+    typeof query.code === "string" && /^[a-f0-9]{64}$/.test(query.code) ? query.code : "";
   const target = gameLoginTarget(query.next);
   // Host-only cookies must be set on the canonical origin.
   if (getRequestURL(event).origin !== config.origin) {
@@ -13,20 +14,32 @@ export default defineEventHandler(async (event) => {
   }
   const feedbackUrl = `${useRuntimeConfig(event).feedbackSiteUrl.replace(/\/+$/, "")}/?auth=signin`;
   const destination = target === "feedback" ? feedbackUrl : "/account";
-  if (!code || !config.key) return sendRedirect(event, target === "feedback" ? feedbackUrl : "/account?login=expired", 303);
+  if (!code || !config.key)
+    return sendRedirect(event, target === "feedback" ? feedbackUrl : "/account?login=expired", 303);
   try {
     const result = await authServiceRequest<{ session: string; max_age: number }>(event, {
-      method: "POST", path: "/website/session/game", body: { code },
+      method: "POST",
+      path: "/website/session/game",
+      body: { code },
     });
     // Replace and revoke any previous website session, without touching game login.
     const previous = getCookie(event, config.sessionCookie);
-    if (previous) await authServiceRequest(event, { method: "DELETE", session: previous }).catch(() => {});
+    if (previous)
+      await authServiceRequest(event, { method: "DELETE", session: previous }).catch(() => {});
     setCookie(event, config.sessionCookie, result.session, {
-      httpOnly: true, secure: config.secure, sameSite: "lax", path: "/", maxAge: result.max_age,
+      httpOnly: true,
+      secure: config.secure,
+      sameSite: "lax",
+      path: "/",
+      maxAge: result.max_age,
     });
     if (target === "feedback") {
       setCookie(event, feedbackAutoContinueCookie(event), "1", {
-        httpOnly: true, secure: config.secure, sameSite: "lax", path: "/", maxAge: 120,
+        httpOnly: true,
+        secure: config.secure,
+        sameSite: "lax",
+        path: "/",
+        maxAge: 120,
       });
     }
     return sendRedirect(event, destination, 303);

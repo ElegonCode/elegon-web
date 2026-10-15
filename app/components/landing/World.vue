@@ -12,9 +12,16 @@ const stats = [
   <section id="world" aria-labelledby="world-title" class="relative overflow-hidden py-24 sm:py-32">
     <div class="glow-orb -left-40 top-20 size-[34rem] bg-ember-500/10" aria-hidden="true" />
 
-    <div class="relative mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
+    <div
+      class="relative mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8"
+    >
       <div class="space-y-8">
-        <SectionHeading id="world-title" :eyebrow="t('world.eyebrow')" :title="t('world.title')" align="left" />
+        <SectionHeading
+          id="world-title"
+          :eyebrow="t('world.eyebrow')"
+          :title="t('world.title')"
+          align="left"
+        />
 
         <div class="space-y-5 font-serif text-lg leading-relaxed text-parchment-muted">
           <p v-reveal="80">
@@ -32,7 +39,10 @@ const stats = [
         </div>
       </div>
 
-      <div v-reveal="{ variant: 'scale', delay: 120 }" class="relative mx-auto w-full max-w-xl lg:max-w-none">
+      <div
+        v-reveal="{ variant: 'scale', delay: 120 }"
+        class="relative mx-auto w-full max-w-xl lg:max-w-none"
+      >
         <div class="world-frame panel corners group overflow-hidden p-2">
           <div class="relative aspect-[4/5] overflow-hidden sm:aspect-[5/4] lg:aspect-[4/5]">
             <img
@@ -53,13 +63,21 @@ const stats = [
           </div>
         </div>
 
-        <div class="float-card panel absolute -bottom-6 -left-2 flex items-center gap-3 px-4 py-3 sm:-left-8">
-          <span class="flex size-10 rotate-45 items-center justify-center border border-gold-400/60 bg-ink-800">
+        <div
+          class="float-card panel absolute -bottom-6 -left-2 flex items-center gap-3 px-4 py-3 sm:-left-8"
+        >
+          <span
+            class="flex size-10 rotate-45 items-center justify-center border border-gold-400/60 bg-ink-800"
+          >
             <UIcon name="i-lucide-swords" class="size-5 -rotate-45 text-gold-300" />
           </span>
           <span class="flex flex-col">
-            <span class="font-display text-[0.62rem] tracking-[0.25em] text-gold-400 uppercase">{{ t("world.nowOpen") }}</span>
-            <span class="font-display text-sm font-semibold text-parchment">{{ t("world.playtestLabel") }}</span>
+            <span class="font-display text-[0.62rem] tracking-[0.25em] text-gold-400 uppercase">{{
+              t("world.nowOpen")
+            }}</span>
+            <span class="font-display text-sm font-semibold text-parchment">{{
+              t("world.playtestLabel")
+            }}</span>
           </span>
         </div>
 
@@ -67,7 +85,9 @@ const stats = [
           class="float-card float-card--late panel absolute -top-5 -right-2 hidden items-center gap-3 px-4 py-3 sm:flex sm:-right-6"
         >
           <UIcon name="i-lucide-shield-check" class="size-5 text-green-400" />
-          <span class="font-display text-xs font-semibold tracking-[0.12em] text-parchment uppercase">
+          <span
+            class="font-display text-xs font-semibold tracking-[0.12em] text-parchment uppercase"
+          >
             {{ t("world.noP2w") }}
           </span>
         </div>
@@ -84,7 +104,9 @@ const stats = [
         class="flex flex-col items-center justify-center gap-2 bg-ink-950 px-4 py-8 text-center"
       >
         <dt class="order-2 text-sm text-parchment-dim">{{ stat.label() }}</dt>
-        <dd class="order-1 font-display text-3xl font-bold text-gold-gradient sm:text-4xl">{{ typeof stat.value === 'function' ? stat.value() : stat.value }}</dd>
+        <dd class="order-1 font-display text-3xl font-bold text-gold-gradient sm:text-4xl">
+          {{ typeof stat.value === "function" ? stat.value() : stat.value }}
+        </dd>
       </div>
     </dl>
   </section>

@@ -9,8 +9,18 @@ export default defineEventHandler((event) => {
   );
 
   const pages = SUPPORTED_LOCALES.flatMap((locale) => [
-    { path: locale === "en" ? "/" : `/${locale}`, changefreq: "weekly", priority: locale === "en" ? "1.0" : "0.9", locale },
-    { path: locale === "en" ? "/changelog" : `/${locale}/changelog`, changefreq: "daily", priority: locale === "en" ? "0.8" : "0.7", locale },
+    {
+      path: locale === "en" ? "/" : `/${locale}`,
+      changefreq: "weekly",
+      priority: locale === "en" ? "1.0" : "0.9",
+      locale,
+    },
+    {
+      path: locale === "en" ? "/changelog" : `/${locale}/changelog`,
+      changefreq: "daily",
+      priority: locale === "en" ? "0.8" : "0.7",
+      locale,
+    },
   ]);
 
   const urls = pages

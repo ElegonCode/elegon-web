@@ -6,10 +6,17 @@ export function patreonConnectionAvailable(event: H3Event) {
   return !!config.patreonClientId && !!config.patreonClientSecret;
 }
 export function patreonConnectionConfig(event: H3Event): PatreonOAuthConfig {
-  if (!patreonConnectionAvailable(event)) throw createError({ statusCode: 503, statusMessage: "Patreon connections are not configured yet" });
+  if (!patreonConnectionAvailable(event))
+    throw createError({
+      statusCode: 503,
+      statusMessage: "Patreon connections are not configured yet",
+    });
   const config = useRuntimeConfig(event);
-  return { clientId: config.patreonClientId, clientSecret: config.patreonClientSecret,
-    redirectUri: `${accountConfig(event).origin}/auth/patreon/callback` };
+  return {
+    clientId: config.patreonClientId,
+    clientSecret: config.patreonClientSecret,
+    redirectUri: `${accountConfig(event).origin}/auth/patreon/callback`,
+  };
 }
 export function patreonStateCookie(event: H3Event) {
   return accountConfig(event).secure ? "__Host-elegon_patreon_state" : "elegon_patreon_state_dev";

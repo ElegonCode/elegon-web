@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
     // Opened from the game moments ago: the page may continue without a click.
     const config = accountConfig(event);
     const auto = getCookie(event, feedbackAutoContinueCookie(event)) === "1";
-    if (auto) deleteCookie(event, feedbackAutoContinueCookie(event), { path: "/", secure: config.secure });
+    if (auto)
+      deleteCookie(event, feedbackAutoContinueCookie(event), { path: "/", secure: config.secure });
     return { live: true, auto };
   } catch (error: any) {
     if ((error?.statusCode ?? error?.response?.status) === 404) return { live: false };

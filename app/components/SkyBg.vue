@@ -34,8 +34,7 @@ const generateStars = (count: number): Star[] => {
   return Array.from({ length: count }, () => {
     const x = Math.floor(38 + Math.random() * 62);
     const y = Math.floor(Math.random() * 100);
-    const size =
-      Math.random() * (props.size.max - props.size.min) + props.size.min;
+    const size = Math.random() * (props.size.max - props.size.min) + props.size.min;
     const twinkleDelay = Math.random() * 5;
 
     return {
@@ -65,9 +64,7 @@ const twinkleDuration = computed(() => {
 </script>
 
 <template>
-  <div
-    class="sky-bg absolute inset-0 pointer-events-none z-[-1] overflow-hidden"
-  >
+  <div class="sky-bg absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
     <div class="sky-bg-media relative top-0" aria-hidden="true" />
     <div class="sky-bg-fade" aria-hidden="true" />
     <div class="sky-bg-overlay" aria-hidden="true" />
@@ -112,11 +109,7 @@ const twinkleDuration = computed(() => {
 
 .sky-bg-overlay {
   background:
-    radial-gradient(
-      circle at 18% 26%,
-      rgba(255, 255, 255, 0.68) 0%,
-      rgba(255, 255, 255, 0) 32%
-    ),
+    radial-gradient(circle at 18% 26%, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0) 32%),
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.84) 0%,
@@ -133,11 +126,7 @@ const twinkleDuration = computed(() => {
 
 .dark .sky-bg-overlay {
   background:
-    radial-gradient(
-      circle at 18% 26%,
-      rgba(255, 213, 111, 0.24) 0%,
-      rgba(255, 213, 111, 0) 30%
-    ),
+    radial-gradient(circle at 18% 26%, rgba(255, 213, 111, 0.24) 0%, rgba(255, 213, 111, 0) 30%),
     linear-gradient(
       180deg,
       rgba(4, 8, 18, 0.86) 0%,

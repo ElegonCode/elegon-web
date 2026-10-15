@@ -13,15 +13,25 @@ export default defineEventHandler(async (event) => {
     account = await authServiceRequest(event, { path: "/website/game-account", gameToken: token });
   } catch (error: any) {
     const status = error?.statusCode ?? error?.response?.status;
-    if (status === 401) throw createError({ statusCode: 401, statusMessage: "Please sign in again." });
-    throw createError({ statusCode: 503, statusMessage: "Your account could not be loaded right now." });
+    if (status === 401)
+      throw createError({ statusCode: 401, statusMessage: "Please sign in again." });
+    throw createError({
+      statusCode: 503,
+      statusMessage: "Your account could not be loaded right now.",
+    });
   }
   let patreon: PatreonSupport | null = null;
   if (account.patreon_id) {
     const config = useRuntimeConfig(event);
     // Support details are a decoration; Patreon being down must not hide the panel.
-    patreon = await getPatreonSupport({ campaignId: config.patreonCampaignId,
-      accessToken: config.patreonAccessToken, userAgent: config.patreonUserAgent }, account.patreon_id).catch(() => null);
+    patreon = await getPatreonSupport(
+      {
+        campaignId: config.patreonCampaignId,
+        accessToken: config.patreonAccessToken,
+        userAgent: config.patreonUserAgent,
+      },
+      account.patreon_id,
+    ).catch(() => null);
   }
   return {
     display_name: account.display_name,

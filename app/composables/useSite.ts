@@ -20,7 +20,8 @@ export const SCREENSHOT = {
 /** Painterly, art-directed background used only by the landing-page hero. */
 export const HERO_ART = {
   src: "/images/hero-landscape-1600.webp",
-  srcset: "/images/hero-landscape-640.webp 640w, /images/hero-landscape-1024.webp 1024w, /images/hero-landscape-1600.webp 1600w",
+  srcset:
+    "/images/hero-landscape-640.webp 640w, /images/hero-landscape-1024.webp 1024w, /images/hero-landscape-1600.webp 1600w",
   width: 1600,
   height: 886,
 } as const;

@@ -42,11 +42,15 @@ const latestUpdates = computed(() => {
   return {
     total: entries.length,
     since: first
-      ? new Intl.DateTimeFormat(locale.value, { month: "long", year: "numeric", timeZone: "UTC" }).format(
-          new Date(`${first}T00:00:00Z`),
-        )
+      ? new Intl.DateTimeFormat(locale.value, {
+          month: "long",
+          year: "numeric",
+          timeZone: "UTC",
+        }).format(new Date(`${first}T00:00:00Z`))
       : null,
-    entries: sorted.slice(0, 5).map((entry) => ({ ...entry, description: translatePatchNote(entry.id, entry.description) })),
+    entries: sorted
+      .slice(0, 5)
+      .map((entry) => ({ ...entry, description: translatePatchNote(entry.id, entry.description) })),
   };
 });
 
@@ -65,7 +69,11 @@ useHead({
   htmlAttrs: { lang: locale.value },
   link: [
     { rel: "canonical", href: pageUrl.value },
-    ...SUPPORTED_LOCALES.map((code) => ({ rel: "alternate", hreflang: code, href: `${siteUrl}${localePath("/", code)}` })),
+    ...SUPPORTED_LOCALES.map((code) => ({
+      rel: "alternate",
+      hreflang: code,
+      href: `${siteUrl}${localePath("/", code)}`,
+    })),
     { rel: "alternate", hreflang: "x-default", href: `${siteUrl}/` },
     {
       rel: "preload",
@@ -103,7 +111,13 @@ useSeoMeta({
   twitterImageAlt: SCREENSHOT.alt,
 });
 
-const sameAs = [SITE_LINKS.steam, SITE_LINKS.youtube, SITE_LINKS.discord, SITE_LINKS.reddit, SITE_LINKS.patreon];
+const sameAs = [
+  SITE_LINKS.steam,
+  SITE_LINKS.youtube,
+  SITE_LINKS.discord,
+  SITE_LINKS.reddit,
+  SITE_LINKS.patreon,
+];
 
 useHead({
   script: [

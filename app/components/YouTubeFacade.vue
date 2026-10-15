@@ -6,7 +6,8 @@ const props = defineProps<{
 
 const playing = ref(false);
 const src = computed(
-  () => `https://www.youtube-nocookie.com/embed/videoseries?list=${props.playlistId}&autoplay=1&rel=0`,
+  () =>
+    `https://www.youtube-nocookie.com/embed/videoseries?list=${props.playlistId}&autoplay=1&rel=0`,
 );
 </script>
 
@@ -17,7 +18,14 @@ const src = computed(
       :src="src"
       :title="title"
       class="absolute inset-0 size-full"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allow="
+        accelerometer;
+        autoplay;
+        clipboard-write;
+        encrypted-media;
+        gyroscope;
+        picture-in-picture;
+      "
       allowfullscreen
     />
     <button
@@ -38,9 +46,23 @@ const src = computed(
       />
       <span class="absolute inset-0 bg-radial from-transparent to-ink-950/70" aria-hidden="true" />
 
-      <span class="play-rune relative flex size-24 items-center justify-center sm:size-28" aria-hidden="true">
-        <svg viewBox="0 0 100 100" class="play-rune__ring absolute inset-0 size-full text-gold-300" fill="none">
-          <circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5" />
+      <span
+        class="play-rune relative flex size-24 items-center justify-center sm:size-28"
+        aria-hidden="true"
+      >
+        <svg
+          viewBox="0 0 100 100"
+          class="play-rune__ring absolute inset-0 size-full text-gold-300"
+          fill="none"
+        >
+          <circle
+            cx="50"
+            cy="50"
+            r="47"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-dasharray="3 5"
+          />
           <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" />
         </svg>
         <span
@@ -52,7 +74,10 @@ const src = computed(
 
       <span class="absolute inset-x-0 bottom-0 flex items-center gap-3 p-5 text-left">
         <UIcon name="i-simple-icons-youtube" class="size-6 shrink-0 text-red-500" />
-        <span class="font-display text-sm font-semibold tracking-[0.12em] text-parchment uppercase">{{ title }}</span>
+        <span
+          class="font-display text-sm font-semibold tracking-[0.12em] text-parchment uppercase"
+          >{{ title }}</span
+        >
       </span>
     </button>
   </div>

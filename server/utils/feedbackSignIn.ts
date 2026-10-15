@@ -3,7 +3,9 @@ import type { AuthServicePath } from "./accountAuth";
 
 /** The only place a Steam sign-in may return to besides the account page. */
 export function feedbackReturnPath(value: unknown) {
-  return typeof value === "string" && /^\/feedback\/sign-in\?request=[a-f0-9]{64}$/.test(value) ? value : null;
+  return typeof value === "string" && /^\/feedback\/sign-in\?request=[a-f0-9]{64}$/.test(value)
+    ? value
+    : null;
 }
 
 export function feedbackRequestId(value: unknown) {
@@ -29,13 +31,27 @@ export function authServiceFailure(error: any): never {
   const status = error?.statusCode ?? error?.response?.status;
   const data = error?.data;
   if (typeof status === "number" && status < 500 && typeof data?.error === "string") {
-    throw createError({ statusCode: status, statusMessage: typeof data.message === "string" ? data.message : "Request failed", data: { error: data.error } });
+    throw createError({
+      statusCode: status,
+      statusMessage: typeof data.message === "string" ? data.message : "Request failed",
+      data: { error: data.error },
+    });
   }
   throw createError({ statusCode: 503, statusMessage: "Please try again in a moment." });
 }
 
-export async function feedbackRequest<T>(event: H3Event, path: AuthServicePath, options: { method?: "GET" | "POST"; body?: unknown } = {}): Promise<T> {
+export async function feedbackRequest<T>(
+  event: H3Event,
+  path: AuthServicePath,
+  options: { method?: "GET" | "POST"; body?: Record<string, unknown> } = {},
+): Promise<T> {
   try {
-    return await authServiceRequest<T>(event, { ...options, path, session: getCookie(event, accountConfig(event).sessionCookie) });
-  } catch (error) { authServiceFailure(error); }
+    return await authServiceRequest<T>(event, {
+      ...options,
+      path,
+      session: getCookie(event, accountConfig(event).sessionCookie),
+    });
+  } catch (error) {
+    authServiceFailure(error);
+  }
 }

@@ -7,28 +7,40 @@ const { t } = useLocale();
 
 const populatedTiers = computed(() => withSupporterRarity(props.tiers));
 const tierLabel = (rarity: string, fallback: string) => {
-  const key = ({
-    Legendary: "supporters.legendary",
-    Epic: "supporters.epic",
-    Rare: "supporters.rare",
-  } as const)[rarity as "Legendary" | "Epic" | "Rare"];
+  const key = (
+    {
+      Legendary: "supporters.legendary",
+      Epic: "supporters.epic",
+      Rare: "supporters.rare",
+    } as const
+  )[rarity as "Legendary" | "Epic" | "Rare"];
   return key ? t(key) : fallback;
 };
 </script>
 
 <template>
-  <section id="supporters" aria-labelledby="supporters-title" class="relative overflow-hidden py-24 sm:py-32">
+  <section
+    id="supporters"
+    aria-labelledby="supporters-title"
+    class="relative overflow-hidden py-24 sm:py-32"
+  >
     <div
       class="glow-orb top-1/4 left-1/2 size-[40rem] -translate-x-1/2 bg-rarity-epic/[0.07]"
       aria-hidden="true"
     />
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <SectionHeading id="supporters-title" :eyebrow="t('supporters.eyebrow')" :title="t('supporters.title')">
+      <SectionHeading
+        id="supporters-title"
+        :eyebrow="t('supporters.eyebrow')"
+        :title="t('supporters.title')"
+      >
         {{ t("supporters.intro") }}
       </SectionHeading>
 
-      <div v-if="pending" class="mt-14 text-center text-parchment-dim">{{ t("supporters.loading") }}</div>
+      <div v-if="pending" class="mt-14 text-center text-parchment-dim">
+        {{ t("supporters.loading") }}
+      </div>
 
       <div v-else-if="populatedTiers.length" class="mt-14 space-y-4">
         <div
@@ -43,18 +55,24 @@ const tierLabel = (rarity: string, fallback: string) => {
           >
             <RarityGem :rarity="tier.rarity" />
             <span class="flex flex-col">
-              <span class="font-display text-sm font-bold tracking-[0.12em] text-[var(--rarity)] uppercase">
+              <span
+                class="font-display text-sm font-bold tracking-[0.12em] text-[var(--rarity)] uppercase"
+              >
                 {{ tierLabel(tier.rarity.name, tier.label) }}
               </span>
               <span class="text-xs text-parchment-dim">
-                {{ tier.memberCount }} {{ tier.memberCount === 1 ? t("supporters.hero") : t("supporters.heroes") }}
+                {{ tier.memberCount }}
+                {{ tier.memberCount === 1 ? t("supporters.hero") : t("supporters.heroes") }}
               </span>
             </span>
           </div>
 
           <UMarquee
             pause-on-hover
-            :ui="{ root: 'flex-1 py-4 [--duration:40s] [--gap:--spacing(10)]', content: 'items-center' }"
+            :ui="{
+              root: 'flex-1 py-4 [--duration:40s] [--gap:--spacing(10)]',
+              content: 'items-center',
+            }"
             :overlay="true"
           >
             <span
@@ -70,7 +88,9 @@ const tierLabel = (rarity: string, fallback: string) => {
       </div>
 
       <div v-reveal="120" class="mt-12 flex justify-center">
-        <GameButton :to="SITE_LINKS.patreon" icon="i-simple-icons-patreon">{{ t("supporters.become") }}</GameButton>
+        <GameButton :to="SITE_LINKS.patreon" icon="i-simple-icons-patreon">{{
+          t("supporters.become")
+        }}</GameButton>
       </div>
     </div>
   </section>
@@ -85,6 +105,10 @@ const tierLabel = (rarity: string, fallback: string) => {
 }
 
 .tier__label {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--rarity) 14%, transparent), transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--rarity) 14%, transparent),
+    transparent
+  );
 }
 </style>

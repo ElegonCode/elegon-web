@@ -8,7 +8,8 @@ const en = {
   "header.eyebrow": "Your place in Elegon",
   "header.title": "Your account",
   "header.introSignedIn": "Your adventurers, across every realm. Your journey continues here.",
-  "header.introSignedOut": "Your adventurers, across every realm. Sign in with the Steam account you use to play.",
+  "header.introSignedOut":
+    "Your adventurers, across every realm. Sign in with the Steam account you use to play.",
   "status.deleted": "Your Elegon account and characters have been deleted. You are signed out.",
   "status.loading": "Loading your account…",
   "status.loadError": "Your account could not be loaded. Please try again.",
@@ -16,7 +17,8 @@ const en = {
   "login.unavailable": "Website sign-in is being prepared. Please check back soon.",
   "login.failed": "Steam sign-in could not be completed. Please try again.",
   "signIn.title": "Continue your journey",
-  "signIn.description": "Steam securely signs you into your existing Elegon account. Your characters stay linked to the account you already play on.",
+  "signIn.description":
+    "Steam securely signs you into your existing Elegon account. Your characters stay linked to the account you already play on.",
   "signIn.steam": "Sign in with Steam",
   "signIn.comingSoon": "Website sign-in is coming soon.",
   "profile.adventurer": "Adventurer",
@@ -46,7 +48,8 @@ const en = {
   "tabs.characterCountUnavailable": "Character count unavailable",
   "tabs.totalCharacters_one": "{count} total character",
   "tabs.totalCharacters_other": "{count} total characters",
-  "deletionPending": "Your account is being deleted. Resume deletion in Danger zone to finish removing data from both realms.",
+  deletionPending:
+    "Your account is being deleted. Resume deletion in Danger zone to finish removing data from both realms.",
   "connections.title": "Connections",
   "connections.description": "The accounts connected to your Elegon profile.",
   "connections.required": "Required",
@@ -56,29 +59,36 @@ const en = {
   "connections.connecting": "Connecting…",
   "connections.disconnecting": "Disconnecting…",
   "connections.steamId": "Steam ID {id}",
-  "connections.steamPrimary": "Steam is your primary sign-in and stays connected to your Elegon account.",
+  "connections.steamPrimary":
+    "Steam is your primary sign-in and stays connected to your Elegon account.",
   "connections.steamProfile": "Steam profile",
   "connections.discordId": "Discord ID {id}",
   "connections.discordPrompt": "Connect your Discord account to your Elegon profile.",
   "connections.discordConnect": "Connect Discord",
   "connections.discordDisconnect": "Disconnect Discord",
   "connections.discordPreparing": "Discord connections are being prepared.",
-  "connections.discordConnectError": "Discord could not be connected. Refresh your account and try again.",
-  "connections.discordDisconnectError": "Discord could not be disconnected. Refresh your account and try again.",
+  "connections.discordConnectError":
+    "Discord could not be connected. Refresh your account and try again.",
+  "connections.discordDisconnectError":
+    "Discord could not be disconnected. Refresh your account and try again.",
   "connections.discordDisconnected": "Discord disconnected from your Elegon account.",
   "connections.patreonId": "Patreon ID {id}",
-  "connections.patreonPrompt": "Connect your Patreon account to see your Elegon supporter tier and support history.",
+  "connections.patreonPrompt":
+    "Connect your Patreon account to see your Elegon supporter tier and support history.",
   "connections.patreonConnect": "Connect Patreon",
   "connections.patreonDisconnect": "Disconnect Patreon",
   "connections.patreonPreparing": "Patreon connections are being prepared.",
-  "connections.patreonConnectError": "Patreon could not be connected. Refresh your account and try again.",
-  "connections.patreonDisconnectError": "Patreon could not be disconnected. Refresh your account and try again.",
+  "connections.patreonConnectError":
+    "Patreon could not be connected. Refresh your account and try again.",
+  "connections.patreonDisconnectError":
+    "Patreon could not be disconnected. Refresh your account and try again.",
   "connections.patreonDisconnected": "Patreon disconnected from your Elegon account.",
   "connections.patreonChecking": "Checking your Elegon support…",
   "connections.patreonError": "Support details are temporarily unavailable. Please try again.",
   "connections.patreonSupport": "Elegon support",
   "connections.patreonSince": "Supporting since",
-  "connections.patreonNote": "Support details can take up to five minutes to update. Disconnecting here does not cancel your Patreon membership.",
+  "connections.patreonNote":
+    "Support details can take up to five minutes to update. Disconnecting here does not cancel your Patreon membership.",
   "connections.patreonRefresh": "Refresh support",
   "patreon.active": "Supporting Elegon",
   "patreon.declined": "Payment needs attention",
@@ -90,25 +100,34 @@ const en = {
   "patreon.months_other": "{count} months in this support period",
   "notice.discord-linked": "Discord connected to your Elegon account.",
   "notice.discord-cancelled": "Discord connection cancelled. Your connections have not changed.",
-  "notice.discord-expired": "This connection attempt expired. Sign in and try connecting Discord again.",
-  "notice.discord-in-use": "That Discord account is connected to another Elegon account. Disconnect it there first.",
-  "notice.discord-already-linked": "Your Elegon account already has a Discord connection. Refresh to see it.",
+  "notice.discord-expired":
+    "This connection attempt expired. Sign in and try connecting Discord again.",
+  "notice.discord-in-use":
+    "That Discord account is connected to another Elegon account. Disconnect it there first.",
+  "notice.discord-already-linked":
+    "Your Elegon account already has a Discord connection. Refresh to see it.",
   "notice.discord-failed": "Discord could not be connected. Please try again.",
   "notice.patreon-linked": "Patreon connected to your Elegon account.",
   "notice.patreon-cancelled": "Patreon connection cancelled. Your connections have not changed.",
-  "notice.patreon-expired": "This connection attempt expired. Sign in and try connecting Patreon again.",
-  "notice.patreon-in-use": "That Patreon account is connected to another Elegon account. Disconnect it there first.",
-  "notice.patreon-already-linked": "Your Elegon account already has a Patreon connection. Refresh to see it.",
+  "notice.patreon-expired":
+    "This connection attempt expired. Sign in and try connecting Patreon again.",
+  "notice.patreon-in-use":
+    "That Patreon account is connected to another Elegon account. Disconnect it there first.",
+  "notice.patreon-already-linked":
+    "Your Elegon account already has a Patreon connection. Refresh to see it.",
   "notice.patreon-failed": "Patreon could not be connected. Please try again.",
   "details.usernameLabel": "Elegon username",
-  "details.usernameHelp": "Choose the name for your Elegon account. Your character names and Steam profile stay the same.",
+  "details.usernameHelp":
+    "Choose the name for your Elegon account. Your character names and Steam profile stay the same.",
   "details.saveUsername": "Save username",
   "details.saving": "Saving…",
   "details.usernameSaved": "Your Elegon username has been updated.",
-  "details.usernameError": "Your username could not be saved. Use 2–32 letters, numbers, spaces, dots, underscores or hyphens.",
+  "details.usernameError":
+    "Your username could not be saved. Use 2–32 letters, numbers, spaces, dots, underscores or hyphens.",
   "details.emailTitle": "Email",
   "details.emailBefore": "Used to sign in to",
-  "details.emailAfter": "and to send feedback from the game. If you posted feedback before, use the same email to claim it.",
+  "details.emailAfter":
+    "and to send feedback from the game. If you posted feedback before, use the same email to claim it.",
   "characters.title": "Your characters",
   "characters.refresh": "Refresh",
   "characters.loading": "Loading characters…",
@@ -118,20 +137,25 @@ const en = {
   "characters.none": "No active characters on this realm yet.",
   "characters.lastPlayed": "Last played {date}",
   "characters.level": "Level {level}",
-  "characters.legacy": "Characters from the previous sign-in system remain linked. If an expected character is missing, sign in to its realm in the game once to complete the existing account migration, then refresh here.",
+  "characters.legacy":
+    "Characters from the previous sign-in system remain linked. If an expected character is missing, sign in to its realm in the game once to complete the existing account migration, then refresh here.",
   "class.1": "Knight",
   "class.2": "Mage",
   "class.3": "Cleric",
   "danger.title": "Delete your Elegon account",
-  "danger.description": "Permanently delete every character on both realms, including their inventory, progression and related data. All account connections will be removed and you will be signed out. This cannot be undone.",
-  "danger.note": "Deleting your Elegon account does not delete your Steam, Discord or Patreon accounts, or cancel a Patreon membership.",
+  "danger.description":
+    "Permanently delete every character on both realms, including their inventory, progression and related data. All account connections will be removed and you will be signed out. This cannot be undone.",
+  "danger.note":
+    "Deleting your Elegon account does not delete your Steam, Discord or Patreon accounts, or cancel a Patreon membership.",
   "danger.delete": "Delete account…",
   "danger.resume": "Resume account deletion",
   "danger.dialogTitle": "Permanently delete your account?",
-  "danger.dialogDescription": "You are deleting {name}. Every character and its related data on EU and US will be removed, and all connections will be unlinked. You cannot recover this account.",
+  "danger.dialogDescription":
+    "You are deleting {name}. Every character and its related data on EU and US will be removed, and all connections will be unlinked. You cannot recover this account.",
   "danger.confirmBefore": "Type",
   "danger.confirmAfter": "to confirm",
-  "danger.error": "Deletion could not finish. Please try again to resume cleanup. Your account is locked while deletion is in progress.",
+  "danger.error":
+    "Deletion could not finish. Please try again to resume cleanup. Your account is locked while deletion is in progress.",
   "danger.inProgress": "Removing your account from both realms. Please keep this page open.",
   "danger.cancel": "Cancel",
   "danger.deleting": "Deleting…",
@@ -149,27 +173,34 @@ const en = {
   "email.different": "Use a different email",
   "email.sent": "We sent a 6-digit code to {email}. It expires in 15 minutes.",
   "email.sendError": "The code could not be sent. Please try again.",
-  "email.verified": "Your email is verified. Feedback you posted with this address is now linked to your Elegon account.",
+  "email.verified":
+    "Your email is verified. Feedback you posted with this address is now linked to your Elegon account.",
   "email.verifyError": "That code could not be checked. Please try again.",
 };
 
 export type AccountMessageKey = keyof typeof en;
-type Messages = Partial<Record<AccountMessageKey | `${string}_${"one" | "few" | "many" | "other"}`, string>>;
+type Messages = Partial<
+  Record<AccountMessageKey | `${string}_${"one" | "few" | "many" | "other"}`, string>
+>;
 
 const de: Messages = {
   "seo.title": "Dein Konto",
   "header.eyebrow": "Dein Platz in Elegon",
   "header.title": "Dein Konto",
   "header.introSignedIn": "Deine Abenteurer in allen Reichen. Hier geht deine Reise weiter.",
-  "header.introSignedOut": "Deine Abenteurer in allen Reichen. Melde dich mit dem Steam-Konto an, mit dem du spielst.",
+  "header.introSignedOut":
+    "Deine Abenteurer in allen Reichen. Melde dich mit dem Steam-Konto an, mit dem du spielst.",
   "status.deleted": "Dein Elegon-Konto und deine Charaktere wurden gelöscht. Du bist abgemeldet.",
   "status.loading": "Dein Konto wird geladen…",
   "status.loadError": "Dein Konto konnte nicht geladen werden. Bitte versuche es erneut.",
   "status.tryAgain": "Erneut versuchen",
-  "login.unavailable": "Die Anmeldung auf der Website wird vorbereitet. Bitte schau bald wieder vorbei.",
-  "login.failed": "Die Steam-Anmeldung konnte nicht abgeschlossen werden. Bitte versuche es erneut.",
+  "login.unavailable":
+    "Die Anmeldung auf der Website wird vorbereitet. Bitte schau bald wieder vorbei.",
+  "login.failed":
+    "Die Steam-Anmeldung konnte nicht abgeschlossen werden. Bitte versuche es erneut.",
   "signIn.title": "Setze deine Reise fort",
-  "signIn.description": "Steam meldet dich sicher bei deinem bestehenden Elegon-Konto an. Deine Charaktere bleiben mit dem Konto verknüpft, mit dem du bereits spielst.",
+  "signIn.description":
+    "Steam meldet dich sicher bei deinem bestehenden Elegon-Konto an. Deine Charaktere bleiben mit dem Konto verknüpft, mit dem du bereits spielst.",
   "signIn.steam": "Mit Steam anmelden",
   "signIn.comingSoon": "Die Anmeldung auf der Website kommt bald.",
   "profile.adventurer": "Abenteurer",
@@ -187,7 +218,8 @@ const de: Messages = {
   "profile.addEmailSuffix": "um dein Feedback hier zu sehen.",
   "profile.signOut": "Abmelden",
   "profile.signingOut": "Abmelden…",
-  "profile.signOutError": "Die Abmeldung konnte nicht abgeschlossen werden. Bitte versuche es erneut.",
+  "profile.signOutError":
+    "Die Abmeldung konnte nicht abgeschlossen werden. Bitte versuche es erneut.",
   "tabs.label": "Kontobereiche",
   "tabs.details": "Details",
   "tabs.subscription": "Abo verwalten",
@@ -199,7 +231,8 @@ const de: Messages = {
   "tabs.characterCountUnavailable": "Anzahl der Charaktere nicht verfügbar",
   "tabs.totalCharacters_one": "{count} Charakter insgesamt",
   "tabs.totalCharacters_other": "{count} Charaktere insgesamt",
-  "deletionPending": "Dein Konto wird gelöscht. Setze die Löschung in der Gefahrenzone fort, um die Daten aus beiden Reichen vollständig zu entfernen.",
+  deletionPending:
+    "Dein Konto wird gelöscht. Setze die Löschung in der Gefahrenzone fort, um die Daten aus beiden Reichen vollständig zu entfernen.",
   "connections.title": "Verbindungen",
   "connections.description": "Die mit deinem Elegon-Profil verbundenen Konten.",
   "connections.required": "Erforderlich",
@@ -209,29 +242,37 @@ const de: Messages = {
   "connections.connecting": "Verbinden…",
   "connections.disconnecting": "Trennen…",
   "connections.steamId": "Steam-ID {id}",
-  "connections.steamPrimary": "Steam ist deine primäre Anmeldung und bleibt mit deinem Elegon-Konto verbunden.",
+  "connections.steamPrimary":
+    "Steam ist deine primäre Anmeldung und bleibt mit deinem Elegon-Konto verbunden.",
   "connections.steamProfile": "Steam-Profil",
   "connections.discordId": "Discord-ID {id}",
   "connections.discordPrompt": "Verbinde dein Discord-Konto mit deinem Elegon-Profil.",
   "connections.discordConnect": "Discord verbinden",
   "connections.discordDisconnect": "Discord trennen",
   "connections.discordPreparing": "Discord-Verbindungen werden vorbereitet.",
-  "connections.discordConnectError": "Discord konnte nicht verbunden werden. Aktualisiere dein Konto und versuche es erneut.",
-  "connections.discordDisconnectError": "Discord konnte nicht getrennt werden. Aktualisiere dein Konto und versuche es erneut.",
+  "connections.discordConnectError":
+    "Discord konnte nicht verbunden werden. Aktualisiere dein Konto und versuche es erneut.",
+  "connections.discordDisconnectError":
+    "Discord konnte nicht getrennt werden. Aktualisiere dein Konto und versuche es erneut.",
   "connections.discordDisconnected": "Discord wurde von deinem Elegon-Konto getrennt.",
   "connections.patreonId": "Patreon-ID {id}",
-  "connections.patreonPrompt": "Verbinde dein Patreon-Konto, um deine Elegon-Unterstützerstufe und deinen Unterstützungsverlauf zu sehen.",
+  "connections.patreonPrompt":
+    "Verbinde dein Patreon-Konto, um deine Elegon-Unterstützerstufe und deinen Unterstützungsverlauf zu sehen.",
   "connections.patreonConnect": "Patreon verbinden",
   "connections.patreonDisconnect": "Patreon trennen",
   "connections.patreonPreparing": "Patreon-Verbindungen werden vorbereitet.",
-  "connections.patreonConnectError": "Patreon konnte nicht verbunden werden. Aktualisiere dein Konto und versuche es erneut.",
-  "connections.patreonDisconnectError": "Patreon konnte nicht getrennt werden. Aktualisiere dein Konto und versuche es erneut.",
+  "connections.patreonConnectError":
+    "Patreon konnte nicht verbunden werden. Aktualisiere dein Konto und versuche es erneut.",
+  "connections.patreonDisconnectError":
+    "Patreon konnte nicht getrennt werden. Aktualisiere dein Konto und versuche es erneut.",
   "connections.patreonDisconnected": "Patreon wurde von deinem Elegon-Konto getrennt.",
   "connections.patreonChecking": "Deine Elegon-Unterstützung wird geprüft…",
-  "connections.patreonError": "Die Unterstützungsdetails sind vorübergehend nicht verfügbar. Bitte versuche es erneut.",
+  "connections.patreonError":
+    "Die Unterstützungsdetails sind vorübergehend nicht verfügbar. Bitte versuche es erneut.",
   "connections.patreonSupport": "Elegon-Unterstützung",
   "connections.patreonSince": "Unterstützer seit",
-  "connections.patreonNote": "Es kann bis zu fünf Minuten dauern, bis die Unterstützungsdetails aktualisiert sind. Das Trennen hier kündigt deine Patreon-Mitgliedschaft nicht.",
+  "connections.patreonNote":
+    "Es kann bis zu fünf Minuten dauern, bis die Unterstützungsdetails aktualisiert sind. Das Trennen hier kündigt deine Patreon-Mitgliedschaft nicht.",
   "connections.patreonRefresh": "Unterstützung aktualisieren",
   "patreon.active": "Unterstützt Elegon",
   "patreon.declined": "Zahlung erfordert Aufmerksamkeit",
@@ -242,55 +283,74 @@ const de: Messages = {
   "patreon.months_one": "{count} Monat in diesem Unterstützungszeitraum",
   "patreon.months_other": "{count} Monate in diesem Unterstützungszeitraum",
   "notice.discord-linked": "Discord wurde mit deinem Elegon-Konto verbunden.",
-  "notice.discord-cancelled": "Discord-Verbindung abgebrochen. Deine Verbindungen wurden nicht geändert.",
-  "notice.discord-expired": "Dieser Verbindungsversuch ist abgelaufen. Melde dich an und versuche erneut, Discord zu verbinden.",
-  "notice.discord-in-use": "Dieses Discord-Konto ist mit einem anderen Elegon-Konto verbunden. Trenne es dort zuerst.",
-  "notice.discord-already-linked": "Dein Elegon-Konto hat bereits eine Discord-Verbindung. Aktualisiere die Seite, um sie zu sehen.",
+  "notice.discord-cancelled":
+    "Discord-Verbindung abgebrochen. Deine Verbindungen wurden nicht geändert.",
+  "notice.discord-expired":
+    "Dieser Verbindungsversuch ist abgelaufen. Melde dich an und versuche erneut, Discord zu verbinden.",
+  "notice.discord-in-use":
+    "Dieses Discord-Konto ist mit einem anderen Elegon-Konto verbunden. Trenne es dort zuerst.",
+  "notice.discord-already-linked":
+    "Dein Elegon-Konto hat bereits eine Discord-Verbindung. Aktualisiere die Seite, um sie zu sehen.",
   "notice.discord-failed": "Discord konnte nicht verbunden werden. Bitte versuche es erneut.",
   "notice.patreon-linked": "Patreon wurde mit deinem Elegon-Konto verbunden.",
-  "notice.patreon-cancelled": "Patreon-Verbindung abgebrochen. Deine Verbindungen wurden nicht geändert.",
-  "notice.patreon-expired": "Dieser Verbindungsversuch ist abgelaufen. Melde dich an und versuche erneut, Patreon zu verbinden.",
-  "notice.patreon-in-use": "Dieses Patreon-Konto ist mit einem anderen Elegon-Konto verbunden. Trenne es dort zuerst.",
-  "notice.patreon-already-linked": "Dein Elegon-Konto hat bereits eine Patreon-Verbindung. Aktualisiere die Seite, um sie zu sehen.",
+  "notice.patreon-cancelled":
+    "Patreon-Verbindung abgebrochen. Deine Verbindungen wurden nicht geändert.",
+  "notice.patreon-expired":
+    "Dieser Verbindungsversuch ist abgelaufen. Melde dich an und versuche erneut, Patreon zu verbinden.",
+  "notice.patreon-in-use":
+    "Dieses Patreon-Konto ist mit einem anderen Elegon-Konto verbunden. Trenne es dort zuerst.",
+  "notice.patreon-already-linked":
+    "Dein Elegon-Konto hat bereits eine Patreon-Verbindung. Aktualisiere die Seite, um sie zu sehen.",
   "notice.patreon-failed": "Patreon konnte nicht verbunden werden. Bitte versuche es erneut.",
   "details.usernameLabel": "Elegon-Benutzername",
-  "details.usernameHelp": "Wähle den Namen für dein Elegon-Konto. Deine Charakternamen und dein Steam-Profil bleiben unverändert.",
+  "details.usernameHelp":
+    "Wähle den Namen für dein Elegon-Konto. Deine Charakternamen und dein Steam-Profil bleiben unverändert.",
   "details.saveUsername": "Benutzernamen speichern",
   "details.saving": "Speichern…",
   "details.usernameSaved": "Dein Elegon-Benutzername wurde aktualisiert.",
-  "details.usernameError": "Dein Benutzername konnte nicht gespeichert werden. Verwende 2–32 Buchstaben, Ziffern, Leerzeichen, Punkte, Unterstriche oder Bindestriche.",
+  "details.usernameError":
+    "Dein Benutzername konnte nicht gespeichert werden. Verwende 2–32 Buchstaben, Ziffern, Leerzeichen, Punkte, Unterstriche oder Bindestriche.",
   "details.emailTitle": "E-Mail",
   "details.emailBefore": "Wird für die Anmeldung bei",
-  "details.emailAfter": "und zum Senden von Feedback aus dem Spiel verwendet. Wenn du bereits Feedback gepostet hast, verwende dieselbe E-Mail-Adresse, um es zu übernehmen.",
+  "details.emailAfter":
+    "und zum Senden von Feedback aus dem Spiel verwendet. Wenn du bereits Feedback gepostet hast, verwende dieselbe E-Mail-Adresse, um es zu übernehmen.",
   "characters.title": "Deine Charaktere",
   "characters.refresh": "Aktualisieren",
   "characters.loading": "Charaktere werden geladen…",
-  "characters.loadError": "Deine Charaktere konnten nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
+  "characters.loadError":
+    "Deine Charaktere konnten nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
   "characters.realm": "Reich {name}",
   "characters.realmError": "Dieses Reich konnte nicht geladen werden. Bitte versuche es erneut.",
   "characters.none": "Noch keine aktiven Charaktere in diesem Reich.",
   "characters.lastPlayed": "Zuletzt gespielt am {date}",
   "characters.level": "Stufe {level}",
-  "characters.legacy": "Charaktere aus dem früheren Anmeldesystem bleiben verknüpft. Falls ein erwarteter Charakter fehlt, melde dich einmal im Spiel in seinem Reich an, um die bestehende Kontomigration abzuschließen, und aktualisiere dann hier.",
+  "characters.legacy":
+    "Charaktere aus dem früheren Anmeldesystem bleiben verknüpft. Falls ein erwarteter Charakter fehlt, melde dich einmal im Spiel in seinem Reich an, um die bestehende Kontomigration abzuschließen, und aktualisiere dann hier.",
   "class.1": "Ritter",
   "class.2": "Magier",
   "class.3": "Kleriker",
   "danger.title": "Elegon-Konto löschen",
-  "danger.description": "Lösche dauerhaft alle Charaktere in beiden Reichen, einschließlich Inventar, Fortschritt und zugehöriger Daten. Alle Kontoverbindungen werden entfernt und du wirst abgemeldet. Dies kann nicht rückgängig gemacht werden.",
-  "danger.note": "Das Löschen deines Elegon-Kontos löscht weder deine Steam-, Discord- oder Patreon-Konten noch kündigt es eine Patreon-Mitgliedschaft.",
+  "danger.description":
+    "Lösche dauerhaft alle Charaktere in beiden Reichen, einschließlich Inventar, Fortschritt und zugehöriger Daten. Alle Kontoverbindungen werden entfernt und du wirst abgemeldet. Dies kann nicht rückgängig gemacht werden.",
+  "danger.note":
+    "Das Löschen deines Elegon-Kontos löscht weder deine Steam-, Discord- oder Patreon-Konten noch kündigt es eine Patreon-Mitgliedschaft.",
   "danger.delete": "Konto löschen…",
   "danger.resume": "Kontolöschung fortsetzen",
   "danger.dialogTitle": "Konto dauerhaft löschen?",
-  "danger.dialogDescription": "Du löschst {name}. Alle Charaktere und ihre zugehörigen Daten auf EU und US werden entfernt und alle Verbindungen getrennt. Dieses Konto kann nicht wiederhergestellt werden.",
+  "danger.dialogDescription":
+    "Du löschst {name}. Alle Charaktere und ihre zugehörigen Daten auf EU und US werden entfernt und alle Verbindungen getrennt. Dieses Konto kann nicht wiederhergestellt werden.",
   "danger.confirmBefore": "Gib",
   "danger.confirmAfter": "zur Bestätigung ein",
-  "danger.error": "Die Löschung konnte nicht abgeschlossen werden. Bitte versuche es erneut, um die Bereinigung fortzusetzen. Dein Konto ist gesperrt, solange die Löschung läuft.",
-  "danger.inProgress": "Dein Konto wird aus beiden Reichen entfernt. Bitte lass diese Seite geöffnet.",
+  "danger.error":
+    "Die Löschung konnte nicht abgeschlossen werden. Bitte versuche es erneut, um die Bereinigung fortzusetzen. Dein Konto ist gesperrt, solange die Löschung läuft.",
+  "danger.inProgress":
+    "Dein Konto wird aus beiden Reichen entfernt. Bitte lass diese Seite geöffnet.",
   "danger.cancel": "Abbrechen",
   "danger.deleting": "Löschen…",
   "danger.confirm": "Endgültig löschen",
   "email.loading": "Deine E-Mail-Adresse wird geladen…",
-  "email.loadError": "Deine E-Mail-Adresse konnte nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
+  "email.loadError":
+    "Deine E-Mail-Adresse konnte nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
   "email.change": "E-Mail ändern",
   "email.label": "E-Mail-Adresse",
   "email.send": "Code senden",
@@ -302,7 +362,8 @@ const de: Messages = {
   "email.different": "Andere E-Mail-Adresse verwenden",
   "email.sent": "Wir haben einen 6-stelligen Code an {email} gesendet. Er läuft in 15 Minuten ab.",
   "email.sendError": "Der Code konnte nicht gesendet werden. Bitte versuche es erneut.",
-  "email.verified": "Deine E-Mail-Adresse ist bestätigt. Feedback, das du mit dieser Adresse gepostet hast, ist jetzt mit deinem Elegon-Konto verknüpft.",
+  "email.verified":
+    "Deine E-Mail-Adresse ist bestätigt. Feedback, das du mit dieser Adresse gepostet hast, ist jetzt mit deinem Elegon-Konto verknüpft.",
   "email.verifyError": "Dieser Code konnte nicht geprüft werden. Bitte versuche es erneut.",
 };
 
@@ -311,7 +372,8 @@ const es: Messages = {
   "header.eyebrow": "Tu lugar en Elegon",
   "header.title": "Tu cuenta",
   "header.introSignedIn": "Tus aventureros, en todos los reinos. Tu viaje continúa aquí.",
-  "header.introSignedOut": "Tus aventureros, en todos los reinos. Inicia sesión con la cuenta de Steam que usas para jugar.",
+  "header.introSignedOut":
+    "Tus aventureros, en todos los reinos. Inicia sesión con la cuenta de Steam que usas para jugar.",
   "status.deleted": "Tu cuenta de Elegon y tus personajes se han eliminado. Has cerrado sesión.",
   "status.loading": "Cargando tu cuenta…",
   "status.loadError": "No se pudo cargar tu cuenta. Inténtalo de nuevo.",
@@ -319,7 +381,8 @@ const es: Messages = {
   "login.unavailable": "El inicio de sesión en la web se está preparando. Vuelve pronto.",
   "login.failed": "No se pudo completar el inicio de sesión con Steam. Inténtalo de nuevo.",
   "signIn.title": "Continúa tu viaje",
-  "signIn.description": "Steam inicia sesión de forma segura en tu cuenta de Elegon existente. Tus personajes siguen vinculados a la cuenta con la que ya juegas.",
+  "signIn.description":
+    "Steam inicia sesión de forma segura en tu cuenta de Elegon existente. Tus personajes siguen vinculados a la cuenta con la que ya juegas.",
   "signIn.steam": "Iniciar sesión con Steam",
   "signIn.comingSoon": "El inicio de sesión en la web llegará pronto.",
   "profile.adventurer": "Aventurero",
@@ -349,7 +412,8 @@ const es: Messages = {
   "tabs.characterCountUnavailable": "Número de personajes no disponible",
   "tabs.totalCharacters_one": "{count} personaje en total",
   "tabs.totalCharacters_other": "{count} personajes en total",
-  "deletionPending": "Tu cuenta se está eliminando. Reanuda la eliminación en la zona de peligro para terminar de borrar los datos de ambos reinos.",
+  deletionPending:
+    "Tu cuenta se está eliminando. Reanuda la eliminación en la zona de peligro para terminar de borrar los datos de ambos reinos.",
   "connections.title": "Conexiones",
   "connections.description": "Las cuentas conectadas a tu perfil de Elegon.",
   "connections.required": "Obligatoria",
@@ -359,29 +423,37 @@ const es: Messages = {
   "connections.connecting": "Conectando…",
   "connections.disconnecting": "Desconectando…",
   "connections.steamId": "ID de Steam {id}",
-  "connections.steamPrimary": "Steam es tu inicio de sesión principal y permanece conectado a tu cuenta de Elegon.",
+  "connections.steamPrimary":
+    "Steam es tu inicio de sesión principal y permanece conectado a tu cuenta de Elegon.",
   "connections.steamProfile": "Perfil de Steam",
   "connections.discordId": "ID de Discord {id}",
   "connections.discordPrompt": "Conecta tu cuenta de Discord a tu perfil de Elegon.",
   "connections.discordConnect": "Conectar Discord",
   "connections.discordDisconnect": "Desconectar Discord",
   "connections.discordPreparing": "Las conexiones con Discord se están preparando.",
-  "connections.discordConnectError": "No se pudo conectar Discord. Actualiza tu cuenta e inténtalo de nuevo.",
-  "connections.discordDisconnectError": "No se pudo desconectar Discord. Actualiza tu cuenta e inténtalo de nuevo.",
+  "connections.discordConnectError":
+    "No se pudo conectar Discord. Actualiza tu cuenta e inténtalo de nuevo.",
+  "connections.discordDisconnectError":
+    "No se pudo desconectar Discord. Actualiza tu cuenta e inténtalo de nuevo.",
   "connections.discordDisconnected": "Discord se ha desconectado de tu cuenta de Elegon.",
   "connections.patreonId": "ID de Patreon {id}",
-  "connections.patreonPrompt": "Conecta tu cuenta de Patreon para ver tu nivel de colaborador de Elegon y tu historial de apoyo.",
+  "connections.patreonPrompt":
+    "Conecta tu cuenta de Patreon para ver tu nivel de colaborador de Elegon y tu historial de apoyo.",
   "connections.patreonConnect": "Conectar Patreon",
   "connections.patreonDisconnect": "Desconectar Patreon",
   "connections.patreonPreparing": "Las conexiones con Patreon se están preparando.",
-  "connections.patreonConnectError": "No se pudo conectar Patreon. Actualiza tu cuenta e inténtalo de nuevo.",
-  "connections.patreonDisconnectError": "No se pudo desconectar Patreon. Actualiza tu cuenta e inténtalo de nuevo.",
+  "connections.patreonConnectError":
+    "No se pudo conectar Patreon. Actualiza tu cuenta e inténtalo de nuevo.",
+  "connections.patreonDisconnectError":
+    "No se pudo desconectar Patreon. Actualiza tu cuenta e inténtalo de nuevo.",
   "connections.patreonDisconnected": "Patreon se ha desconectado de tu cuenta de Elegon.",
   "connections.patreonChecking": "Comprobando tu apoyo a Elegon…",
-  "connections.patreonError": "Los detalles del apoyo no están disponibles temporalmente. Inténtalo de nuevo.",
+  "connections.patreonError":
+    "Los detalles del apoyo no están disponibles temporalmente. Inténtalo de nuevo.",
   "connections.patreonSupport": "Apoyo a Elegon",
   "connections.patreonSince": "Colaborador desde",
-  "connections.patreonNote": "Los detalles del apoyo pueden tardar hasta cinco minutos en actualizarse. Desconectar aquí no cancela tu membresía de Patreon.",
+  "connections.patreonNote":
+    "Los detalles del apoyo pueden tardar hasta cinco minutos en actualizarse. Desconectar aquí no cancela tu membresía de Patreon.",
   "connections.patreonRefresh": "Actualizar apoyo",
   "patreon.active": "Apoyando a Elegon",
   "patreon.declined": "El pago requiere atención",
@@ -393,54 +465,70 @@ const es: Messages = {
   "patreon.months_other": "{count} meses en este periodo de apoyo",
   "notice.discord-linked": "Discord se ha conectado a tu cuenta de Elegon.",
   "notice.discord-cancelled": "Conexión con Discord cancelada. Tus conexiones no han cambiado.",
-  "notice.discord-expired": "Este intento de conexión ha caducado. Inicia sesión e intenta conectar Discord de nuevo.",
-  "notice.discord-in-use": "Esa cuenta de Discord está conectada a otra cuenta de Elegon. Desconéctala allí primero.",
-  "notice.discord-already-linked": "Tu cuenta de Elegon ya tiene una conexión con Discord. Actualiza para verla.",
+  "notice.discord-expired":
+    "Este intento de conexión ha caducado. Inicia sesión e intenta conectar Discord de nuevo.",
+  "notice.discord-in-use":
+    "Esa cuenta de Discord está conectada a otra cuenta de Elegon. Desconéctala allí primero.",
+  "notice.discord-already-linked":
+    "Tu cuenta de Elegon ya tiene una conexión con Discord. Actualiza para verla.",
   "notice.discord-failed": "No se pudo conectar Discord. Inténtalo de nuevo.",
   "notice.patreon-linked": "Patreon se ha conectado a tu cuenta de Elegon.",
   "notice.patreon-cancelled": "Conexión con Patreon cancelada. Tus conexiones no han cambiado.",
-  "notice.patreon-expired": "Este intento de conexión ha caducado. Inicia sesión e intenta conectar Patreon de nuevo.",
-  "notice.patreon-in-use": "Esa cuenta de Patreon está conectada a otra cuenta de Elegon. Desconéctala allí primero.",
-  "notice.patreon-already-linked": "Tu cuenta de Elegon ya tiene una conexión con Patreon. Actualiza para verla.",
+  "notice.patreon-expired":
+    "Este intento de conexión ha caducado. Inicia sesión e intenta conectar Patreon de nuevo.",
+  "notice.patreon-in-use":
+    "Esa cuenta de Patreon está conectada a otra cuenta de Elegon. Desconéctala allí primero.",
+  "notice.patreon-already-linked":
+    "Tu cuenta de Elegon ya tiene una conexión con Patreon. Actualiza para verla.",
   "notice.patreon-failed": "No se pudo conectar Patreon. Inténtalo de nuevo.",
   "details.usernameLabel": "Nombre de usuario de Elegon",
-  "details.usernameHelp": "Elige el nombre de tu cuenta de Elegon. Los nombres de tus personajes y tu perfil de Steam no cambian.",
+  "details.usernameHelp":
+    "Elige el nombre de tu cuenta de Elegon. Los nombres de tus personajes y tu perfil de Steam no cambian.",
   "details.saveUsername": "Guardar nombre",
   "details.saving": "Guardando…",
   "details.usernameSaved": "Tu nombre de usuario de Elegon se ha actualizado.",
-  "details.usernameError": "No se pudo guardar tu nombre de usuario. Usa de 2 a 32 letras, números, espacios, puntos, guiones bajos o guiones.",
+  "details.usernameError":
+    "No se pudo guardar tu nombre de usuario. Usa de 2 a 32 letras, números, espacios, puntos, guiones bajos o guiones.",
   "details.emailTitle": "Correo electrónico",
   "details.emailBefore": "Se usa para iniciar sesión en",
-  "details.emailAfter": "y para enviar opiniones desde el juego. Si ya publicaste opiniones antes, usa el mismo correo para reclamarlas.",
+  "details.emailAfter":
+    "y para enviar opiniones desde el juego. Si ya publicaste opiniones antes, usa el mismo correo para reclamarlas.",
   "characters.title": "Tus personajes",
   "characters.refresh": "Actualizar",
   "characters.loading": "Cargando personajes…",
-  "characters.loadError": "No se pudieron cargar tus personajes. Actualiza la página e inténtalo de nuevo.",
+  "characters.loadError":
+    "No se pudieron cargar tus personajes. Actualiza la página e inténtalo de nuevo.",
   "characters.realm": "Reino {name}",
   "characters.realmError": "No se pudo cargar este reino. Inténtalo de nuevo.",
   "characters.none": "Aún no hay personajes activos en este reino.",
   "characters.lastPlayed": "Última partida: {date}",
   "characters.level": "Nivel {level}",
-  "characters.legacy": "Los personajes del sistema de inicio de sesión anterior siguen vinculados. Si falta algún personaje, inicia sesión una vez en su reino dentro del juego para completar la migración de la cuenta y luego actualiza aquí.",
+  "characters.legacy":
+    "Los personajes del sistema de inicio de sesión anterior siguen vinculados. Si falta algún personaje, inicia sesión una vez en su reino dentro del juego para completar la migración de la cuenta y luego actualiza aquí.",
   "class.1": "Caballero",
   "class.2": "Mago",
   "class.3": "Clérigo",
   "danger.title": "Eliminar tu cuenta de Elegon",
-  "danger.description": "Elimina de forma permanente todos los personajes de ambos reinos, incluidos su inventario, progreso y datos relacionados. Se eliminarán todas las conexiones de la cuenta y se cerrará tu sesión. Esto no se puede deshacer.",
-  "danger.note": "Eliminar tu cuenta de Elegon no elimina tus cuentas de Steam, Discord o Patreon ni cancela una membresía de Patreon.",
+  "danger.description":
+    "Elimina de forma permanente todos los personajes de ambos reinos, incluidos su inventario, progreso y datos relacionados. Se eliminarán todas las conexiones de la cuenta y se cerrará tu sesión. Esto no se puede deshacer.",
+  "danger.note":
+    "Eliminar tu cuenta de Elegon no elimina tus cuentas de Steam, Discord o Patreon ni cancela una membresía de Patreon.",
   "danger.delete": "Eliminar cuenta…",
   "danger.resume": "Reanudar la eliminación de la cuenta",
   "danger.dialogTitle": "¿Eliminar tu cuenta de forma permanente?",
-  "danger.dialogDescription": "Vas a eliminar {name}. Se borrarán todos los personajes y sus datos relacionados en EU y US, y se desvincularán todas las conexiones. No podrás recuperar esta cuenta.",
+  "danger.dialogDescription":
+    "Vas a eliminar {name}. Se borrarán todos los personajes y sus datos relacionados en EU y US, y se desvincularán todas las conexiones. No podrás recuperar esta cuenta.",
   "danger.confirmBefore": "Escribe",
   "danger.confirmAfter": "para confirmar",
-  "danger.error": "No se pudo completar la eliminación. Inténtalo de nuevo para reanudar la limpieza. Tu cuenta está bloqueada mientras la eliminación está en curso.",
+  "danger.error":
+    "No se pudo completar la eliminación. Inténtalo de nuevo para reanudar la limpieza. Tu cuenta está bloqueada mientras la eliminación está en curso.",
   "danger.inProgress": "Eliminando tu cuenta de ambos reinos. Mantén esta página abierta.",
   "danger.cancel": "Cancelar",
   "danger.deleting": "Eliminando…",
   "danger.confirm": "Eliminar permanentemente",
   "email.loading": "Cargando tu correo electrónico…",
-  "email.loadError": "No se pudo cargar tu correo electrónico. Actualiza la página e inténtalo de nuevo.",
+  "email.loadError":
+    "No se pudo cargar tu correo electrónico. Actualiza la página e inténtalo de nuevo.",
   "email.change": "Cambiar correo",
   "email.label": "Correo electrónico",
   "email.send": "Enviar código",
@@ -452,7 +540,8 @@ const es: Messages = {
   "email.different": "Usar otro correo",
   "email.sent": "Hemos enviado un código de 6 dígitos a {email}. Caduca en 15 minutos.",
   "email.sendError": "No se pudo enviar el código. Inténtalo de nuevo.",
-  "email.verified": "Tu correo está verificado. Las opiniones que publicaste con esta dirección ahora están vinculadas a tu cuenta de Elegon.",
+  "email.verified":
+    "Tu correo está verificado. Las opiniones que publicaste con esta dirección ahora están vinculadas a tu cuenta de Elegon.",
   "email.verifyError": "No se pudo comprobar ese código. Inténtalo de nuevo.",
 };
 
@@ -461,15 +550,18 @@ const fr: Messages = {
   "header.eyebrow": "Votre place dans Elegon",
   "header.title": "Votre compte",
   "header.introSignedIn": "Vos aventuriers, dans tous les royaumes. Votre voyage continue ici.",
-  "header.introSignedOut": "Vos aventuriers, dans tous les royaumes. Connectez-vous avec le compte Steam que vous utilisez pour jouer.",
-  "status.deleted": "Votre compte Elegon et vos personnages ont été supprimés. Vous êtes déconnecté.",
+  "header.introSignedOut":
+    "Vos aventuriers, dans tous les royaumes. Connectez-vous avec le compte Steam que vous utilisez pour jouer.",
+  "status.deleted":
+    "Votre compte Elegon et vos personnages ont été supprimés. Vous êtes déconnecté.",
   "status.loading": "Chargement de votre compte…",
   "status.loadError": "Votre compte n'a pas pu être chargé. Veuillez réessayer.",
   "status.tryAgain": "Réessayer",
   "login.unavailable": "La connexion au site est en préparation. Revenez bientôt.",
   "login.failed": "La connexion Steam n'a pas pu aboutir. Veuillez réessayer.",
   "signIn.title": "Poursuivez votre voyage",
-  "signIn.description": "Steam vous connecte en toute sécurité à votre compte Elegon existant. Vos personnages restent liés au compte avec lequel vous jouez déjà.",
+  "signIn.description":
+    "Steam vous connecte en toute sécurité à votre compte Elegon existant. Vos personnages restent liés au compte avec lequel vous jouez déjà.",
   "signIn.steam": "Se connecter avec Steam",
   "signIn.comingSoon": "La connexion au site arrive bientôt.",
   "profile.adventurer": "Aventurier",
@@ -499,7 +591,8 @@ const fr: Messages = {
   "tabs.characterCountUnavailable": "Nombre de personnages indisponible",
   "tabs.totalCharacters_one": "{count} personnage au total",
   "tabs.totalCharacters_other": "{count} personnages au total",
-  "deletionPending": "Votre compte est en cours de suppression. Reprenez la suppression dans la zone de danger pour finir d'effacer les données des deux royaumes.",
+  deletionPending:
+    "Votre compte est en cours de suppression. Reprenez la suppression dans la zone de danger pour finir d'effacer les données des deux royaumes.",
   "connections.title": "Connexions",
   "connections.description": "Les comptes connectés à votre profil Elegon.",
   "connections.required": "Obligatoire",
@@ -509,29 +602,37 @@ const fr: Messages = {
   "connections.connecting": "Connexion…",
   "connections.disconnecting": "Déconnexion…",
   "connections.steamId": "ID Steam {id}",
-  "connections.steamPrimary": "Steam est votre méthode de connexion principale et reste lié à votre compte Elegon.",
+  "connections.steamPrimary":
+    "Steam est votre méthode de connexion principale et reste lié à votre compte Elegon.",
   "connections.steamProfile": "Profil Steam",
   "connections.discordId": "ID Discord {id}",
   "connections.discordPrompt": "Connectez votre compte Discord à votre profil Elegon.",
   "connections.discordConnect": "Connecter Discord",
   "connections.discordDisconnect": "Déconnecter Discord",
   "connections.discordPreparing": "Les connexions Discord sont en préparation.",
-  "connections.discordConnectError": "Discord n'a pas pu être connecté. Actualisez votre compte et réessayez.",
-  "connections.discordDisconnectError": "Discord n'a pas pu être déconnecté. Actualisez votre compte et réessayez.",
+  "connections.discordConnectError":
+    "Discord n'a pas pu être connecté. Actualisez votre compte et réessayez.",
+  "connections.discordDisconnectError":
+    "Discord n'a pas pu être déconnecté. Actualisez votre compte et réessayez.",
   "connections.discordDisconnected": "Discord a été déconnecté de votre compte Elegon.",
   "connections.patreonId": "ID Patreon {id}",
-  "connections.patreonPrompt": "Connectez votre compte Patreon pour voir votre palier de soutien Elegon et votre historique de soutien.",
+  "connections.patreonPrompt":
+    "Connectez votre compte Patreon pour voir votre palier de soutien Elegon et votre historique de soutien.",
   "connections.patreonConnect": "Connecter Patreon",
   "connections.patreonDisconnect": "Déconnecter Patreon",
   "connections.patreonPreparing": "Les connexions Patreon sont en préparation.",
-  "connections.patreonConnectError": "Patreon n'a pas pu être connecté. Actualisez votre compte et réessayez.",
-  "connections.patreonDisconnectError": "Patreon n'a pas pu être déconnecté. Actualisez votre compte et réessayez.",
+  "connections.patreonConnectError":
+    "Patreon n'a pas pu être connecté. Actualisez votre compte et réessayez.",
+  "connections.patreonDisconnectError":
+    "Patreon n'a pas pu être déconnecté. Actualisez votre compte et réessayez.",
   "connections.patreonDisconnected": "Patreon a été déconnecté de votre compte Elegon.",
   "connections.patreonChecking": "Vérification de votre soutien à Elegon…",
-  "connections.patreonError": "Les détails du soutien sont temporairement indisponibles. Veuillez réessayer.",
+  "connections.patreonError":
+    "Les détails du soutien sont temporairement indisponibles. Veuillez réessayer.",
   "connections.patreonSupport": "Soutien à Elegon",
   "connections.patreonSince": "Soutien depuis",
-  "connections.patreonNote": "La mise à jour des détails du soutien peut prendre jusqu'à cinq minutes. Se déconnecter ici n'annule pas votre abonnement Patreon.",
+  "connections.patreonNote":
+    "La mise à jour des détails du soutien peut prendre jusqu'à cinq minutes. Se déconnecter ici n'annule pas votre abonnement Patreon.",
   "connections.patreonRefresh": "Actualiser le soutien",
   "patreon.active": "Soutient Elegon",
   "patreon.declined": "Le paiement requiert votre attention",
@@ -543,49 +644,65 @@ const fr: Messages = {
   "patreon.months_other": "{count} mois sur cette période de soutien",
   "notice.discord-linked": "Discord est connecté à votre compte Elegon.",
   "notice.discord-cancelled": "Connexion Discord annulée. Vos connexions n'ont pas changé.",
-  "notice.discord-expired": "Cette tentative de connexion a expiré. Connectez-vous et réessayez de connecter Discord.",
-  "notice.discord-in-use": "Ce compte Discord est connecté à un autre compte Elegon. Déconnectez-le d'abord là-bas.",
-  "notice.discord-already-linked": "Votre compte Elegon a déjà une connexion Discord. Actualisez pour la voir.",
+  "notice.discord-expired":
+    "Cette tentative de connexion a expiré. Connectez-vous et réessayez de connecter Discord.",
+  "notice.discord-in-use":
+    "Ce compte Discord est connecté à un autre compte Elegon. Déconnectez-le d'abord là-bas.",
+  "notice.discord-already-linked":
+    "Votre compte Elegon a déjà une connexion Discord. Actualisez pour la voir.",
   "notice.discord-failed": "Discord n'a pas pu être connecté. Veuillez réessayer.",
   "notice.patreon-linked": "Patreon est connecté à votre compte Elegon.",
   "notice.patreon-cancelled": "Connexion Patreon annulée. Vos connexions n'ont pas changé.",
-  "notice.patreon-expired": "Cette tentative de connexion a expiré. Connectez-vous et réessayez de connecter Patreon.",
-  "notice.patreon-in-use": "Ce compte Patreon est connecté à un autre compte Elegon. Déconnectez-le d'abord là-bas.",
-  "notice.patreon-already-linked": "Votre compte Elegon a déjà une connexion Patreon. Actualisez pour la voir.",
+  "notice.patreon-expired":
+    "Cette tentative de connexion a expiré. Connectez-vous et réessayez de connecter Patreon.",
+  "notice.patreon-in-use":
+    "Ce compte Patreon est connecté à un autre compte Elegon. Déconnectez-le d'abord là-bas.",
+  "notice.patreon-already-linked":
+    "Votre compte Elegon a déjà une connexion Patreon. Actualisez pour la voir.",
   "notice.patreon-failed": "Patreon n'a pas pu être connecté. Veuillez réessayer.",
   "details.usernameLabel": "Nom d'utilisateur Elegon",
-  "details.usernameHelp": "Choisissez le nom de votre compte Elegon. Les noms de vos personnages et votre profil Steam restent inchangés.",
+  "details.usernameHelp":
+    "Choisissez le nom de votre compte Elegon. Les noms de vos personnages et votre profil Steam restent inchangés.",
   "details.saveUsername": "Enregistrer le nom",
   "details.saving": "Enregistrement…",
   "details.usernameSaved": "Votre nom d'utilisateur Elegon a été mis à jour.",
-  "details.usernameError": "Votre nom d'utilisateur n'a pas pu être enregistré. Utilisez 2 à 32 lettres, chiffres, espaces, points, traits de soulignement ou tirets.",
+  "details.usernameError":
+    "Votre nom d'utilisateur n'a pas pu être enregistré. Utilisez 2 à 32 lettres, chiffres, espaces, points, traits de soulignement ou tirets.",
   "details.emailTitle": "E-mail",
   "details.emailBefore": "Utilisée pour vous connecter à",
-  "details.emailAfter": "et pour envoyer des retours depuis le jeu. Si vous avez déjà publié des retours, utilisez la même adresse pour les récupérer.",
+  "details.emailAfter":
+    "et pour envoyer des retours depuis le jeu. Si vous avez déjà publié des retours, utilisez la même adresse pour les récupérer.",
   "characters.title": "Vos personnages",
   "characters.refresh": "Actualiser",
   "characters.loading": "Chargement des personnages…",
-  "characters.loadError": "Vos personnages n'ont pas pu être chargés. Actualisez la page et réessayez.",
+  "characters.loadError":
+    "Vos personnages n'ont pas pu être chargés. Actualisez la page et réessayez.",
   "characters.realm": "Royaume {name}",
   "characters.realmError": "Ce royaume n'a pas pu être chargé. Veuillez réessayer.",
   "characters.none": "Aucun personnage actif dans ce royaume pour l'instant.",
   "characters.lastPlayed": "Dernière partie le {date}",
   "characters.level": "Niveau {level}",
-  "characters.legacy": "Les personnages de l'ancien système de connexion restent liés. S'il manque un personnage, connectez-vous une fois à son royaume dans le jeu pour terminer la migration du compte, puis actualisez ici.",
+  "characters.legacy":
+    "Les personnages de l'ancien système de connexion restent liés. S'il manque un personnage, connectez-vous une fois à son royaume dans le jeu pour terminer la migration du compte, puis actualisez ici.",
   "class.1": "Chevalier",
   "class.2": "Mage",
   "class.3": "Clerc",
   "danger.title": "Supprimer votre compte Elegon",
-  "danger.description": "Supprimez définitivement tous les personnages des deux royaumes, y compris leur inventaire, leur progression et les données associées. Toutes les connexions du compte seront supprimées et vous serez déconnecté. Cette action est irréversible.",
-  "danger.note": "Supprimer votre compte Elegon ne supprime pas vos comptes Steam, Discord ou Patreon et n'annule pas un abonnement Patreon.",
+  "danger.description":
+    "Supprimez définitivement tous les personnages des deux royaumes, y compris leur inventaire, leur progression et les données associées. Toutes les connexions du compte seront supprimées et vous serez déconnecté. Cette action est irréversible.",
+  "danger.note":
+    "Supprimer votre compte Elegon ne supprime pas vos comptes Steam, Discord ou Patreon et n'annule pas un abonnement Patreon.",
   "danger.delete": "Supprimer le compte…",
   "danger.resume": "Reprendre la suppression du compte",
   "danger.dialogTitle": "Supprimer définitivement votre compte ?",
-  "danger.dialogDescription": "Vous supprimez {name}. Tous les personnages et leurs données associées sur EU et US seront supprimés, et toutes les connexions seront dissociées. Ce compte ne pourra pas être récupéré.",
+  "danger.dialogDescription":
+    "Vous supprimez {name}. Tous les personnages et leurs données associées sur EU et US seront supprimés, et toutes les connexions seront dissociées. Ce compte ne pourra pas être récupéré.",
   "danger.confirmBefore": "Tapez",
   "danger.confirmAfter": "pour confirmer",
-  "danger.error": "La suppression n'a pas pu aboutir. Réessayez pour reprendre le nettoyage. Votre compte est verrouillé pendant la suppression.",
-  "danger.inProgress": "Suppression de votre compte des deux royaumes. Veuillez garder cette page ouverte.",
+  "danger.error":
+    "La suppression n'a pas pu aboutir. Réessayez pour reprendre le nettoyage. Votre compte est verrouillé pendant la suppression.",
+  "danger.inProgress":
+    "Suppression de votre compte des deux royaumes. Veuillez garder cette page ouverte.",
   "danger.cancel": "Annuler",
   "danger.deleting": "Suppression…",
   "danger.confirm": "Supprimer définitivement",
@@ -602,7 +719,8 @@ const fr: Messages = {
   "email.different": "Utiliser une autre adresse",
   "email.sent": "Nous avons envoyé un code à 6 chiffres à {email}. Il expire dans 15 minutes.",
   "email.sendError": "Le code n'a pas pu être envoyé. Veuillez réessayer.",
-  "email.verified": "Votre e-mail est vérifié. Les retours publiés avec cette adresse sont désormais liés à votre compte Elegon.",
+  "email.verified":
+    "Votre e-mail est vérifié. Les retours publiés avec cette adresse sont désormais liés à votre compte Elegon.",
   "email.verifyError": "Ce code n'a pas pu être vérifié. Veuillez réessayer.",
 };
 
@@ -611,7 +729,8 @@ const ptBR: Messages = {
   "header.eyebrow": "Seu lugar em Elegon",
   "header.title": "Sua conta",
   "header.introSignedIn": "Seus aventureiros, em todos os reinos. Sua jornada continua aqui.",
-  "header.introSignedOut": "Seus aventureiros, em todos os reinos. Entre com a conta Steam que você usa para jogar.",
+  "header.introSignedOut":
+    "Seus aventureiros, em todos os reinos. Entre com a conta Steam que você usa para jogar.",
   "status.deleted": "Sua conta Elegon e seus personagens foram excluídos. Você saiu da conta.",
   "status.loading": "Carregando sua conta…",
   "status.loadError": "Não foi possível carregar sua conta. Tente novamente.",
@@ -619,7 +738,8 @@ const ptBR: Messages = {
   "login.unavailable": "O login no site está sendo preparado. Volte em breve.",
   "login.failed": "Não foi possível concluir o login com a Steam. Tente novamente.",
   "signIn.title": "Continue sua jornada",
-  "signIn.description": "A Steam conecta você com segurança à sua conta Elegon existente. Seus personagens continuam vinculados à conta em que você já joga.",
+  "signIn.description":
+    "A Steam conecta você com segurança à sua conta Elegon existente. Seus personagens continuam vinculados à conta em que você já joga.",
   "signIn.steam": "Entrar com a Steam",
   "signIn.comingSoon": "O login no site chegará em breve.",
   "profile.adventurer": "Aventureiro",
@@ -649,7 +769,8 @@ const ptBR: Messages = {
   "tabs.characterCountUnavailable": "Número de personagens indisponível",
   "tabs.totalCharacters_one": "{count} personagem no total",
   "tabs.totalCharacters_other": "{count} personagens no total",
-  "deletionPending": "Sua conta está sendo excluída. Retome a exclusão na zona de perigo para terminar de remover os dados dos dois reinos.",
+  deletionPending:
+    "Sua conta está sendo excluída. Retome a exclusão na zona de perigo para terminar de remover os dados dos dois reinos.",
   "connections.title": "Conexões",
   "connections.description": "As contas conectadas ao seu perfil Elegon.",
   "connections.required": "Obrigatória",
@@ -659,29 +780,37 @@ const ptBR: Messages = {
   "connections.connecting": "Conectando…",
   "connections.disconnecting": "Desconectando…",
   "connections.steamId": "ID Steam {id}",
-  "connections.steamPrimary": "A Steam é seu login principal e permanece conectada à sua conta Elegon.",
+  "connections.steamPrimary":
+    "A Steam é seu login principal e permanece conectada à sua conta Elegon.",
   "connections.steamProfile": "Perfil na Steam",
   "connections.discordId": "ID do Discord {id}",
   "connections.discordPrompt": "Conecte sua conta do Discord ao seu perfil Elegon.",
   "connections.discordConnect": "Conectar Discord",
   "connections.discordDisconnect": "Desconectar Discord",
   "connections.discordPreparing": "As conexões com o Discord estão sendo preparadas.",
-  "connections.discordConnectError": "Não foi possível conectar o Discord. Atualize sua conta e tente novamente.",
-  "connections.discordDisconnectError": "Não foi possível desconectar o Discord. Atualize sua conta e tente novamente.",
+  "connections.discordConnectError":
+    "Não foi possível conectar o Discord. Atualize sua conta e tente novamente.",
+  "connections.discordDisconnectError":
+    "Não foi possível desconectar o Discord. Atualize sua conta e tente novamente.",
   "connections.discordDisconnected": "O Discord foi desconectado da sua conta Elegon.",
   "connections.patreonId": "ID do Patreon {id}",
-  "connections.patreonPrompt": "Conecte sua conta do Patreon para ver seu nível de apoiador de Elegon e seu histórico de apoio.",
+  "connections.patreonPrompt":
+    "Conecte sua conta do Patreon para ver seu nível de apoiador de Elegon e seu histórico de apoio.",
   "connections.patreonConnect": "Conectar Patreon",
   "connections.patreonDisconnect": "Desconectar Patreon",
   "connections.patreonPreparing": "As conexões com o Patreon estão sendo preparadas.",
-  "connections.patreonConnectError": "Não foi possível conectar o Patreon. Atualize sua conta e tente novamente.",
-  "connections.patreonDisconnectError": "Não foi possível desconectar o Patreon. Atualize sua conta e tente novamente.",
+  "connections.patreonConnectError":
+    "Não foi possível conectar o Patreon. Atualize sua conta e tente novamente.",
+  "connections.patreonDisconnectError":
+    "Não foi possível desconectar o Patreon. Atualize sua conta e tente novamente.",
   "connections.patreonDisconnected": "O Patreon foi desconectado da sua conta Elegon.",
   "connections.patreonChecking": "Verificando seu apoio a Elegon…",
-  "connections.patreonError": "Os detalhes do apoio estão temporariamente indisponíveis. Tente novamente.",
+  "connections.patreonError":
+    "Os detalhes do apoio estão temporariamente indisponíveis. Tente novamente.",
   "connections.patreonSupport": "Apoio a Elegon",
   "connections.patreonSince": "Apoiando desde",
-  "connections.patreonNote": "Os detalhes do apoio podem levar até cinco minutos para atualizar. Desconectar aqui não cancela sua assinatura do Patreon.",
+  "connections.patreonNote":
+    "Os detalhes do apoio podem levar até cinco minutos para atualizar. Desconectar aqui não cancela sua assinatura do Patreon.",
   "connections.patreonRefresh": "Atualizar apoio",
   "patreon.active": "Apoiando Elegon",
   "patreon.declined": "O pagamento precisa de atenção",
@@ -693,48 +822,63 @@ const ptBR: Messages = {
   "patreon.months_other": "{count} meses neste período de apoio",
   "notice.discord-linked": "O Discord foi conectado à sua conta Elegon.",
   "notice.discord-cancelled": "Conexão com o Discord cancelada. Suas conexões não mudaram.",
-  "notice.discord-expired": "Esta tentativa de conexão expirou. Entre e tente conectar o Discord novamente.",
-  "notice.discord-in-use": "Essa conta do Discord está conectada a outra conta Elegon. Desconecte-a lá primeiro.",
-  "notice.discord-already-linked": "Sua conta Elegon já tem uma conexão com o Discord. Atualize para vê-la.",
+  "notice.discord-expired":
+    "Esta tentativa de conexão expirou. Entre e tente conectar o Discord novamente.",
+  "notice.discord-in-use":
+    "Essa conta do Discord está conectada a outra conta Elegon. Desconecte-a lá primeiro.",
+  "notice.discord-already-linked":
+    "Sua conta Elegon já tem uma conexão com o Discord. Atualize para vê-la.",
   "notice.discord-failed": "Não foi possível conectar o Discord. Tente novamente.",
   "notice.patreon-linked": "O Patreon foi conectado à sua conta Elegon.",
   "notice.patreon-cancelled": "Conexão com o Patreon cancelada. Suas conexões não mudaram.",
-  "notice.patreon-expired": "Esta tentativa de conexão expirou. Entre e tente conectar o Patreon novamente.",
-  "notice.patreon-in-use": "Essa conta do Patreon está conectada a outra conta Elegon. Desconecte-a lá primeiro.",
-  "notice.patreon-already-linked": "Sua conta Elegon já tem uma conexão com o Patreon. Atualize para vê-la.",
+  "notice.patreon-expired":
+    "Esta tentativa de conexão expirou. Entre e tente conectar o Patreon novamente.",
+  "notice.patreon-in-use":
+    "Essa conta do Patreon está conectada a outra conta Elegon. Desconecte-a lá primeiro.",
+  "notice.patreon-already-linked":
+    "Sua conta Elegon já tem uma conexão com o Patreon. Atualize para vê-la.",
   "notice.patreon-failed": "Não foi possível conectar o Patreon. Tente novamente.",
   "details.usernameLabel": "Nome de usuário Elegon",
-  "details.usernameHelp": "Escolha o nome da sua conta Elegon. Os nomes dos seus personagens e seu perfil na Steam continuam os mesmos.",
+  "details.usernameHelp":
+    "Escolha o nome da sua conta Elegon. Os nomes dos seus personagens e seu perfil na Steam continuam os mesmos.",
   "details.saveUsername": "Salvar nome",
   "details.saving": "Salvando…",
   "details.usernameSaved": "Seu nome de usuário Elegon foi atualizado.",
-  "details.usernameError": "Não foi possível salvar seu nome de usuário. Use de 2 a 32 letras, números, espaços, pontos, sublinhados ou hifens.",
+  "details.usernameError":
+    "Não foi possível salvar seu nome de usuário. Use de 2 a 32 letras, números, espaços, pontos, sublinhados ou hifens.",
   "details.emailTitle": "E-mail",
   "details.emailBefore": "Usado para entrar no",
-  "details.emailAfter": "e para enviar feedback pelo jogo. Se você já publicou feedback antes, use o mesmo e-mail para reivindicá-lo.",
+  "details.emailAfter":
+    "e para enviar feedback pelo jogo. Se você já publicou feedback antes, use o mesmo e-mail para reivindicá-lo.",
   "characters.title": "Seus personagens",
   "characters.refresh": "Atualizar",
   "characters.loading": "Carregando personagens…",
-  "characters.loadError": "Não foi possível carregar seus personagens. Atualize a página e tente novamente.",
+  "characters.loadError":
+    "Não foi possível carregar seus personagens. Atualize a página e tente novamente.",
   "characters.realm": "Reino {name}",
   "characters.realmError": "Não foi possível carregar este reino. Tente novamente.",
   "characters.none": "Ainda não há personagens ativos neste reino.",
   "characters.lastPlayed": "Jogou pela última vez em {date}",
   "characters.level": "Nível {level}",
-  "characters.legacy": "Os personagens do sistema de login anterior continuam vinculados. Se um personagem esperado estiver faltando, entre uma vez no reino dele pelo jogo para concluir a migração da conta e depois atualize aqui.",
+  "characters.legacy":
+    "Os personagens do sistema de login anterior continuam vinculados. Se um personagem esperado estiver faltando, entre uma vez no reino dele pelo jogo para concluir a migração da conta e depois atualize aqui.",
   "class.1": "Cavaleiro",
   "class.2": "Mago",
   "class.3": "Clérigo",
   "danger.title": "Excluir sua conta Elegon",
-  "danger.description": "Exclua permanentemente todos os personagens dos dois reinos, incluindo inventário, progresso e dados relacionados. Todas as conexões da conta serão removidas e você sairá da conta. Isso não pode ser desfeito.",
-  "danger.note": "Excluir sua conta Elegon não exclui suas contas da Steam, do Discord ou do Patreon, nem cancela uma assinatura do Patreon.",
+  "danger.description":
+    "Exclua permanentemente todos os personagens dos dois reinos, incluindo inventário, progresso e dados relacionados. Todas as conexões da conta serão removidas e você sairá da conta. Isso não pode ser desfeito.",
+  "danger.note":
+    "Excluir sua conta Elegon não exclui suas contas da Steam, do Discord ou do Patreon, nem cancela uma assinatura do Patreon.",
   "danger.delete": "Excluir conta…",
   "danger.resume": "Retomar a exclusão da conta",
   "danger.dialogTitle": "Excluir sua conta permanentemente?",
-  "danger.dialogDescription": "Você está excluindo {name}. Todos os personagens e seus dados relacionados em EU e US serão removidos, e todas as conexões serão desvinculadas. Não será possível recuperar esta conta.",
+  "danger.dialogDescription":
+    "Você está excluindo {name}. Todos os personagens e seus dados relacionados em EU e US serão removidos, e todas as conexões serão desvinculadas. Não será possível recuperar esta conta.",
   "danger.confirmBefore": "Digite",
   "danger.confirmAfter": "para confirmar",
-  "danger.error": "Não foi possível concluir a exclusão. Tente novamente para retomar a limpeza. Sua conta fica bloqueada enquanto a exclusão está em andamento.",
+  "danger.error":
+    "Não foi possível concluir a exclusão. Tente novamente para retomar a limpeza. Sua conta fica bloqueada enquanto a exclusão está em andamento.",
   "danger.inProgress": "Removendo sua conta dos dois reinos. Mantenha esta página aberta.",
   "danger.cancel": "Cancelar",
   "danger.deleting": "Excluindo…",
@@ -752,7 +896,8 @@ const ptBR: Messages = {
   "email.different": "Usar outro e-mail",
   "email.sent": "Enviamos um código de 6 dígitos para {email}. Ele expira em 15 minutos.",
   "email.sendError": "Não foi possível enviar o código. Tente novamente.",
-  "email.verified": "Seu e-mail foi verificado. Os feedbacks que você publicou com este endereço agora estão vinculados à sua conta Elegon.",
+  "email.verified":
+    "Seu e-mail foi verificado. Os feedbacks que você publicou com este endereço agora estão vinculados à sua conta Elegon.",
   "email.verifyError": "Não foi possível verificar esse código. Tente novamente.",
 };
 
@@ -760,8 +905,10 @@ const ru: Messages = {
   "seo.title": "Ваш аккаунт",
   "header.eyebrow": "Ваше место в Elegon",
   "header.title": "Ваш аккаунт",
-  "header.introSignedIn": "Ваши искатели приключений во всех мирах. Ваше путешествие продолжается здесь.",
-  "header.introSignedOut": "Ваши искатели приключений во всех мирах. Войдите через аккаунт Steam, с которого вы играете.",
+  "header.introSignedIn":
+    "Ваши искатели приключений во всех мирах. Ваше путешествие продолжается здесь.",
+  "header.introSignedOut":
+    "Ваши искатели приключений во всех мирах. Войдите через аккаунт Steam, с которого вы играете.",
   "status.deleted": "Ваш аккаунт Elegon и персонажи удалены. Вы вышли из аккаунта.",
   "status.loading": "Загрузка аккаунта…",
   "status.loadError": "Не удалось загрузить аккаунт. Попробуйте ещё раз.",
@@ -769,7 +916,8 @@ const ru: Messages = {
   "login.unavailable": "Вход на сайте ещё готовится. Загляните позже.",
   "login.failed": "Не удалось войти через Steam. Попробуйте ещё раз.",
   "signIn.title": "Продолжите путешествие",
-  "signIn.description": "Steam безопасно выполнит вход в ваш существующий аккаунт Elegon. Ваши персонажи останутся привязаны к аккаунту, на котором вы уже играете.",
+  "signIn.description":
+    "Steam безопасно выполнит вход в ваш существующий аккаунт Elegon. Ваши персонажи останутся привязаны к аккаунту, на котором вы уже играете.",
   "signIn.steam": "Войти через Steam",
   "signIn.comingSoon": "Вход на сайте скоро появится.",
   "profile.adventurer": "Искатель приключений",
@@ -809,7 +957,8 @@ const ru: Messages = {
   "tabs.totalCharacters_few": "Всего {count} персонажа",
   "tabs.totalCharacters_many": "Всего {count} персонажей",
   "tabs.totalCharacters_other": "Всего {count} персонажа",
-  "deletionPending": "Ваш аккаунт удаляется. Продолжите удаление в опасной зоне, чтобы стереть данные из обоих миров.",
+  deletionPending:
+    "Ваш аккаунт удаляется. Продолжите удаление в опасной зоне, чтобы стереть данные из обоих миров.",
   "connections.title": "Подключения",
   "connections.description": "Аккаунты, подключённые к вашему профилю Elegon.",
   "connections.required": "Обязательно",
@@ -819,29 +968,36 @@ const ru: Messages = {
   "connections.connecting": "Подключение…",
   "connections.disconnecting": "Отключение…",
   "connections.steamId": "Steam ID {id}",
-  "connections.steamPrimary": "Steam — ваш основной способ входа, он остаётся привязан к аккаунту Elegon.",
+  "connections.steamPrimary":
+    "Steam — ваш основной способ входа, он остаётся привязан к аккаунту Elegon.",
   "connections.steamProfile": "Профиль Steam",
   "connections.discordId": "Discord ID {id}",
   "connections.discordPrompt": "Подключите аккаунт Discord к профилю Elegon.",
   "connections.discordConnect": "Подключить Discord",
   "connections.discordDisconnect": "Отключить Discord",
   "connections.discordPreparing": "Подключение Discord ещё готовится.",
-  "connections.discordConnectError": "Не удалось подключить Discord. Обновите аккаунт и попробуйте ещё раз.",
-  "connections.discordDisconnectError": "Не удалось отключить Discord. Обновите аккаунт и попробуйте ещё раз.",
+  "connections.discordConnectError":
+    "Не удалось подключить Discord. Обновите аккаунт и попробуйте ещё раз.",
+  "connections.discordDisconnectError":
+    "Не удалось отключить Discord. Обновите аккаунт и попробуйте ещё раз.",
   "connections.discordDisconnected": "Discord отключён от вашего аккаунта Elegon.",
   "connections.patreonId": "Patreon ID {id}",
-  "connections.patreonPrompt": "Подключите аккаунт Patreon, чтобы видеть свой уровень поддержки Elegon и историю поддержки.",
+  "connections.patreonPrompt":
+    "Подключите аккаунт Patreon, чтобы видеть свой уровень поддержки Elegon и историю поддержки.",
   "connections.patreonConnect": "Подключить Patreon",
   "connections.patreonDisconnect": "Отключить Patreon",
   "connections.patreonPreparing": "Подключение Patreon ещё готовится.",
-  "connections.patreonConnectError": "Не удалось подключить Patreon. Обновите аккаунт и попробуйте ещё раз.",
-  "connections.patreonDisconnectError": "Не удалось отключить Patreon. Обновите аккаунт и попробуйте ещё раз.",
+  "connections.patreonConnectError":
+    "Не удалось подключить Patreon. Обновите аккаунт и попробуйте ещё раз.",
+  "connections.patreonDisconnectError":
+    "Не удалось отключить Patreon. Обновите аккаунт и попробуйте ещё раз.",
   "connections.patreonDisconnected": "Patreon отключён от вашего аккаунта Elegon.",
   "connections.patreonChecking": "Проверяем вашу поддержку Elegon…",
   "connections.patreonError": "Сведения о поддержке временно недоступны. Попробуйте ещё раз.",
   "connections.patreonSupport": "Поддержка Elegon",
   "connections.patreonSince": "Поддерживает с",
-  "connections.patreonNote": "Обновление сведений о поддержке может занять до пяти минут. Отключение здесь не отменяет подписку на Patreon.",
+  "connections.patreonNote":
+    "Обновление сведений о поддержке может занять до пяти минут. Отключение здесь не отменяет подписку на Patreon.",
   "connections.patreonRefresh": "Обновить поддержку",
   "patreon.active": "Поддерживает Elegon",
   "patreon.declined": "Проблема с оплатой",
@@ -855,54 +1011,70 @@ const ru: Messages = {
   "patreon.months_other": "{count} месяца в текущем периоде поддержки",
   "notice.discord-linked": "Discord подключён к вашему аккаунту Elegon.",
   "notice.discord-cancelled": "Подключение Discord отменено. Ваши подключения не изменились.",
-  "notice.discord-expired": "Срок попытки подключения истёк. Войдите и попробуйте подключить Discord ещё раз.",
-  "notice.discord-in-use": "Этот аккаунт Discord подключён к другому аккаунту Elegon. Сначала отключите его там.",
-  "notice.discord-already-linked": "К вашему аккаунту Elegon уже подключён Discord. Обновите страницу, чтобы увидеть его.",
+  "notice.discord-expired":
+    "Срок попытки подключения истёк. Войдите и попробуйте подключить Discord ещё раз.",
+  "notice.discord-in-use":
+    "Этот аккаунт Discord подключён к другому аккаунту Elegon. Сначала отключите его там.",
+  "notice.discord-already-linked":
+    "К вашему аккаунту Elegon уже подключён Discord. Обновите страницу, чтобы увидеть его.",
   "notice.discord-failed": "Не удалось подключить Discord. Попробуйте ещё раз.",
   "notice.patreon-linked": "Patreon подключён к вашему аккаунту Elegon.",
   "notice.patreon-cancelled": "Подключение Patreon отменено. Ваши подключения не изменились.",
-  "notice.patreon-expired": "Срок попытки подключения истёк. Войдите и попробуйте подключить Patreon ещё раз.",
-  "notice.patreon-in-use": "Этот аккаунт Patreon подключён к другому аккаунту Elegon. Сначала отключите его там.",
-  "notice.patreon-already-linked": "К вашему аккаунту Elegon уже подключён Patreon. Обновите страницу, чтобы увидеть его.",
+  "notice.patreon-expired":
+    "Срок попытки подключения истёк. Войдите и попробуйте подключить Patreon ещё раз.",
+  "notice.patreon-in-use":
+    "Этот аккаунт Patreon подключён к другому аккаунту Elegon. Сначала отключите его там.",
+  "notice.patreon-already-linked":
+    "К вашему аккаунту Elegon уже подключён Patreon. Обновите страницу, чтобы увидеть его.",
   "notice.patreon-failed": "Не удалось подключить Patreon. Попробуйте ещё раз.",
   "details.usernameLabel": "Имя пользователя Elegon",
-  "details.usernameHelp": "Выберите имя для аккаунта Elegon. Имена персонажей и профиль Steam не изменятся.",
+  "details.usernameHelp":
+    "Выберите имя для аккаунта Elegon. Имена персонажей и профиль Steam не изменятся.",
   "details.saveUsername": "Сохранить имя",
   "details.saving": "Сохранение…",
   "details.usernameSaved": "Имя пользователя Elegon обновлено.",
-  "details.usernameError": "Не удалось сохранить имя пользователя. Используйте от 2 до 32 букв, цифр, пробелов, точек, подчёркиваний или дефисов.",
+  "details.usernameError":
+    "Не удалось сохранить имя пользователя. Используйте от 2 до 32 букв, цифр, пробелов, точек, подчёркиваний или дефисов.",
   "details.emailTitle": "Электронная почта",
   "details.emailBefore": "Используется для входа в",
-  "details.emailAfter": "и для отправки отзывов из игры. Если вы уже оставляли отзывы, укажите тот же адрес, чтобы привязать их.",
+  "details.emailAfter":
+    "и для отправки отзывов из игры. Если вы уже оставляли отзывы, укажите тот же адрес, чтобы привязать их.",
   "characters.title": "Ваши персонажи",
   "characters.refresh": "Обновить",
   "characters.loading": "Загрузка персонажей…",
-  "characters.loadError": "Не удалось загрузить персонажей. Обновите страницу и попробуйте ещё раз.",
+  "characters.loadError":
+    "Не удалось загрузить персонажей. Обновите страницу и попробуйте ещё раз.",
   "characters.realm": "Мир {name}",
   "characters.realmError": "Не удалось загрузить этот мир. Попробуйте ещё раз.",
   "characters.none": "В этом мире пока нет активных персонажей.",
   "characters.lastPlayed": "Последняя игра: {date}",
   "characters.level": "Уровень {level}",
-  "characters.legacy": "Персонажи из прежней системы входа остаются привязанными. Если нужного персонажа нет, один раз войдите в его мир в игре, чтобы завершить перенос аккаунта, а затем обновите эту страницу.",
+  "characters.legacy":
+    "Персонажи из прежней системы входа остаются привязанными. Если нужного персонажа нет, один раз войдите в его мир в игре, чтобы завершить перенос аккаунта, а затем обновите эту страницу.",
   "class.1": "Рыцарь",
   "class.2": "Маг",
   "class.3": "Жрец",
   "danger.title": "Удалить аккаунт Elegon",
-  "danger.description": "Безвозвратно удалить всех персонажей в обоих мирах, включая их инвентарь, прогресс и связанные данные. Все подключения аккаунта будут удалены, и вы выйдете из аккаунта. Это действие нельзя отменить.",
-  "danger.note": "Удаление аккаунта Elegon не удаляет ваши аккаунты Steam, Discord или Patreon и не отменяет подписку на Patreon.",
+  "danger.description":
+    "Безвозвратно удалить всех персонажей в обоих мирах, включая их инвентарь, прогресс и связанные данные. Все подключения аккаунта будут удалены, и вы выйдете из аккаунта. Это действие нельзя отменить.",
+  "danger.note":
+    "Удаление аккаунта Elegon не удаляет ваши аккаунты Steam, Discord или Patreon и не отменяет подписку на Patreon.",
   "danger.delete": "Удалить аккаунт…",
   "danger.resume": "Продолжить удаление аккаунта",
   "danger.dialogTitle": "Удалить аккаунт навсегда?",
-  "danger.dialogDescription": "Вы удаляете {name}. Все персонажи и связанные с ними данные на EU и US будут удалены, а все подключения отвязаны. Восстановить этот аккаунт будет невозможно.",
+  "danger.dialogDescription":
+    "Вы удаляете {name}. Все персонажи и связанные с ними данные на EU и US будут удалены, а все подключения отвязаны. Восстановить этот аккаунт будет невозможно.",
   "danger.confirmBefore": "Введите",
   "danger.confirmAfter": "для подтверждения",
-  "danger.error": "Не удалось завершить удаление. Попробуйте ещё раз, чтобы продолжить очистку. Пока идёт удаление, аккаунт заблокирован.",
+  "danger.error":
+    "Не удалось завершить удаление. Попробуйте ещё раз, чтобы продолжить очистку. Пока идёт удаление, аккаунт заблокирован.",
   "danger.inProgress": "Удаляем аккаунт из обоих миров. Не закрывайте эту страницу.",
   "danger.cancel": "Отмена",
   "danger.deleting": "Удаление…",
   "danger.confirm": "Удалить навсегда",
   "email.loading": "Загрузка адреса эл. почты…",
-  "email.loadError": "Не удалось загрузить адрес эл. почты. Обновите страницу и попробуйте ещё раз.",
+  "email.loadError":
+    "Не удалось загрузить адрес эл. почты. Обновите страницу и попробуйте ещё раз.",
   "email.change": "Изменить адрес",
   "email.label": "Адрес эл. почты",
   "email.send": "Отправить код",
@@ -914,7 +1086,8 @@ const ru: Messages = {
   "email.different": "Указать другой адрес",
   "email.sent": "Мы отправили 6-значный код на {email}. Он действует 15 минут.",
   "email.sendError": "Не удалось отправить код. Попробуйте ещё раз.",
-  "email.verified": "Адрес подтверждён. Отзывы, оставленные с этого адреса, теперь привязаны к вашему аккаунту Elegon.",
+  "email.verified":
+    "Адрес подтверждён. Отзывы, оставленные с этого адреса, теперь привязаны к вашему аккаунту Elegon.",
   "email.verifyError": "Не удалось проверить код. Попробуйте ещё раз.",
 };
 
@@ -931,7 +1104,8 @@ const zhCN: Messages = {
   "login.unavailable": "网站登录功能正在准备中，请稍后再来。",
   "login.failed": "Steam 登录未能完成，请重试。",
   "signIn.title": "继续你的旅程",
-  "signIn.description": "Steam 会安全地将你登录到现有的 Elegon 账号。你的角色将继续与你正在游玩的账号关联。",
+  "signIn.description":
+    "Steam 会安全地将你登录到现有的 Elegon 账号。你的角色将继续与你正在游玩的账号关联。",
   "signIn.steam": "通过 Steam 登录",
   "signIn.comingSoon": "网站登录即将推出。",
   "profile.adventurer": "冒险者",
@@ -956,7 +1130,7 @@ const zhCN: Messages = {
   "tabs.loadingCharacterCount": "正在加载角色数量",
   "tabs.characterCountUnavailable": "角色数量不可用",
   "tabs.totalCharacters_other": "共 {count} 个角色",
-  "deletionPending": "你的账号正在删除中。请在危险区域中继续删除，以完成两个服务器的数据清除。",
+  deletionPending: "你的账号正在删除中。请在危险区域中继续删除，以完成两个服务器的数据清除。",
   "connections.title": "关联账号",
   "connections.description": "与你的 Elegon 个人资料关联的账号。",
   "connections.required": "必需",
@@ -988,7 +1162,8 @@ const zhCN: Messages = {
   "connections.patreonError": "支持详情暂时无法获取，请重试。",
   "connections.patreonSupport": "Elegon 支持",
   "connections.patreonSince": "开始支持于",
-  "connections.patreonNote": "支持详情最多可能需要五分钟才能更新。在此解除关联不会取消你的 Patreon 会员资格。",
+  "connections.patreonNote":
+    "支持详情最多可能需要五分钟才能更新。在此解除关联不会取消你的 Patreon 会员资格。",
   "connections.patreonRefresh": "刷新支持状态",
   "patreon.active": "正在支持 Elegon",
   "patreon.declined": "付款需要处理",
@@ -1014,7 +1189,8 @@ const zhCN: Messages = {
   "details.saveUsername": "保存用户名",
   "details.saving": "正在保存…",
   "details.usernameSaved": "你的 Elegon 用户名已更新。",
-  "details.usernameError": "无法保存你的用户名。请使用 2–32 个字母、数字、空格、句点、下划线或连字符。",
+  "details.usernameError":
+    "无法保存你的用户名。请使用 2–32 个字母、数字、空格、句点、下划线或连字符。",
   "details.emailTitle": "邮箱",
   "details.emailBefore": "用于登录",
   "details.emailAfter": "以及在游戏内发送反馈。如果你之前发布过反馈，请使用相同的邮箱认领。",
@@ -1027,17 +1203,21 @@ const zhCN: Messages = {
   "characters.none": "此服务器上还没有活跃角色。",
   "characters.lastPlayed": "上次游玩：{date}",
   "characters.level": "{level} 级",
-  "characters.legacy": "旧登录系统中的角色仍保持关联。如果缺少某个角色，请在游戏中登录一次该角色所在的服务器以完成账号迁移，然后在此刷新。",
+  "characters.legacy":
+    "旧登录系统中的角色仍保持关联。如果缺少某个角色，请在游戏中登录一次该角色所在的服务器以完成账号迁移，然后在此刷新。",
   "class.1": "骑士",
   "class.2": "法师",
   "class.3": "牧师",
   "danger.title": "删除你的 Elegon 账号",
-  "danger.description": "永久删除两个服务器上的所有角色，包括其物品、进度和相关数据。所有关联账号都将被移除，你也将退出登录。此操作无法撤销。",
-  "danger.note": "删除 Elegon 账号不会删除你的 Steam、Discord 或 Patreon 账号，也不会取消 Patreon 会员资格。",
+  "danger.description":
+    "永久删除两个服务器上的所有角色，包括其物品、进度和相关数据。所有关联账号都将被移除，你也将退出登录。此操作无法撤销。",
+  "danger.note":
+    "删除 Elegon 账号不会删除你的 Steam、Discord 或 Patreon 账号，也不会取消 Patreon 会员资格。",
   "danger.delete": "删除账号…",
   "danger.resume": "继续删除账号",
   "danger.dialogTitle": "确定永久删除你的账号吗？",
-  "danger.dialogDescription": "你正在删除 {name}。EU 和 US 上的所有角色及其相关数据都将被移除，所有关联账号都将解除关联。此账号将无法恢复。",
+  "danger.dialogDescription":
+    "你正在删除 {name}。EU 和 US 上的所有角色及其相关数据都将被移除，所有关联账号都将解除关联。此账号将无法恢复。",
   "danger.confirmBefore": "输入",
   "danger.confirmAfter": "以确认",
   "danger.error": "删除未能完成。请重试以继续清理。删除进行期间，你的账号将被锁定。",
@@ -1062,4 +1242,12 @@ const zhCN: Messages = {
   "email.verifyError": "无法验证该验证码，请重试。",
 };
 
-export const ACCOUNT_MESSAGES: Record<SupportedLocale, Messages> = { en, de, es, fr, "pt-BR": ptBR, ru, "zh-CN": zhCN };
+export const ACCOUNT_MESSAGES: Record<SupportedLocale, Messages> = {
+  en,
+  de,
+  es,
+  fr,
+  "pt-BR": ptBR,
+  ru,
+  "zh-CN": zhCN,
+};

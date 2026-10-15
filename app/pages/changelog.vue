@@ -30,7 +30,11 @@ useHead({
   htmlAttrs: { lang: locale.value },
   link: [
     { rel: "canonical", href: `${siteUrl}${localePath("/changelog")}` },
-    ...SUPPORTED_LOCALES.map((code) => ({ rel: "alternate", hreflang: code, href: `${siteUrl}${localePath("/changelog", code)}` })),
+    ...SUPPORTED_LOCALES.map((code) => ({
+      rel: "alternate",
+      hreflang: code,
+      href: `${siteUrl}${localePath("/changelog", code)}`,
+    })),
     { rel: "alternate", hreflang: "x-default", href: `${siteUrl}/changelog` },
   ],
 });
@@ -100,7 +104,9 @@ function friendlyDate(value: string) {
         aria-hidden="true"
       />
       <EmberField :density="3" />
-      <div class="relative flex h-full items-center px-4 pt-36 pb-20 sm:px-6 lg:px-8 xl:justify-center xl:pt-0 xl:pb-0">
+      <div
+        class="relative flex h-full items-center px-4 pt-36 pb-20 sm:px-6 lg:px-8 xl:justify-center xl:pt-0 xl:pb-0"
+      >
         <div class="flex max-w-lg flex-col gap-5">
           <p class="eyebrow">Chronicles of development</p>
           <h1
@@ -114,8 +120,14 @@ function friendlyDate(value: string) {
             The latest Elegon fixes, improvements, and new features.
           </p>
           <div class="flex flex-wrap items-center gap-3 pt-2">
-            <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam">Play the Playtest</GameButton>
-            <GameButton :to="SITE_LINKS.feedback" variant="ghost" trailing-icon="i-lucide-arrow-up-right">
+            <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam"
+              >Play the Playtest</GameButton
+            >
+            <GameButton
+              :to="SITE_LINKS.feedback"
+              variant="ghost"
+              trailing-icon="i-lucide-arrow-up-right"
+            >
               Feedback
             </GameButton>
           </div>

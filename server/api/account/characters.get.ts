@@ -3,21 +3,47 @@ import { CHARACTER_QUERY, parseAccountCharacters } from "../../utils/accountChar
 export default defineEventHandler(async (event) => {
   const session = await getAccountSession(event);
   if (!session) throw createError({ statusCode: 401, statusMessage: "Please sign in" });
-  if (session.account.deletion_pending) throw createError({ statusCode: 409, statusMessage: "Account deletion is in progress" });
+  if (session.account.deletion_pending)
+    throw createError({ statusCode: 409, statusMessage: "Account deletion is in progress" });
   const config = useRuntimeConfig(event);
-  const realms = [{ name: "EU", url: config.accountEuRealmUrl }, { name: "US", url: config.accountUsRealmUrl }];
-  return { realms: await Promise.all(realms.map(async (realm) => {
-    try {
-      // A scoped read token bypasses game connection handling. HTTP requests
-      // otherwise trigger the realm lifecycle and could disturb a game session.
-      const results = await $fetch<any>(`${realm.url.replace(/\/+$/, "")}/v1/database/${encodeURIComponent(config.accountRealmDatabase)}/sql`, {
-        method: "POST", body: CHARACTER_QUERY,
-        headers: { Authorization: `Bearer ${session.realm_token}`, "Content-Type": "text/plain" },
-        timeout: 10_000, retry: 0,
-      });
-      return { name: realm.name, available: true, characters: parseAccountCharacters(results), error: null };
-    } catch {
-      return { name: realm.name, available: false, characters: [], error: "This realm could not be loaded. Please try again." };
-    }
-  })) };
+  const realms = [
+    { name: "EU", url: config.accountEuRealmUrl },
+    { name: "US", url: config.accountUsRealmUrl },
+  ];
+  return {
+    realms: await Promise.all(
+      realms.map(async (realm) => {
+        try {
+          // A scoped read token bypasses game connection handling. HTTP requests
+          // otherwise trigger the realm lifecycle and could disturb a game session.
+          const results: Parameters<typeof parseAccountCharacters>[0] = await $fetch<any>(
+            `${realm.url.replace(/\/+$/, "")}/v1/database/${encodeURIComponent(config.accountRealmDatabase)}/sql`,
+            {
+              method: "POST",
+              body: CHARACTER_QUERY,
+              headers: {
+                Authorization: `Bearer ${session.realm_token}`,
+                "Content-Type": "text/plain",
+              },
+              timeout: 10_000,
+              retry: 0,
+            },
+          );
+          return {
+            name: realm.name,
+            available: true,
+            characters: parseAccountCharacters(results),
+            error: null,
+          };
+        } catch {
+          return {
+            name: realm.name,
+            available: false,
+            characters: [],
+            error: "This realm could not be loaded. Please try again.",
+          };
+        }
+      }),
+    ),
+  };
 });

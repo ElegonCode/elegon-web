@@ -3,12 +3,7 @@ import { resolve } from "node:path";
 
 const webRoot = resolve(import.meta.dirname, "..");
 const contentRoot = resolve(webRoot, "content", "changelog");
-const outputPath = resolve(
-  webRoot,
-  "server",
-  "generated",
-  "changelog.json",
-);
+const outputPath = resolve(webRoot, "server", "generated", "changelog.json");
 
 function parseFrontmatter(markdown, filename) {
   const match = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
@@ -66,10 +61,7 @@ const filenames = (await readdir(contentRoot))
   .sort((left, right) => left.localeCompare(right, undefined, { numeric: true }));
 const entries = await Promise.all(
   filenames.map(async (filename) =>
-    parseFrontmatter(
-      await readFile(resolve(contentRoot, filename), "utf8"),
-      filename,
-    ),
+    parseFrontmatter(await readFile(resolve(contentRoot, filename), "utf8"), filename),
   ),
 );
 
@@ -78,10 +70,7 @@ if (ids.size !== entries.length) {
   throw new Error("Changelog entry IDs must be unique.");
 }
 
-entries.sort(
-  (left, right) =>
-    right.date.localeCompare(left.date) || right.id - left.id,
-);
+entries.sort((left, right) => right.date.localeCompare(left.date) || right.id - left.id);
 const changelog = {
   revision: contentRevision(entries),
   entries,
@@ -89,6 +78,4 @@ const changelog = {
 
 await mkdir(resolve(outputPath, ".."), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(changelog, null, 2)}\n`, "utf8");
-console.log(
-  `Built changelog revision ${changelog.revision} from ${entries.length} entries.`,
-);
+console.log(`Built changelog revision ${changelog.revision} from ${entries.length} entries.`);

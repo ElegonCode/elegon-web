@@ -7,7 +7,11 @@ export default defineEventHandler(async (event) => {
   if (typeof body?.patreon_id !== "string" || !/^\d{1,32}$/.test(body.patreon_id)) {
     throw createError({ statusCode: 400, statusMessage: "Invalid Patreon connection" });
   }
-  await authServiceRequest(event, { method: "DELETE", path: "/website/connections/patreon",
-    session: getCookie(event, accountConfig(event).sessionCookie), body: { patreon_id: body.patreon_id } });
+  await authServiceRequest(event, {
+    method: "DELETE",
+    path: "/website/connections/patreon",
+    session: getCookie(event, accountConfig(event).sessionCookie),
+    body: { patreon_id: body.patreon_id },
+  });
   return { ok: true };
 });

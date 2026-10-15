@@ -25,7 +25,12 @@ const crownGlyph: RarityGlyph = {
 
 // Tiers arrive ordered from highest to lowest, mirroring classic loot rarities.
 export const SUPPORTER_RARITIES: SupporterRarity[] = [
-  { name: "Legendary", color: "var(--color-rarity-legendary)", icon: "i-lucide-crown", glyph: crownGlyph },
+  {
+    name: "Legendary",
+    color: "var(--color-rarity-legendary)",
+    icon: "i-lucide-crown",
+    glyph: crownGlyph,
+  },
   { name: "Epic", color: "var(--color-rarity-epic)", icon: "i-lucide-gem" },
   { name: "Rare", color: "var(--color-rarity-rare)", icon: "i-lucide-shield" },
 ];
@@ -33,6 +38,9 @@ export const SUPPORTER_RARITIES: SupporterRarity[] = [
 /** Pairs each tier with its rarity styling and drops tiers without members. */
 export function withSupporterRarity(tiers: PatreonTier[]) {
   return tiers
-    .map((tier, index) => ({ ...tier, rarity: SUPPORTER_RARITIES[index] ?? SUPPORTER_RARITIES[2]! }))
+    .map((tier, index) => ({
+      ...tier,
+      rarity: SUPPORTER_RARITIES[index] ?? SUPPORTER_RARITIES[2]!,
+    }))
     .filter((tier) => tier.members.length > 0);
 }

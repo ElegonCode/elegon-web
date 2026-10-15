@@ -11,12 +11,22 @@ export default defineNuxtConfig({
     colorMode: false,
   },
   routeRules: {
-    "/account": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
-    ...Object.fromEntries(SUPPORTED_LOCALES.map((locale) => [
-      `/${locale}/account`,
-      { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
-    ])),
-    "/feedback/**": { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer" } },
+    "/account": {
+      headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" },
+    },
+    ...Object.fromEntries(
+      SUPPORTED_LOCALES.map((locale) => [
+        `/${locale}/account`,
+        { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" } },
+      ]),
+    ),
+    "/feedback/**": {
+      headers: {
+        "Cache-Control": "private, no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Referrer-Policy": "no-referrer",
+      },
+    },
     "/api/feedback/**": { headers: { "Cache-Control": "private, no-store" } },
     "/auth/**": { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } },
     "/api/account/**": { headers: { "Cache-Control": "private, no-store" } },
@@ -42,31 +52,22 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "",
     },
     patreonAccessToken:
-      process.env.PATREON_ACCESS_TOKEN ||
-      process.env.NUXT_PATREON_ACCESS_TOKEN ||
-      "",
+      process.env.PATREON_ACCESS_TOKEN || process.env.NUXT_PATREON_ACCESS_TOKEN || "",
     patreonCampaignId:
-      process.env.PATREON_CAMPAIGN_ID ||
-      process.env.NUXT_PATREON_CAMPAIGN_ID ||
-      "",
+      process.env.PATREON_CAMPAIGN_ID || process.env.NUXT_PATREON_CAMPAIGN_ID || "",
     patreonUserAgent:
-      process.env.PATREON_USER_AGENT ||
-      process.env.NUXT_PATREON_USER_AGENT ||
-      "Elegon Website",
-    patreonTier1Id:
-      process.env.PATREON_TIER_1_ID || process.env.NUXT_PATREON_TIER_1_ID || "",
+      process.env.PATREON_USER_AGENT || process.env.NUXT_PATREON_USER_AGENT || "Elegon Website",
+    patreonTier1Id: process.env.PATREON_TIER_1_ID || process.env.NUXT_PATREON_TIER_1_ID || "",
     patreonTier1Label:
       process.env.PATREON_TIER_1_LABEL ||
       process.env.NUXT_PATREON_TIER_1_LABEL ||
       "Legendary Supporters",
-    patreonTier2Id:
-      process.env.PATREON_TIER_2_ID || process.env.NUXT_PATREON_TIER_2_ID || "",
+    patreonTier2Id: process.env.PATREON_TIER_2_ID || process.env.NUXT_PATREON_TIER_2_ID || "",
     patreonTier2Label:
       process.env.PATREON_TIER_2_LABEL ||
       process.env.NUXT_PATREON_TIER_2_LABEL ||
       "Epic Supporters",
-    patreonTier3Id:
-      process.env.PATREON_TIER_3_ID || process.env.NUXT_PATREON_TIER_3_ID || "",
+    patreonTier3Id: process.env.PATREON_TIER_3_ID || process.env.NUXT_PATREON_TIER_3_ID || "",
     patreonTier3Label:
       process.env.PATREON_TIER_3_LABEL ||
       process.env.NUXT_PATREON_TIER_3_LABEL ||

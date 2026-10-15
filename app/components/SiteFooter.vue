@@ -23,9 +23,7 @@ const columns = computed(() => [
   },
   {
     title: t("footer.shape"),
-    links: [
-      { label: t("footer.feedback"), to: SITE_LINKS.feedback },
-    ],
+    links: [{ label: t("footer.feedback"), to: SITE_LINKS.feedback }],
   },
 ]);
 
@@ -42,7 +40,9 @@ const isExternal = (to: string) => to.startsWith("http");
       <div class="max-w-sm space-y-5">
         <NuxtLink :to="localePath()" class="flex items-center gap-3" :aria-label="t('nav.home')">
           <AppLogo class="h-11 w-11 rounded-sm ring-1 ring-gold-500/40" />
-          <span class="font-display text-2xl font-bold tracking-[0.28em] text-gold-gradient">ELEGON</span>
+          <span class="font-display text-2xl font-bold tracking-[0.28em] text-gold-gradient"
+            >ELEGON</span
+          >
         </NuxtLink>
         <p class="font-serif leading-relaxed text-parchment-muted">
           {{ t("footer.description") }}

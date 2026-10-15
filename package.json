@@ -1,9 +1,9 @@
 {
   "name": "elegon-web",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
-    "test:account": "node --test --test-isolation=none tests/account-auth.test.ts tests/discord-link.test.ts tests/patreon-link.test.ts tests/feedback-sign-in.test.ts",
+    "test:account": "vp test run tests/account-auth.test.ts tests/discord-link.test.ts tests/patreon-link.test.ts tests/feedback-sign-in.test.ts",
     "changelog:build": "node scripts/build-changelog.mjs",
     "prebuild": "npm run changelog:build",
     "build": "nuxt build",
@@ -12,7 +12,8 @@
     "pregenerate": "npm run changelog:build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "npm run changelog:build && nuxt prepare"
+    "postinstall": "npm run changelog:build && nuxt prepare",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@dargmuesli/nuxt-cookie-control": "^9.3.7",
@@ -31,7 +32,8 @@
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.133",
-    "@iconify-json/simple-icons": "^1.2.96"
+    "@iconify-json/simple-icons": "^1.2.96",
+    "vite-plus": "1.2.0"
   },
   "overrides": {
     "@vercel/analytics": {
@@ -39,6 +41,7 @@
     },
     "@vercel/speed-insights": {
       "vue-router": "$vue-router"
-    }
+    },
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.2.0"
   }
 }

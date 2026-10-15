@@ -1,6 +1,15 @@
-const localeMap = {
-  de: "de", es: "es", fr: "fr", pt: "pt-BR", "pt-br": "pt-BR", ru: "ru", zh: "zh-CN", "zh-cn": "zh-CN", "zh-hans": "zh-CN", "zh-sg": "zh-CN",
-} as const;
+const localeMap: Partial<Record<string, string>> = {
+  de: "de",
+  es: "es",
+  fr: "fr",
+  pt: "pt-BR",
+  "pt-br": "pt-BR",
+  ru: "ru",
+  zh: "zh-CN",
+  "zh-cn": "zh-CN",
+  "zh-hans": "zh-CN",
+  "zh-sg": "zh-CN",
+};
 
 export default defineEventHandler((event) => {
   const { pathname: path, search } = getRequestURL(event);
@@ -22,7 +31,7 @@ export default defineEventHandler((event) => {
   const locale =
     (saved && localeMap[saved]) ||
     preferredLanguages
-      .map(({ language }) => localeMap[language] ?? localeMap[language.split("-")[0]])
+      .map(({ language }) => localeMap[language] ?? localeMap[language.split("-")[0] ?? ""])
       .find(Boolean);
   if (!locale) return;
   setResponseHeader(event, "Vary", "Accept-Language");

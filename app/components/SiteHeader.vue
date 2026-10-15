@@ -5,8 +5,11 @@ const route = useRoute();
 const { data: accountData } = useAccount();
 const { locale, t, localePath } = useLocale();
 const { t: accountT } = useAccountMessages();
-const accountName = computed(() => accountData.value?.account
-  ? accountData.value.account.display_name || accountT("profile.adventurer") : "");
+const accountName = computed(() =>
+  accountData.value?.account
+    ? accountData.value.account.display_name || accountT("profile.adventurer")
+    : "",
+);
 const localePreference = useCookie<SupportedLocale>("elegon_locale", {
   maxAge: 60 * 60 * 24 * 365,
   sameSite: "lax",
@@ -21,9 +24,7 @@ const sectionLinks = computed(() => [
   { label: t("nav.faq"), hash: "faq" },
 ]);
 
-const externalLinks = computed(() => [
-  { label: t("nav.feedback"), to: SITE_LINKS.feedback },
-]);
+const externalLinks = computed(() => [{ label: t("nav.feedback"), to: SITE_LINKS.feedback }]);
 
 const socials = computed(() => [
   { label: t("devlogs.subscribe"), icon: "i-simple-icons-youtube", to: SITE_LINKS.youtube },
@@ -36,7 +37,9 @@ const scrolled = ref(false);
 const activeSection = ref("");
 const mobileOpen = ref(false);
 const languageMenu = ref<HTMLDetailsElement>();
-const localizedPath = computed(() => route.path.replace(/^\/(de|es|fr|pt-BR|ru|zh-CN)(?=\/|$)/, "") || "/");
+const localizedPath = computed(
+  () => route.path.replace(/^\/(de|es|fr|pt-BR|ru|zh-CN)(?=\/|$)/, "") || "/",
+);
 const changeLanguage = (targetLocale: SupportedLocale) => {
   localePreference.value = targetLocale;
   return navigateTo(localePath(localizedPath.value, targetLocale));
@@ -44,7 +47,10 @@ const changeLanguage = (targetLocale: SupportedLocale) => {
 
 const isHome = computed(() => route.path === localePath());
 
-watch(() => route.fullPath, () => (mobileOpen.value = false));
+watch(
+  () => route.fullPath,
+  () => (mobileOpen.value = false),
+);
 
 onMounted(() => {
   const onScroll = () => (scrolled.value = window.scrollY > 24);
@@ -96,15 +102,33 @@ onMounted(() => {
         : 'bg-transparent',
     ]"
   >
-    <div class="mx-auto flex min-h-[var(--ui-header-height)] max-w-7xl items-center justify-between gap-x-3 px-4 py-3 sm:gap-x-5 sm:px-6 lg:px-8 2xl:gap-x-6 2xl:py-0">
-      <NuxtLink :to="localePath()" class="group flex min-w-0 items-center gap-3 justify-self-start" :aria-label="t('nav.home')">
+    <div
+      class="mx-auto flex min-h-[var(--ui-header-height)] max-w-7xl items-center justify-between gap-x-3 px-4 py-3 sm:gap-x-5 sm:px-6 lg:px-8 2xl:gap-x-6 2xl:py-0"
+    >
+      <NuxtLink
+        :to="localePath()"
+        class="group flex min-w-0 items-center gap-3 justify-self-start"
+        :aria-label="t('nav.home')"
+      >
         <AppLogo
           class="h-9 w-9 shrink-0 rounded-sm ring-1 ring-gold-500/40 transition duration-300 group-hover:ring-gold-300 group-hover:shadow-[0_0_18px_rgba(231,186,90,0.45)]"
         />
-        <span :class="['font-display text-lg font-bold tracking-[0.28em] text-gold-gradient', { 'max-[379px]:hidden': accountName }]">ELEGON</span>
+        <span
+          :class="[
+            'font-display text-lg font-bold tracking-[0.28em] text-gold-gradient',
+            { 'max-[379px]:hidden': accountName },
+          ]"
+          >ELEGON</span
+        >
       </NuxtLink>
 
-      <nav :aria-label="t('nav.primary')" :class="['hidden min-w-0 flex-1 items-center justify-center 2xl:flex', { 'nav-locale-compact': locale !== 'en' }]">
+      <nav
+        :aria-label="t('nav.primary')"
+        :class="[
+          'hidden min-w-0 flex-1 items-center justify-center 2xl:flex',
+          { 'nav-locale-compact': locale !== 'en' },
+        ]"
+      >
         <ul class="flex min-w-0 flex-wrap items-center justify-center gap-x-0.5">
           <li v-for="link in sectionLinks" :key="link.hash">
             <NuxtLink
@@ -115,7 +139,10 @@ onMounted(() => {
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink :to="localePath('/changelog')" :class="['nav-link', { 'is-active': route.path === localePath('/changelog') }]">
+            <NuxtLink
+              :to="localePath('/changelog')"
+              :class="['nav-link', { 'is-active': route.path === localePath('/changelog') }]"
+            >
               {{ t("nav.changelog") }}
             </NuxtLink>
           </li>
@@ -127,7 +154,12 @@ onMounted(() => {
               </summary>
               <ul class="header-popover" :aria-label="t('nav.more')">
                 <li v-for="link in externalLinks" :key="link.label">
-                  <NuxtLink :to="link.to" target="_blank" rel="noopener" class="header-popover-link">
+                  <NuxtLink
+                    :to="link.to"
+                    target="_blank"
+                    rel="noopener"
+                    class="header-popover-link"
+                  >
                     {{ link.label }}
                     <UIcon name="i-lucide-arrow-up-right" class="size-3 opacity-50" />
                   </NuxtLink>
@@ -139,17 +171,35 @@ onMounted(() => {
       </nav>
 
       <div class="flex shrink-0 items-center gap-1">
-        <NuxtLink :to="localePath('/account')" :aria-label="accountName ? `${accountT('header.title')}: ${accountName}` : accountT('header.title')" :title="accountName || accountT('header.title')" class="flex h-9 items-center justify-center gap-1.5 px-1.5 text-parchment-muted transition hover:text-gold-300">
+        <NuxtLink
+          :to="localePath('/account')"
+          :aria-label="
+            accountName ? `${accountT('header.title')}: ${accountName}` : accountT('header.title')
+          "
+          :title="accountName || accountT('header.title')"
+          class="flex h-9 items-center justify-center gap-1.5 px-1.5 text-parchment-muted transition hover:text-gold-300"
+        >
           <UIcon name="i-lucide-user-round" class="size-[1.15rem] shrink-0" />
-          <span v-if="accountName" class="max-w-20 truncate text-sm text-gold-200 sm:max-w-28 lg:max-w-40 2xl:max-w-28">{{ accountName }}</span>
+          <span
+            v-if="accountName"
+            class="max-w-20 truncate text-sm text-gold-200 sm:max-w-28 lg:max-w-40 2xl:max-w-28"
+            >{{ accountName }}</span
+          >
         </NuxtLink>
         <details ref="languageMenu" class="header-menu">
-          <summary class="flex size-9 cursor-pointer list-none items-center justify-center text-parchment-muted transition hover:text-gold-300" :aria-label="t('nav.language')">
+          <summary
+            class="flex size-9 cursor-pointer list-none items-center justify-center text-parchment-muted transition hover:text-gold-300"
+            :aria-label="t('nav.language')"
+          >
             <UIcon name="i-lucide-languages" class="size-[1.15rem]" />
           </summary>
           <ul class="header-popover header-language-popover" :aria-label="t('nav.language')">
             <li v-for="code in SUPPORTED_LOCALES" :key="code">
-              <button type="button" :class="['header-popover-link w-full text-left', { 'is-current': locale === code }]" @click="changeLanguage(code)">
+              <button
+                type="button"
+                :class="['header-popover-link w-full text-left', { 'is-current': locale === code }]"
+                @click="changeLanguage(code)"
+              >
                 {{ LOCALE_NAMES[code] }}
               </button>
             </li>
@@ -167,7 +217,11 @@ onMounted(() => {
           </NuxtLink>
         </UTooltip>
 
-        <GameButton :to="SITE_LINKS.steam" icon="i-simple-icons-steam" class="ml-2 hidden md:inline-flex">
+        <GameButton
+          :to="SITE_LINKS.steam"
+          icon="i-simple-icons-steam"
+          class="ml-2 hidden md:inline-flex"
+        >
           {{ t("nav.wishlist") }}
         </GameButton>
 
@@ -198,14 +252,31 @@ onMounted(() => {
       <template #body>
         <nav id="mobile-menu" :aria-label="t('nav.mobile')" class="flex h-full flex-col">
           <ul class="flex flex-col py-2">
-            <li><NuxtLink :to="localePath('/account')" class="mobile-link" @click="mobileOpen = false"><UIcon name="i-lucide-user-round" class="size-4 shrink-0" /><span class="truncate" :title="accountName">{{ accountName || accountT('header.title') }}</span></NuxtLink></li>
+            <li>
+              <NuxtLink :to="localePath('/account')" class="mobile-link" @click="mobileOpen = false"
+                ><UIcon name="i-lucide-user-round" class="size-4 shrink-0" /><span
+                  class="truncate"
+                  :title="accountName"
+                  >{{ accountName || accountT("header.title") }}</span
+                ></NuxtLink
+              >
+            </li>
             <li v-for="link in sectionLinks" :key="link.hash">
-              <NuxtLink :to="{ path: localePath(), hash: `#${link.hash}` }" class="mobile-link" @click="mobileOpen = false">
+              <NuxtLink
+                :to="{ path: localePath(), hash: `#${link.hash}` }"
+                class="mobile-link"
+                @click="mobileOpen = false"
+              >
                 {{ link.label }}
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink :to="localePath('/changelog')" class="mobile-link" @click="mobileOpen = false">{{ t("nav.changelog") }}</NuxtLink>
+              <NuxtLink
+                :to="localePath('/changelog')"
+                class="mobile-link"
+                @click="mobileOpen = false"
+                >{{ t("nav.changelog") }}</NuxtLink
+              >
             </li>
             <li v-for="link in externalLinks" :key="link.label">
               <NuxtLink :to="link.to" target="_blank" rel="noopener" class="mobile-link">
@@ -323,7 +394,9 @@ onMounted(() => {
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: rgba(239, 228, 208, 0.82);
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .header-popover-link:hover,

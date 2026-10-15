@@ -8,11 +8,16 @@ export default defineEventHandler(async (event) => {
   const config = discordConnectionConfig(event);
   const account = accountConfig(event);
   const request = await authServiceRequest<{ state: string }>(event, {
-    method: "POST", path: "/website/connections/discord/start",
+    method: "POST",
+    path: "/website/connections/discord/start",
     session: getCookie(event, account.sessionCookie),
   });
   setCookie(event, discordStateCookie(event), request.state, {
-    httpOnly: true, secure: account.secure, sameSite: "lax", path: "/", maxAge: 600,
+    httpOnly: true,
+    secure: account.secure,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 600,
   });
   return { url: discordAuthorizationUrl(config, request.state) };
 });
