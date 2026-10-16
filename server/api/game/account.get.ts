@@ -8,7 +8,13 @@ export default defineEventHandler(async (event) => {
   if (!/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token) || token.length > 8192) {
     throw createError({ statusCode: 401, statusMessage: "Please sign in again." });
   }
-  let account: { account_id: string; display_name: string; patreon_id: string | null };
+  let account: {
+    account_id: string;
+    display_name: string;
+    avatar_url?: string;
+    email?: string | null;
+    patreon_id: string | null;
+  };
   try {
     account = await authServiceRequest(event, { path: "/website/game-account", gameToken: token });
   } catch (error: any) {
@@ -35,6 +41,8 @@ export default defineEventHandler(async (event) => {
   }
   return {
     display_name: account.display_name,
+    avatar_url: account.avatar_url || null,
+    email: account.email || null,
     account_url: `${accountConfig(event).origin}/account`,
     patreon_linked: !!account.patreon_id,
     patreon: patreon && { status: patreon.status, tiers: patreon.tiers, since: patreon.since },
