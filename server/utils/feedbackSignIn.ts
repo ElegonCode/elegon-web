@@ -1,11 +1,12 @@
 import type { H3Event } from "h3";
 import type { AuthServicePath } from "./accountAuth";
+import { toolboxReturnPath } from "./toolboxSignIn";
 
-/** The only place a Steam sign-in may return to besides the account page. */
+/** Approved local pages a Steam sign-in may return to. */
 export function feedbackReturnPath(value: unknown) {
   return typeof value === "string" && /^\/feedback\/sign-in\?request=[a-f0-9]{64}$/.test(value)
     ? value
-    : null;
+    : toolboxReturnPath(value);
 }
 
 export function feedbackRequestId(value: unknown) {

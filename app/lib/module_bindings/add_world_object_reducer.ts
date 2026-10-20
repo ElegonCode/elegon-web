@@ -21,5 +21,4 @@ export default {
   scale: __t.f32(),
   lootTableName: __t.string(),
   requireQuestForInteraction: __t.bool(),
-  targetId: __t.string(),
 };

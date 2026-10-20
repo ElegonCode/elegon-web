@@ -13,5 +13,4 @@ import {
 export default {
   table: __t.string(),
   maxRows: __t.i32(),
-  targetId: __t.string(),
 };

@@ -32,5 +32,4 @@ export default {
   activeEffectDuration: __t.f32(),
   activeEffectTickInterval: __t.f32(),
   activeEffectAmount: __t.f32(),
-  targetId: __t.string(),
 };

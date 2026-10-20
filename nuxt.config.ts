@@ -11,6 +11,14 @@ export default defineNuxtConfig({
     colorMode: false,
   },
   routeRules: {
+    "/toolbox/**": {
+      headers: {
+        "Cache-Control": "private, no-store",
+        "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    },
+    "/api/toolbox/**": { headers: { "Cache-Control": "private, no-store" } },
     "/account": {
       headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" },
     },

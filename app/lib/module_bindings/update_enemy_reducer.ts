@@ -31,5 +31,4 @@ export default {
   modelPath: __t.string(),
   attackSoundPath: __t.string(),
   deathSoundPath: __t.string(),
-  targetId: __t.string(),
 };

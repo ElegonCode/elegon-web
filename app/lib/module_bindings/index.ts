@@ -52,7 +52,10 @@ import AddQuestReducer from "./add_quest_reducer";
 import AddSpellReducer from "./add_spell_reducer";
 import AddWorldObjectReducer from "./add_world_object_reducer";
 import AddWorldObjectEntityReducer from "./add_world_object_entity_reducer";
+import AdminRelinkAccountReducer from "./admin_relink_account_reducer";
+import AdminRemoveWorldMessageReducer from "./admin_remove_world_message_reducer";
 import AlterCharacterAppearanceReducer from "./alter_character_appearance_reducer";
+import ApplyContentMigrationsReducer from "./apply_content_migrations_reducer";
 import BackfillCompendiumInventoryDiscoveriesReducer from "./backfill_compendium_inventory_discoveries_reducer";
 import BackfillFriendCharacterIdsReducer from "./backfill_friend_character_ids_reducer";
 import BuyItemFromNpcReducer from "./buy_item_from_npc_reducer";
@@ -62,6 +65,7 @@ import CancelMiningReducer from "./cancel_mining_reducer";
 import CancelSpellCastReducer from "./cancel_spell_cast_reducer";
 import CancelTradeReducer from "./cancel_trade_reducer";
 import CastSpellReducer from "./cast_spell_reducer";
+import CheckAdminAccessReducer from "./check_admin_access_reducer";
 import ClaimCharacterTransferReducer from "./claim_character_transfer_reducer";
 import ClaimServiceRewardReducer from "./claim_service_reward_reducer";
 import ClaimWeeklyActivityCacheReducer from "./claim_weekly_activity_cache_reducer";
@@ -145,8 +149,10 @@ import SeedAdditionalBreachesReducer from "./seed_additional_breaches_reducer";
 import SeedBreachRewardsReducer from "./seed_breach_rewards_reducer";
 import SeedClassesReducer from "./seed_classes_reducer";
 import SeedCookingContentReducer from "./seed_cooking_content_reducer";
+import SeedCraftingContentReducer from "./seed_crafting_content_reducer";
 import SeedCreatureLoreReducer from "./seed_creature_lore_reducer";
 import SeedEnemiesReducer from "./seed_enemies_reducer";
+import SeedEquipmentEffectsReducer from "./seed_equipment_effects_reducer";
 import SeedFishingContentReducer from "./seed_fishing_content_reducer";
 import SeedForgeContentReducer from "./seed_forge_content_reducer";
 import SeedItemsReducer from "./seed_items_reducer";
@@ -159,11 +165,13 @@ import SeedNpcTopicsReducer from "./seed_npc_topics_reducer";
 import SeedProcDefinitionsReducer from "./seed_proc_definitions_reducer";
 import SeedProficiencySkillsReducer from "./seed_proficiency_skills_reducer";
 import SeedQuestCompletionTextsReducer from "./seed_quest_completion_texts_reducer";
+import SeedQuestStoryReducer from "./seed_quest_story_reducer";
 import SeedQuestsReducer from "./seed_quests_reducer";
 import SeedSpellsReducer from "./seed_spells_reducer";
 import SeedStarterGearReducer from "./seed_starter_gear_reducer";
 import SeedStatDefinitionsReducer from "./seed_stat_definitions_reducer";
 import SeedTalentNodesReducer from "./seed_talent_nodes_reducer";
+import SeedWoodcuttingContentReducer from "./seed_woodcutting_content_reducer";
 import SeedWorldObjectsReducer from "./seed_world_objects_reducer";
 import SellItemToNpcReducer from "./sell_item_to_npc_reducer";
 import SendMessageReducer from "./send_message_reducer";
@@ -179,6 +187,7 @@ import SetSittingReducer from "./set_sitting_reducer";
 import SetTrackedQuestReducer from "./set_tracked_quest_reducer";
 import SetTradeAcceptedReducer from "./set_trade_accepted_reducer";
 import SetTradeCurrencyReducer from "./set_trade_currency_reducer";
+import SetTrustedAuthIssuerReducer from "./set_trusted_auth_issuer_reducer";
 import SetVisibleActionBarCountReducer from "./set_visible_action_bar_count_reducer";
 import SetWeaponDrawnReducer from "./set_weapon_drawn_reducer";
 import SocketAugmentReducer from "./socket_augment_reducer";
@@ -1647,7 +1656,10 @@ const reducersSchema = __reducers(
   __reducerSchema("add_spell", AddSpellReducer),
   __reducerSchema("add_world_object", AddWorldObjectReducer),
   __reducerSchema("add_world_object_entity", AddWorldObjectEntityReducer),
+  __reducerSchema("admin_relink_account", AdminRelinkAccountReducer),
+  __reducerSchema("admin_remove_world_message", AdminRemoveWorldMessageReducer),
   __reducerSchema("alter_character_appearance", AlterCharacterAppearanceReducer),
+  __reducerSchema("apply_content_migrations", ApplyContentMigrationsReducer),
   __reducerSchema("backfill_compendium_inventory_discoveries", BackfillCompendiumInventoryDiscoveriesReducer),
   __reducerSchema("backfill_friend_character_ids", BackfillFriendCharacterIdsReducer),
   __reducerSchema("buy_item_from_npc", BuyItemFromNpcReducer),
@@ -1657,6 +1669,7 @@ const reducersSchema = __reducers(
   __reducerSchema("cancel_spell_cast", CancelSpellCastReducer),
   __reducerSchema("cancel_trade", CancelTradeReducer),
   __reducerSchema("cast_spell", CastSpellReducer),
+  __reducerSchema("check_admin_access", CheckAdminAccessReducer),
   __reducerSchema("claim_character_transfer", ClaimCharacterTransferReducer),
   __reducerSchema("claim_service_reward", ClaimServiceRewardReducer),
   __reducerSchema("claim_weekly_activity_cache", ClaimWeeklyActivityCacheReducer),
@@ -1740,8 +1753,10 @@ const reducersSchema = __reducers(
   __reducerSchema("seed_breach_rewards", SeedBreachRewardsReducer),
   __reducerSchema("seed_classes", SeedClassesReducer),
   __reducerSchema("seed_cooking_content", SeedCookingContentReducer),
+  __reducerSchema("seed_crafting_content", SeedCraftingContentReducer),
   __reducerSchema("seed_creature_lore", SeedCreatureLoreReducer),
   __reducerSchema("seed_enemies", SeedEnemiesReducer),
+  __reducerSchema("seed_equipment_effects", SeedEquipmentEffectsReducer),
   __reducerSchema("seed_fishing_content", SeedFishingContentReducer),
   __reducerSchema("seed_forge_content", SeedForgeContentReducer),
   __reducerSchema("seed_items", SeedItemsReducer),
@@ -1754,11 +1769,13 @@ const reducersSchema = __reducers(
   __reducerSchema("seed_proc_definitions", SeedProcDefinitionsReducer),
   __reducerSchema("seed_proficiency_skills", SeedProficiencySkillsReducer),
   __reducerSchema("seed_quest_completion_texts", SeedQuestCompletionTextsReducer),
+  __reducerSchema("seed_quest_story", SeedQuestStoryReducer),
   __reducerSchema("seed_quests", SeedQuestsReducer),
   __reducerSchema("seed_spells", SeedSpellsReducer),
   __reducerSchema("seed_starter_gear", SeedStarterGearReducer),
   __reducerSchema("seed_stat_definitions", SeedStatDefinitionsReducer),
   __reducerSchema("seed_talent_nodes", SeedTalentNodesReducer),
+  __reducerSchema("seed_woodcutting_content", SeedWoodcuttingContentReducer),
   __reducerSchema("seed_world_objects", SeedWorldObjectsReducer),
   __reducerSchema("sell_item_to_npc", SellItemToNpcReducer),
   __reducerSchema("send_message", SendMessageReducer),
@@ -1774,6 +1791,7 @@ const reducersSchema = __reducers(
   __reducerSchema("set_tracked_quest", SetTrackedQuestReducer),
   __reducerSchema("set_trade_accepted", SetTradeAcceptedReducer),
   __reducerSchema("set_trade_currency", SetTradeCurrencyReducer),
+  __reducerSchema("set_trusted_auth_issuer", SetTrustedAuthIssuerReducer),
   __reducerSchema("set_visible_action_bar_count", SetVisibleActionBarCountReducer),
   __reducerSchema("set_weapon_drawn", SetWeaponDrawnReducer),
   __reducerSchema("socket_augment", SocketAugmentReducer),

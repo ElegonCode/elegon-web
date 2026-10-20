@@ -16,5 +16,4 @@ export default {
   y: __t.f32(),
   z: __t.f32(),
   rotation: __t.f32(),
-  targetId: __t.string(),
 };

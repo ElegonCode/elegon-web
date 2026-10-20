@@ -32,5 +32,4 @@ export default {
   },
   rewardAllItems: __t.bool(),
   questRewardItems: __t.array(__t.i32()),
-  targetId: __t.string(),
 };

@@ -12,5 +12,4 @@ import {
 
 export default {
   id: __t.u32(),
-  targetId: __t.string(),
 };

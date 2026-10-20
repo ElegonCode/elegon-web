@@ -16,5 +16,4 @@ export default {
   goalY: __t.f32(),
   goalZ: __t.f32(),
   steps: __t.i32(),
-  targetId: __t.string(),
 };

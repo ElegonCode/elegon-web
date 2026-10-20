@@ -13,5 +13,4 @@ import {
 export default {
   table: __t.string(),
   rowsJson: __t.string(),
-  targetId: __t.string(),
 };

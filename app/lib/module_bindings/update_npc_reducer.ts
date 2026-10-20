@@ -23,5 +23,4 @@ export default {
   greetingText: __t.string(),
   role: __t.string(),
   sexSelection: __t.i32(),
-  targetId: __t.string(),
 };

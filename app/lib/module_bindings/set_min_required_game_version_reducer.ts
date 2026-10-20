@@ -12,5 +12,4 @@ import {
 
 export default {
   version: __t.i32(),
-  targetId: __t.string(),
 };

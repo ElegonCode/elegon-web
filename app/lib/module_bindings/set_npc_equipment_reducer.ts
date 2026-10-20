@@ -17,5 +17,4 @@ export default {
   shoulderItemId: __t.i32(),
   mainHandItemId: __t.i32(),
   offHandItemId: __t.i32(),
-  targetId: __t.string(),
 };

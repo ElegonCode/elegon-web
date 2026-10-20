@@ -12,5 +12,4 @@ import {
 
 export default {
   timeZoneId: __t.string(),
-  targetId: __t.string(),
 };

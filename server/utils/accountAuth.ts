@@ -20,6 +20,7 @@ export type AccountInfo = {
   }[];
 };
 export type AuthServicePath =
+  | "/website/toolbox/session"
   | "/website/feedback-stats"
   | "/website/session/game"
   | "/website/game-account"

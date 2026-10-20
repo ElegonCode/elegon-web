@@ -14,5 +14,4 @@ export default {
   table: __t.string(),
   minimumNextId: __t.u64(),
   maxIterations: __t.i32(),
-  targetId: __t.string(),
 };

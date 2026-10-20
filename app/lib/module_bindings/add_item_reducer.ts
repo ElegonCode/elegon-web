@@ -36,5 +36,4 @@ export default {
   alacrity: __t.i32(),
   tempo: __t.i32(),
   weaponHand: __t.string(),
-  targetId: __t.string(),
 };
