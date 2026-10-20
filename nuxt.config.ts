@@ -14,7 +14,8 @@ export default defineNuxtConfig({
     "/toolbox/**": {
       headers: {
         "Cache-Control": "private, no-store",
-        "Referrer-Policy": "no-referrer",
+        // Preserve the browser Origin on the loopback POST without exposing its URL.
+        "Referrer-Policy": "origin",
         "X-Robots-Tag": "noindex, nofollow",
       },
     },

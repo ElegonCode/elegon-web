@@ -26,7 +26,9 @@ const token = ref("");
 const displayName = ref("");
 useHead({
   title: "Sign in to Elegon Toolbox",
-  meta: [{ name: "referrer", content: "no-referrer" }],
+  // The loopback POST must retain its Origin header; no-referrer makes it null.
+  // Only the site origin is sent, never the callback URL or one-time state.
+  meta: [{ name: "referrer", content: "origin" }],
 });
 
 async function signIn() {
