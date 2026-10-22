@@ -16,6 +16,12 @@ export default defineEventHandler((event) => {
       locale,
     },
     {
+      path: locale === "en" ? "/news" : `/${locale}/news`,
+      changefreq: "weekly",
+      priority: locale === "en" ? "0.8" : "0.7",
+      locale,
+    },
+    {
       path: locale === "en" ? "/changelog" : `/${locale}/changelog`,
       changefreq: "daily",
       priority: locale === "en" ? "0.8" : "0.7",

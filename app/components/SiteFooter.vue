@@ -8,6 +8,7 @@ const columns = computed(() => [
       { label: t("nav.features"), to: `${localePath()}#features` },
       { label: t("footer.vision"), to: `${localePath()}#vision` },
       { label: t("nav.faq"), to: `${localePath()}#faq` },
+      { label: t("nav.news"), to: localePath("/news") },
       { label: t("nav.changelog"), to: localePath("/changelog") },
     ],
   },

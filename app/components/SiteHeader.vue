@@ -140,6 +140,14 @@ onMounted(() => {
           </li>
           <li>
             <NuxtLink
+              :to="localePath('/news')"
+              :class="['nav-link', { 'is-active': route.path.startsWith(localePath('/news')) }]"
+            >
+              {{ t("nav.news") }}
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink
               :to="localePath('/changelog')"
               :class="['nav-link', { 'is-active': route.path === localePath('/changelog') }]"
             >
@@ -269,6 +277,11 @@ onMounted(() => {
               >
                 {{ link.label }}
               </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink :to="localePath('/news')" class="mobile-link" @click="mobileOpen = false">{{
+                t("nav.news")
+              }}</NuxtLink>
             </li>
             <li>
               <NuxtLink
