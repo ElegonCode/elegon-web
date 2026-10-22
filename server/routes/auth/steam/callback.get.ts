@@ -1,5 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 import { verifySteamOpenId } from "../../../utils/steamOpenId";
+import { steamLoginFailure } from "../../../utils/steamLoginFailure";
 
 export default defineEventHandler(async (event) => {
   privateAccountResponse(event);
@@ -17,11 +18,13 @@ export default defineEventHandler(async (event) => {
   ) {
     return sendRedirect(event, "/account?login=expired", 303);
   }
+  let stage = "steam-verification";
   try {
     const { steamId, nonce } = await verifySteamOpenId(
       params,
       `${config.origin}/auth/steam/callback?state=${state}`,
     );
+    stage = "account-session";
     const result = await authServiceRequest<{ session: string; max_age: number }>(event, {
       method: "POST",
       body: { steam_id: steamId, nonce },
@@ -38,7 +41,8 @@ export default defineEventHandler(async (event) => {
       maxAge: result.max_age,
     });
     return sendRedirect(event, returnPath ?? "/account", 303);
-  } catch {
+  } catch (error) {
+    console.error("Steam website sign-in failed", steamLoginFailure(stage, error));
     return sendRedirect(event, "/account?login=failed", 303);
   }
 });

@@ -68,7 +68,7 @@ export async function verifySteamOpenId(
     signal: AbortSignal.timeout(10_000),
   });
   if (!response.ok || !(await response.text()).split(/\r?\n/).includes("is_valid:true")) {
-    throw new Error("Steam refused this login");
+    throw Object.assign(new Error("Steam refused this login"), { statusCode: response.status });
   }
   return { steamId: match[1]!, nonce };
 }
