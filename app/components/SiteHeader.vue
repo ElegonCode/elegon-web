@@ -16,14 +16,6 @@ const localePreference = useCookie<SupportedLocale>("elegon_locale", {
   path: "/",
 });
 
-const sectionLinks = computed(() => [
-  { label: t("nav.world"), hash: "world" },
-  { label: t("nav.features"), hash: "features" },
-  { label: t("nav.devlogs"), hash: "devlogs" },
-  { label: t("nav.vision"), hash: "vision" },
-  { label: t("nav.faq"), hash: "faq" },
-]);
-
 const externalLinks = computed(() => [{ label: t("nav.feedback"), to: SITE_LINKS.feedback }]);
 
 const socials = computed(() => [
@@ -34,7 +26,6 @@ const socials = computed(() => [
 ]);
 
 const scrolled = ref(false);
-const activeSection = ref("");
 const mobileOpen = ref(false);
 const languageMenu = ref<HTMLDetailsElement>();
 const localizedPath = computed(
@@ -46,6 +37,19 @@ const changeLanguage = (targetLocale: SupportedLocale) => {
 };
 
 const isHome = computed(() => route.path === localePath());
+const primaryLinks = computed(() => [
+  { label: t("nav.homeLink"), to: localePath(), active: isHome.value },
+  {
+    label: t("nav.news"),
+    to: localePath("/news"),
+    active: localizedPath.value === "/news" || localizedPath.value.startsWith("/news/"),
+  },
+  {
+    label: t("nav.changelog"),
+    to: localePath("/changelog"),
+    active: localizedPath.value === "/changelog",
+  },
+]);
 
 watch(
   () => route.fullPath,
@@ -63,32 +67,9 @@ onMounted(() => {
   window.addEventListener("scroll", onScroll, { passive: true });
   document.addEventListener("pointerdown", onDocumentPointerDown);
 
-  let spy: IntersectionObserver | undefined;
-  const observeSections = () => {
-    spy?.disconnect();
-    activeSection.value = "";
-    if (!isHome.value) return;
-    spy = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) activeSection.value = entry.target.id;
-        }
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    for (const { hash } of sectionLinks.value) {
-      const el = document.getElementById(hash);
-      if (el) spy.observe(el);
-    }
-  };
-
-  observeSections();
-  watch(isHome, () => nextTick(observeSections));
-
   onBeforeUnmount(() => {
     window.removeEventListener("scroll", onScroll);
     document.removeEventListener("pointerdown", onDocumentPointerDown);
-    spy?.disconnect();
   });
 });
 </script>
@@ -103,11 +84,11 @@ onMounted(() => {
     ]"
   >
     <div
-      class="mx-auto flex min-h-[var(--ui-header-height)] max-w-7xl items-center justify-between gap-x-3 px-4 py-3 sm:gap-x-5 sm:px-6 lg:px-8 2xl:gap-x-6 2xl:py-0"
+      class="mx-auto flex min-h-[var(--ui-header-height)] max-w-7xl items-center justify-between gap-x-3 px-4 py-3 sm:gap-x-5 sm:px-6 lg:px-8 xl:py-0 2xl:gap-x-6"
     >
       <NuxtLink
         :to="localePath()"
-        class="group flex min-w-0 items-center gap-3 justify-self-start"
+        class="group flex shrink-0 items-center gap-3 justify-self-start"
         :aria-label="t('nav.home')"
       >
         <AppLogo
@@ -125,55 +106,25 @@ onMounted(() => {
       <nav
         :aria-label="t('nav.primary')"
         :class="[
-          'hidden min-w-0 flex-1 items-center justify-center 2xl:flex',
+          'hidden min-w-0 flex-1 items-center justify-center xl:flex',
           { 'nav-locale-compact': locale !== 'en' },
         ]"
       >
-        <ul class="flex min-w-0 flex-wrap items-center justify-center gap-x-0.5">
-          <li v-for="link in sectionLinks" :key="link.hash">
+        <ul class="flex shrink-0 flex-nowrap items-center justify-center gap-x-0.5">
+          <li v-for="link in primaryLinks" :key="link.to">
             <NuxtLink
-              :to="{ path: localePath(), hash: `#${link.hash}` }"
-              :class="['nav-link', { 'is-active': activeSection === link.hash }]"
+              :to="link.to"
+              :aria-current="link.active ? 'page' : undefined"
+              :class="['nav-link', { 'is-active': link.active }]"
             >
               {{ link.label }}
             </NuxtLink>
           </li>
-          <li>
-            <NuxtLink
-              :to="localePath('/news')"
-              :class="['nav-link', { 'is-active': route.path.startsWith(localePath('/news')) }]"
-            >
-              {{ t("nav.news") }}
+          <li v-for="link in externalLinks" :key="link.to">
+            <NuxtLink :to="link.to" target="_blank" rel="noopener" class="nav-link">
+              {{ link.label }}
+              <UIcon name="i-lucide-arrow-up-right" class="size-3 opacity-50" />
             </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink
-              :to="localePath('/changelog')"
-              :class="['nav-link', { 'is-active': route.path === localePath('/changelog') }]"
-            >
-              {{ t("nav.changelog") }}
-            </NuxtLink>
-          </li>
-          <li>
-            <details class="header-menu">
-              <summary class="nav-link cursor-pointer list-none">
-                {{ t("nav.more") }}
-                <UIcon name="i-lucide-chevron-down" class="size-3 opacity-60" />
-              </summary>
-              <ul class="header-popover" :aria-label="t('nav.more')">
-                <li v-for="link in externalLinks" :key="link.label">
-                  <NuxtLink
-                    :to="link.to"
-                    target="_blank"
-                    rel="noopener"
-                    class="header-popover-link"
-                  >
-                    {{ link.label }}
-                    <UIcon name="i-lucide-arrow-up-right" class="size-3 opacity-50" />
-                  </NuxtLink>
-                </li>
-              </ul>
-            </details>
           </li>
         </ul>
       </nav>
@@ -190,7 +141,7 @@ onMounted(() => {
           <UIcon name="i-lucide-user-round" class="size-[1.15rem] shrink-0" />
           <span
             v-if="accountName"
-            class="max-w-20 truncate text-sm text-gold-200 sm:max-w-28 lg:max-w-40 2xl:max-w-28"
+            class="max-w-20 truncate text-sm text-gold-200 sm:max-w-28 lg:max-w-40 xl:max-w-24 2xl:max-w-28"
             >{{ accountName }}</span
           >
         </NuxtLink>
@@ -235,7 +186,7 @@ onMounted(() => {
 
         <button
           type="button"
-          class="ml-1 flex size-10 items-center justify-center text-gold-200 2xl:hidden"
+          class="ml-1 flex size-10 items-center justify-center text-gold-200 xl:hidden"
           :aria-expanded="mobileOpen"
           aria-controls="mobile-menu"
           :aria-label="t('nav.openMenu')"
@@ -269,27 +220,15 @@ onMounted(() => {
                 ></NuxtLink
               >
             </li>
-            <li v-for="link in sectionLinks" :key="link.hash">
+            <li v-for="link in primaryLinks" :key="link.to">
               <NuxtLink
-                :to="{ path: localePath(), hash: `#${link.hash}` }"
-                class="mobile-link"
+                :to="link.to"
+                :aria-current="link.active ? 'page' : undefined"
+                :class="['mobile-link', { 'is-active': link.active }]"
                 @click="mobileOpen = false"
               >
                 {{ link.label }}
               </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink :to="localePath('/news')" class="mobile-link" @click="mobileOpen = false">{{
-                t("nav.news")
-              }}</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/changelog')"
-                class="mobile-link"
-                @click="mobileOpen = false"
-                >{{ t("nav.changelog") }}</NuxtLink
-              >
             </li>
             <li v-for="link in externalLinks" :key="link.label">
               <NuxtLink :to="link.to" target="_blank" rel="noopener" class="mobile-link">
@@ -436,7 +375,8 @@ onMounted(() => {
     border-color 0.2s ease;
 }
 
-.mobile-link:hover {
+.mobile-link:hover,
+.mobile-link.is-active {
   color: var(--color-gold-300);
   background: rgba(231, 186, 90, 0.06);
   border-left-color: var(--color-gold-400);
