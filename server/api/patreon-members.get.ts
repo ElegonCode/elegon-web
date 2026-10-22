@@ -42,12 +42,11 @@ type TierConfig = {
 
 const PATREON_API_BASE = "https://www.patreon.com/api/oauth2/v2";
 
-function getTierConfigs(): TierConfig[] {
-  const config = useRuntimeConfig();
+function getTierConfigs(config: ReturnType<typeof useRuntimeConfig>): TierConfig[] {
   const tiers = [
-    { id: config.patreonTier1Id, label: config.patreonTier1Label },
-    { id: config.patreonTier2Id, label: config.patreonTier2Label },
-    { id: config.patreonTier3Id, label: config.patreonTier3Label },
+    { id: String(config.patreonTier1Id || ""), label: config.patreonTier1Label },
+    { id: String(config.patreonTier2Id || ""), label: config.patreonTier2Label },
+    { id: String(config.patreonTier3Id || ""), label: config.patreonTier3Label },
   ];
 
   return tiers.filter((tier): tier is TierConfig => Boolean(tier.id));
@@ -55,9 +54,9 @@ function getTierConfigs(): TierConfig[] {
 
 // Cached so page renders don't hit the Patreon API on every request.
 export default defineCachedEventHandler(
-  async () => {
-    const config = useRuntimeConfig();
-    const tierConfigs = getTierConfigs();
+  async (event) => {
+    const config = useRuntimeConfig(event);
+    const tierConfigs = getTierConfigs(config);
 
     if (!config.patreonAccessToken || !config.patreonCampaignId) {
       throw createError({

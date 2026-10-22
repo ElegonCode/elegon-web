@@ -5,6 +5,16 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@vercel/speed-insights", "@nuxtjs/mdc"],
   css: ["~/assets/css/main.css"],
   compatibilityDate: "2025-07-15",
+  nitro: {
+    cloudflare: {
+      deployConfig: true,
+      wrangler: {
+        name: "elegon-web",
+        keep_vars: true,
+        workers_dev: true,
+      },
+    },
+  },
   devtools: { enabled: true },
   // The site is designed as a dark, in-world experience, so light mode is disabled.
   ui: {
