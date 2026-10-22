@@ -64,7 +64,9 @@ export async function verifySteamOpenId(
   const response = await fetcher(STEAM_ENDPOINT, {
     method: "POST",
     body,
-    redirect: "error",
+    // Workers supports manual/follow, but rejects the Fetch API's error mode.
+    // Manual keeps the assertion at Steam; the status check below rejects redirects.
+    redirect: "manual",
     signal: AbortSignal.timeout(10_000),
   });
   if (!response.ok || !(await response.text()).split(/\r?\n/).includes("is_valid:true")) {
